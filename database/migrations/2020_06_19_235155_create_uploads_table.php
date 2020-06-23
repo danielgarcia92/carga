@@ -15,6 +15,10 @@ class CreateUploadsTable extends Migration
     {
         Schema::create('uploads', function (Blueprint $table) {
             $table->id();
+            $table->integer('origins_id')
+                ->foreign('origins_id')
+                ->references('id')
+                ->on('origins');
             $table->integer('accept')->nullable();
             $table->integer('flight_number');
             $table->string('legcd')->nullable();
@@ -34,10 +38,6 @@ class CreateUploadsTable extends Migration
             $table->float('volume', 5, 2)->nullable();
             $table->integer('pieces');
             $table->integer('weight');
-            $table->integer('origins_id')
-                ->foreign('origins_id')
-                ->references('id')
-                ->on('origins');
             $table->timestamps();
         });
     }
