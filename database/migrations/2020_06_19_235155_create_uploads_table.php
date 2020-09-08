@@ -31,7 +31,7 @@ class CreateUploadsTable extends Migration
             $table->string('description');
             $table->string('assurance');
             $table->string('packing');
-            $table->string('createdBy')->nullable();
+            $table->integer('createdBy');
             $table->string('user_approval')->nullable();
             $table->string('message_approval')->nullable();
             $table->string('volume_unit')->nullable();

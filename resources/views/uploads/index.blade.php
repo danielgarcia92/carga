@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('title', 'Formulario')
 
@@ -75,9 +75,11 @@
                     <textarea class="form-control" id="packing" name="packing" rows="3" maxlength="100" required>{{ old('packing') }}</textarea>
                 </div>
                 <br>
-                <div class="mx-auto text-center">
-                    <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Subir Formulario</button>
-                </div>
+                @if ( Auth::user()->rol != 'test')
+                    <div class="mx-auto text-center">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Subir Formulario</button>
+                    </div>
+                @endif
             </form>
         </div>
     </div>

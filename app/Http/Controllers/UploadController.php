@@ -4,24 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Upload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UploadController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /** @return \Illuminate\Http\Response */
     public function indexAction()
     {
         return view('uploads.index')
             ->with('title', 'Carga de información');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -54,7 +55,7 @@ class UploadController extends Controller
             'from.required'         => 'El campo Aeropuerto de salida es obligatorio',
             'from.size'             => 'Aeropuerto de salida: máximo 3 dígitos',
             'to.required'           => 'El campo Aeropuerto de llegada es obligatorio',
-            'from.size'             => 'Aeropuerto de llegada: máximo 3 dígitos',
+            'to.size'               => 'Aeropuerto de llegada: máximo 3 dígitos',
             'rego.required'         => 'El campo Matrícula es obligatorio',
             'rego.size'             => 'Matrícula: máximo 6 dígitos',
             'piecesNumber.required' => 'El campo Número de Piezas es obligatorio',
@@ -78,13 +79,14 @@ class UploadController extends Controller
             'to'            => $data['to'],
             'rego'          => $data['rego'],
             'pieces'        => $data['piecesNumber'],
-            'weight'        => $data['weight'],
-            'volume_unit'   => 'MC',
             'volume'        => $data['volume'],
             'send'          => $data['send'],
+            'createdBy'     => Auth::user()->getAuthIdentifier(),
             'description'   => $data['description'],
             'assurance'     => $data['assurance'],
-            'packing'       => $data['packing']
+            'packing'       => $data['packing'],
+            'weight'        => $data['weight'],
+            'volume_unit'   => 'MC'
         ]);
 
         return view('uploads.success');
