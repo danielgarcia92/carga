@@ -15,12 +15,8 @@ class CreateUploadsTable extends Migration
     {
         Schema::create('uploads', function (Blueprint $table) {
             $table->id();
-            $table->integer('origins_id')
-                ->foreign('origins_id')
-                ->references('id')
-                ->on('origins');
             $table->integer('accept')->nullable();
-            $table->integer('flight_number');
+            $table->string('flight_number');
             $table->string('legcd')->nullable();
             $table->dateTime('std');
             $table->string('from', 3);
@@ -31,13 +27,28 @@ class CreateUploadsTable extends Migration
             $table->string('description');
             $table->string('assurance');
             $table->string('packing');
-            $table->integer('createdBy');
-            $table->string('user_approval')->nullable();
             $table->string('message_approval')->nullable();
             $table->string('volume_unit')->nullable();
-            $table->float('volume', 5, 2)->nullable();
-            $table->integer('pieces');
-            $table->integer('weight');
+            $table->string('id_mensaje_rcv')->nullable();
+            $table->string('route_item')->nullable();
+            $table->string('extra1')->nullable();
+            $table->string('extra2')->nullable();
+            $table->float('volume', 5, 2);
+            $table->float('pieces', 10, 2);
+            $table->float('weight', 10, 2);
+            $table->integer('origins_id')
+                ->foreign('origins_id')
+                ->references('id')
+                ->on('origins');
+            $table->integer('created_by')
+                ->foreign('users_id')
+                ->references('id')
+                ->on('users');
+            $table->integer('approved_by')
+                ->foreign('users_id')
+                ->references('id')
+                ->on('users')
+                ->nullable();
             $table->timestamps();
         });
     }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Upload;
+use App\Mail\RejectedNotification;
 use App\User;
+use App\Upload;
+use App\Mail\ApprovedNotification;
 use Illuminate\Support\Facades\Auth;
-use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Mail;
 
 class MainController extends Controller
 {
@@ -40,12 +42,23 @@ class MainController extends Controller
     public function updateAction(Upload $row)
     {
         $data = request()->validate([
-            'accept' => 'required'
+            'accept'           => 'required',
+            'approved_by'      => 'required',
+            'message_approval' => 'required'
+        ], [
+            'message_approval.required' => 'El campo Aprobar/Rechazar es obligatorio'
         ]);
 
         $row->update($data);
 
-        return redirect()->route('main.index');
+        $created_by = User::where('id',$row->created_by)->get('email');
+
+        if ($row->accept == 1)
+            Mail::to(['ccv@vivaaerobus.com', $created_by[0]->email])->queue(new ApprovedNotification($row));
+        else
+            Mail::to(['ccv@vivaaerobus.com', $created_by[0]->email])->queue(new RejectedNotification($row));
+
+        //return redirect()->route('main.index');
     }
 
     public function destroyAction(Upload $row)

@@ -93,6 +93,18 @@
 
         <main class="py-4">
             @yield('content')
+
+            <script>
+                function approve() {
+                    document.getElementById('accept').value = "1";
+                    return confirm('¿Realmente desea aprobar la solicitud?')
+                }
+
+                function reject() {
+                    document.getElementById('accept').value = "0";
+                    return confirm('¿Realmente desea rechazar la solicitud?')
+                }
+            </script>
         </main>
     </div>
 </body>

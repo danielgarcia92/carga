@@ -8,24 +8,37 @@
         <h2 class="card-header text-center">{{ $title }}</h2>
 
         <div class="card-body">
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <h6>Por favor corregir los siguiente errores:</h6>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">STD</th>
                     <th scope="col">Vuelo</th>
-                    <th scope="col">Leg Code</th>
-                    <th scope="col">De</th>
-                    <th scope="col">Hacia</th>
+                    <th scope="col">Ruta</th>
                     <th scope="col">Matrícula</th>
-                    <th scope="col">Volumen</th>
                     <th scope="col">Piezas</th>
                     <th scope="col">Peso</th>
-                    <th scope="col">Solicitante</th>
-                    <th scope="col">Aceptado</th>
+                    <th scope="col">Volumen</th>
+                    <th scope="col">Embalaje</th>
+                    <!--<th scope="col">Método de aseguramiento</th>-->
+                    <th scope="col">Solicitud</th>
+                    <th scope="col">Aprobación</th>
                     <th scope="col">Estatus</th>
                     <th scope="col">Aprobar</th>
                     <th scope="col">Rechazar</th>
+                    <th scope="col">Aprobar/Rechazar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,67 +47,55 @@
                         <th scope="row">{{ $upload->id }}</th>
                         <td>{{ $upload->std }}</td>
                         <td>{{ $upload->flight_number }}</td>
-                        <td>{{ $upload->legcd }}</td>
-                        <td>{{ $upload->from }}</td>
-                        <td>{{ $upload->to }}</td>
+                        <td>{{ $upload->from }} - {{ $upload->to }}</td>
                         <td>{{ $upload->rego }}</td>
-                        <td>{{ $upload->volume.' '.$upload->volume_unit }}</td>
                         <td>{{ $upload->pieces }}</td>
                         <td>{{ $upload->weight }}</td>
-                        <td>{{ \App\User::where('id', $upload->createdBy)->first()->name }}</td>
+                        <td>{{ $upload->volume }}</td>
+                        <td>{{ $upload->packing }}</td>
+                        <!--<td>{{ $upload->assurance }}</td>-->
+                        <td>{{ \App\User::where('id', $upload->created_by)->first()->name }}</td>
+
                         @if($upload->accept === null)
-                            <td>Pendiente</td>
+                            <td></td>
                             <td><i class="fas fa-hourglass-half" style="color:#ffcc00;"></i></td>
+
                             @if ( Auth::user()->rol != 'test')
                                 <form method="POST" action="{{ url("main/{$upload->id}") }}" novalidate>
                                     {{ csrf_field() }}
                                     {{ method_field('PUT') }}
 
+                                    <input type="hidden" id="accept" name="accept" value="1"/>
                                     <td>
-                                        <input type="hidden" name="accept" value="1"/>
-                                        <button onclick="return confirm('¿Realmente desea aprobar la solicitud?')" type="submit"><i class="far fa-check-circle" style="color:#008000;"></i></button>
+                                        <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
+                                        <button onclick="approve()" type="submit">
+                                            <i class="far fa-check-circle" style="color:#008000;"></i>
+                                        </button>
                                     </td>
-                                </form>
-                                <form method="POST" action="{{ url("main/{$upload->id}") }}" novalidate>
-                                    {{ csrf_field() }}
-                                    {{ method_field('PUT') }}
 
                                     <td>
-                                        <input type="hidden" name="accept" value=0 />
-                                        <button onclick="return confirm('¿Realmente desea rechazar la solicitud?')" type="submit"><i class="far fa-times-circle" style="color:#cb3234;"></i></button>
+                                        <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
+                                        <button onclick="reject()" type="submit">
+                                            <i class="far fa-times-circle" style="color:#cb3234;"></i>
+                                        </button>
                                     </td>
+
+                                    <td><textarea name="message_approval"></textarea></td>
                                 </form>
                             @endif
+
                         @elseif($upload->accept === 1)
-                            <td>Sí</td>
+                            <td>{{ \App\User::where('id', $upload->approved_by)->first()->name }}</td>
                             <td><i class="far fa-check-circle" style="color:#008000;"></i></td>
                             <td><button type="submit" disabled><i class="far fa-check-circle" style="color:#ccc;"></i></button></td>
-                            @if ( Auth::user()->rol != 'test')
-                                <form method="POST" action="{{ url("main/{$upload->id}") }}" novalidate>
-                                    {{ csrf_field() }}
-                                    {{ method_field('PUT') }}
-
-                                    <td>
-                                        <input type="hidden" name="accept" value=0 />
-                                        <button onclick="return confirm('¿Realmente desea rechazar la solicitud?')" type="submit"><i class="far fa-times-circle" style="color:#cb3234;"></i></button>
-                                    </td>
-                                </form>
-                            @endif
+                            <td><button type="submit" disabled><i class="far fa-times-circle" style="color:#ccc;"></i></button></td>
+                            <td><textarea name="message_approval" disabled>{{ $upload->message_approval }}</textarea></td>
                         @else
-                            <td>No</td>
+                            <td>{{ \App\User::where('id', $upload->approved_by)->first()->name }}</td>
                             <td><i class="far fa-times-circle" style="color:#cb3234;"></i></td>
-                            @if ( Auth::user()->rol != 'test')
-                                <form method="POST" action="{{ url("main/{$upload->id}") }}" novalidate>
-                                    {{ csrf_field() }}
-                                    {{ method_field('PUT') }}
-
-                                    <td>
-                                        <input type="hidden" name="accept" value="1"/>
-                                        <button onclick="return confirm('¿Realmente desea aprobar la solicitud?')" type="submit"><i class="far fa-check-circle" style="color:#008000;"></i></button>
-                                    </td>
-                                </form>
-                            @endif
-                            <td><button type="submit" disabled><i class="far fa-times-circle" style="color:#cccccc;"></i></button></td>
+                            <td><button type="submit" disabled><i class="far fa-check-circle" style="color:#ccc;"></i></button></td>
+                            <td><button type="submit" disabled><i class="far fa-times-circle" style="color:#ccc;"></i></button></td>
+                            <td><textarea name="message_approval" disabled>{{ $upload->message_approval }}</textarea></td>
                         @endif
                     </tr>
                 @endforeach

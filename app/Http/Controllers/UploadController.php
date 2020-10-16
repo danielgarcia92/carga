@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmailNotification;
+use App\Mail\FormNotification;
 use App\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UploadController extends Controller
 {
@@ -71,8 +74,7 @@ class UploadController extends Controller
         ]);
 
         Upload::updateOrCreate([
-            'origins_id'    => 1,
-            'flight_number' => $data['flightNumber'],
+            'flight_number' => 'VB' . $data['flightNumber'],
             'legcd'         => $data['legcd'],
             'std'           => date('Y-m-d H:i:s', strtotime($data['std'])),
             'from'          => $data['from'],
@@ -81,13 +83,16 @@ class UploadController extends Controller
             'pieces'        => $data['piecesNumber'],
             'volume'        => $data['volume'],
             'send'          => $data['send'],
-            'createdBy'     => Auth::user()->getAuthIdentifier(),
             'description'   => $data['description'],
             'assurance'     => $data['assurance'],
             'packing'       => $data['packing'],
             'weight'        => $data['weight'],
-            'volume_unit'   => 'MC'
+            'volume_unit'   => 'MC',
+            'origins_id'    => 1,
+            'created_by'    => Auth::user()->getAuthIdentifier(),
         ]);
+
+        Mail::to(Auth::user()->email )->queue(new FormNotification($data));
 
         return view('uploads.success');
     }

@@ -12,8 +12,7 @@ class Upload extends Model
      * @var array 
      */
 	protected $fillable = [
-        'origins_id'
-		, 'accept'
+	    'accept'
         , 'flight_number'
         , 'legcd'
         , 'std'
@@ -25,12 +24,13 @@ class Upload extends Model
         , 'description'
         , 'assurance'
         , 'packing'
-        , 'createdBy'
-        , 'user_approval'
         , 'message_approval'
         , 'volume_unit'
         , 'volume'
         , 'pieces'
         , 'weight'
+        , 'origins_id'
+        , 'created_by'
+        , 'approved_by'
 	];
 }
