@@ -7,6 +7,12 @@
             <div class="card">
                 <div class="card-header">{{ __('Registrar') }}</div>
 
+                @if ( Auth::user()->rol != 'admin' )
+                    <script type="text/javascript">
+                        window.location = "/";
+                    </script>
+                @endif
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -31,9 +37,10 @@
                             <div class="col-md-6">
                                 <select id="rol" type="text" class="form-control @error('rol') is-invalid @enderror" name="rol" value="{{ old('rol') }}" required autocomplete="rol" autofocus>
                                     <option value="admin">Administrador</option>
-                                    <option value="test">Pruebas</option>
                                     <option value="request">Solicitante</option>
                                     <option value="approval">Aprobador</option>
+                                    <option value="champ">Champ</option>
+                                    <option value="test">Pruebas</option>
                                 </select>
 
                                 @error('rol')

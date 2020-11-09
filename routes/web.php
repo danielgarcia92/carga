@@ -2,11 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'UploadController@indexAction')
-    ->name('uploads.index');
+Route::get('/', 'HomeController@index')
+    ->name('home');
 
 Route::get('/uploads', 'UploadController@indexAction')
     ->name('uploads.index');
+
+Route::get('/champ', 'ChampController@indexAction')
+    ->name('champ.index');
 
 Route::get('/main', 'MainController@indexAction')
     ->name('main.index');
@@ -24,8 +27,5 @@ Route::put('/main/{row}', 'MainController@updateAction')
 
 Route::delete('main/{row}', 'MainController@destroyAction')
     ->name('main.destroy');
-
-Route::get('/home', 'HomeController@index')
-    ->name('home');
 
 Auth::routes();

@@ -21,11 +21,16 @@ class UploadController extends Controller
         $this->middleware('auth');
     }
 
-    /** @return \Illuminate\Http\Response */
+    /** @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View */
     public function indexAction()
     {
-        return view('uploads.index')
-            ->with('title', 'Carga de información');
+        if (Auth::user()->rol == 'request' || Auth::user()->rol == 'admin') {
+            return view('uploads.index')
+                ->with('title', 'Carga de información');
+        }
+        else {
+            return view('/home');
+        }
     }
 
     /**
@@ -46,14 +51,14 @@ class UploadController extends Controller
             'piecesNumber'  => 'required',
             'weight'        => 'required',
             'volume'        => 'max:6',
-            'send'          => 'required|max:30',
+            'send'          => 'required|max:100',
+            'receive'       => 'max:100',
             'description'   => 'required|max:100',
             'assurance'     => 'required|max:100',
             'packing'       => 'required|max:100'
         ], [
             'flightNumber.required' => 'El campo Número de vuelo es obligatorio',
             'flightNumber.length'   => 'Número de vuelo: máximo 4 dígitos',
-            'legcd.size'            => 'Código de pierna: máximo 1 dígito',
             'std.required'          => 'El campo Fecha es obligatorio',
             'from.required'         => 'El campo Aeropuerto de salida es obligatorio',
             'from.size'             => 'Aeropuerto de salida: máximo 3 dígitos',
@@ -65,6 +70,7 @@ class UploadController extends Controller
             'weight.required'       => 'El campo Peso es obligatorio',
             'send.required'         => 'El campo Envía es obligatorio',
             'send.size'             => 'Envía: Máximo 100 caracteres',
+            'receive.size'          => 'Recibe: Máximo 100 caracteres',
             'description.required'  => 'El campo Descripción es obligatorio',
             'description.size'      => 'Descripción: Maximo 100 caracteres',
             'assurance.required'    => 'El campo Método de aseguramiento es obligatorio',
@@ -75,7 +81,6 @@ class UploadController extends Controller
 
         Upload::updateOrCreate([
             'flight_number' => 'VB' . $data['flightNumber'],
-            'legcd'         => $data['legcd'],
             'std'           => date('Y-m-d H:i:s', strtotime($data['std'])),
             'from'          => $data['from'],
             'to'            => $data['to'],
@@ -83,6 +88,7 @@ class UploadController extends Controller
             'pieces'        => $data['piecesNumber'],
             'volume'        => $data['volume'],
             'send'          => $data['send'],
+            'receive'       => $data['receive'],
             'description'   => $data['description'],
             'assurance'     => $data['assurance'],
             'packing'       => $data['packing'],

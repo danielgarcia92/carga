@@ -23,22 +23,22 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">STD</th>
-                    <th scope="col">Vuelo</th>
+                    <th scope="col">@sortablelink('id', '#')</th>
+                    <th scope="col">@sortablelink('std', 'STD')</th>
+                    <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
                     <th scope="col">Ruta</th>
-                    <th scope="col">Matrícula</th>
+                    <th scope="col">@sortablelink('rego', 'Rego')</th>
                     <th scope="col">Piezas</th>
                     <th scope="col">Peso</th>
                     <th scope="col">Volumen</th>
                     <th scope="col">Embalaje</th>
-                    <!--<th scope="col">Método de aseguramiento</th>-->
+                    <th scope="col">Método de aseguramiento</th>
                     <th scope="col">Solicitud</th>
                     <th scope="col">Aprobación</th>
-                    <th scope="col">Estatus</th>
-                    <th scope="col">Aprobar</th>
-                    <th scope="col">Rechazar</th>
-                    <th scope="col">Aprobar/Rechazar</th>
+                    <th scope="col">@sortablelink('accept', 'Estatus')</th>
+                    <th scope="col">Sí</th>
+                    <th scope="col">No</th>
+                    <th scope="col">Sí / No</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -53,9 +53,9 @@
                         <td>{{ $upload->weight }}</td>
                         <td>{{ $upload->volume }}</td>
                         <td>{{ $upload->packing }}</td>
-                        <!--<td>{{ $upload->assurance }}</td>-->
-                        <td>{{ \App\User::where('id', $upload->created_by)->first()->name }}</td>
-
+                        <td>{{ $upload->assurance }}</td>
+                        <!--<td>{{ \App\User::where('id', $upload->created_by)->first()->name }}</td>-->
+                        <td>{{ $upload->receive  }}</td>
                         @if($upload->accept === null)
                             <td></td>
                             <td><i class="fas fa-hourglass-half" style="color:#ffcc00;"></i></td>

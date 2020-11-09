@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="mx-auto w-50 card">
+    <div class="mx-auto w-75 card">
         <h2 class="card-header text-center">{{ $title }}</h2>
         <div class="card-body">
 
@@ -42,26 +42,36 @@
                     <label for="rego">* Matrícula</label>
                     <input type="text" class="form-control" id="rego" name="rego" placeholder="XA-VIH" maxlength="6" value="{{ old('rego') }}" required>
                 </div>
-                <div class="form-group">
-                    <label for="piecesNumber">* Número de piezas</label>
-                    <input type="number" class="form-control" id="piecesNumber" name="piecesNumber" value="{{ old('piecesNumber') }}" min=0 required/>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>AWB / ULD </th>
+                                    <th>PIECES</th>
+                                    <th>WEIGHT</th>
+                                    <th>VOLUME</th>
+                                    <th>NATURE GOODS</th>
+                                    <th>USE BY OWNER/OPERATOR OFFICIAL USE</th>
+                                    <th style="text-align: center"><a href="#" class="btn btn-info addRow">+</a></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" name="awb" class="form-control"></td>
+                                    <td><input type="text" name="piecesNumber" class="form-control"></td>
+                                    <td><input type="text" name="weight" class="form-control"></td>
+                                    <td><input type="text" name="volume" class="form-control"></td>
+                                    <td><input type="text" name="goods" class="form-control"></td>
+                                    <td><input type="text" name="use" class="form-control"></td>
+                                    <td style="text-align: center"><a href="#" class="btn btn-danger">-</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="weight">* Peso (Kg)</label>
-                    <input type="number" class="form-control" id="weight" name="weight" value="{{ old('weight') }}" min=0 required/>
-                </div>
-                <div class="form-group">
-                    <label for="volume">Volumen (M3)</label>
-                    <input type="number" class="form-control" id="volume" name="volume" value="{{ old('volume') }}" min=0 step="0.01" required/>
-                </div>
-                <div class="form-group">
-                    <label for="send">* Envía</label>
-                    <input type="text" class="form-control" id="send" name="send" placeholder="John Doe" value="{{ old('send') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="receive">Recibe</label>
-                    <input type="text" class="form-control" id="receive" name="receive" placeholder="John Doe II" value="{{ old('receive') }}">
-                </div>
+
                 <div class="form-group">
                     <label for="description">* Descripción</label>
                     <textarea class="form-control" id="description" name="description" rows="3" maxlength="100" required>{{ old('description') }}</textarea>

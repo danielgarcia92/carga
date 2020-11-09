@@ -4,7 +4,7 @@
         <title>Carga Aprobada</title>
     </head>
     <body>
-        <p>La carga ha sido <strong>aprobada</strong></p>
+        <p>La carga ha sido <strong>APROBADA</strong></p>
         <br/>
         <p>Los datos de la carga son los siguientes: </p>
         <p><strong>Comentarios de CCV: </strong>{{ $data['message_approval'] }}</p>

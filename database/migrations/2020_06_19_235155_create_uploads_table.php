@@ -17,12 +17,10 @@ class CreateUploadsTable extends Migration
             $table->id();
             $table->integer('accept')->nullable();
             $table->string('flight_number');
-            $table->string('legcd')->nullable();
             $table->dateTime('std');
             $table->string('from', 3);
             $table->string('to', 3);
             $table->string('rego', 6)->nullable();
-            $table->string('guide_number', 14)->nullable();
             $table->string('send');
             $table->string('description');
             $table->string('assurance');

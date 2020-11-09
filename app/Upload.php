@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Upload extends Model
 {
+    use Sortable;
+
 	/**
      * The attributes that are mass assignable.
      *
@@ -33,4 +36,6 @@ class Upload extends Model
         , 'created_by'
         , 'approved_by'
 	];
+
+	public $sortable = ['id', 'std', 'flight_number', 'accept', 'rego'];
 }

@@ -21,22 +21,19 @@ class MainController extends Controller
         $this->middleware('auth');
     }
 
-    /** @return \Illuminate\Http\Response */
+    /** @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View */
     public function indexAction()
     {
-        $uploads = Upload::all()->sortByDesc("std");
+        $uploads = Upload::sortable()->paginate(10000);
 
-        $user = Auth::user()->rol;
-
-        if ($user != 'request')
-        {
+        if (Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin') {
             return view('main.index')
                 ->with('title', 'Sistema de carga')
                 ->with(compact('uploads'));
         }
-        else
-            return redirect('/');
-
+        else {
+            return view('/home');
+        }
     }
 
     public function updateAction(Upload $row)
@@ -58,7 +55,7 @@ class MainController extends Controller
         else
             Mail::to(['ccv@vivaaerobus.com', $created_by[0]->email])->queue(new RejectedNotification($row));
 
-        //return redirect()->route('main.index');
+        return redirect()->route('main.index');
     }
 
     public function destroyAction(Upload $row)
