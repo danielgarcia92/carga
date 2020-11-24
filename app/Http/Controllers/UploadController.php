@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\EmailNotification;
 use App\Mail\FormNotification;
 use App\Upload;
 use Illuminate\Http\Request;
@@ -37,40 +36,37 @@ class UploadController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function storeAction()
     {
         $data = request()->validate([
-            'flightNumber'  => 'required|max:4',
-            'legcd'         => 'max:1',
             'std'           => 'required|date',
             'from'          => 'required|max:3',
             'to'            => 'required|max:3',
+            'flightNumber'  => 'required|max:4',
             'rego'          => 'required|max:6',
             'piecesNumber'  => 'required',
             'weight'        => 'required',
             'volume'        => 'max:6',
             'send'          => 'required|max:100',
-            'receive'       => 'max:100',
             'description'   => 'required|max:100',
             'assurance'     => 'required|max:100',
             'packing'       => 'required|max:100'
         ], [
-            'flightNumber.required' => 'El campo Número de vuelo es obligatorio',
-            'flightNumber.length'   => 'Número de vuelo: máximo 4 dígitos',
-            'std.required'          => 'El campo Fecha es obligatorio',
+            'std.required'          => 'El campo Fecha de vuelo es obligatorio',
             'from.required'         => 'El campo Aeropuerto de salida es obligatorio',
             'from.size'             => 'Aeropuerto de salida: máximo 3 dígitos',
             'to.required'           => 'El campo Aeropuerto de llegada es obligatorio',
             'to.size'               => 'Aeropuerto de llegada: máximo 3 dígitos',
+            'flightNumber.required' => 'El campo Número de vuelo es obligatorio',
+            'flightNumber.length'   => 'Número de vuelo: máximo 4 dígitos',
             'rego.required'         => 'El campo Matrícula es obligatorio',
             'rego.size'             => 'Matrícula: máximo 6 dígitos',
             'piecesNumber.required' => 'El campo Número de Piezas es obligatorio',
             'weight.required'       => 'El campo Peso es obligatorio',
             'send.required'         => 'El campo Envía es obligatorio',
             'send.size'             => 'Envía: Máximo 100 caracteres',
-            'receive.size'          => 'Recibe: Máximo 100 caracteres',
             'description.required'  => 'El campo Descripción es obligatorio',
             'description.size'      => 'Descripción: Maximo 100 caracteres',
             'assurance.required'    => 'El campo Método de aseguramiento es obligatorio',
@@ -88,7 +84,6 @@ class UploadController extends Controller
             'pieces'        => $data['piecesNumber'],
             'volume'        => $data['volume'],
             'send'          => $data['send'],
-            'receive'       => $data['receive'],
             'description'   => $data['description'],
             'assurance'     => $data['assurance'],
             'packing'       => $data['packing'],
@@ -98,7 +93,7 @@ class UploadController extends Controller
             'created_by'    => Auth::user()->getAuthIdentifier(),
         ]);
 
-        Mail::to(Auth::user()->email )->queue(new FormNotification($data));
+        Mail::to(Auth::user()->email)->queue(new FormNotification($data));
 
         return view('uploads.success');
     }

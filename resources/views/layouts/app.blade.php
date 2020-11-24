@@ -39,23 +39,26 @@
                         <ul class="navbar-nav mr-auto">
                             @if ( Auth::user()->rol == 'request' || Auth::user()->rol == 'admin' )
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="{{ url('/') }}">
+                                    <a class="nav-link" href="{{ url('/uploads') }}">
                                         {{ 'Formulario' }} <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
-                            @elseif( Auth::user()->rol == 'champ' || Auth::user()->rol == 'admin' )
-                                <li class="nav-item active">
+                            @endif
+                            @if( Auth::user()->rol == 'champ' || Auth::user()->rol == 'admin' )
+                                <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/champ') }}">
                                         {{ 'Champ' }}
                                     </a>
                                 </li>
-                            @elseif( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin' )
+                                @endif
+                            @if( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin' )
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/main') }}">
                                         {{ 'Aprobar' }}
                                     </a>
                                 </li>
-                            @elseif ( Auth::user()->rol == 'admin' )
+                                @endif
+                            @if( Auth::user()->rol == 'admin' )
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/register') }}">
                                         {{ 'Registrar' }}

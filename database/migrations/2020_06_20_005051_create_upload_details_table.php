@@ -15,6 +15,17 @@ class CreateUploadDetailsTable extends Migration
     {
         Schema::create('upload_details', function (Blueprint $table) {
             $table->id();
+            $table->string('guide_number');
+            $table->float('pieces', 10, 2);
+            $table->float('weight', 10, 2);
+            $table->float('volume', 5, 2);
+            $table->string('nature_goods');
+            $table->string('route_item');
+            $table->integer('accept')->nullable();
+            $table->integer('uploads_id')
+                ->foreign('uploads_id')
+                ->references('id')
+                ->on('uploads');
             $table->timestamps();
         });
     }

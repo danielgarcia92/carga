@@ -4,6 +4,7 @@
 
 use App\User;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /*
@@ -19,11 +20,12 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'rol' => 'admin',
-        'area' => 'CCV',
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'name'      => 'Daniel García Vergara',
+        'rol'       => 'admin',
+        'area'      => 'N/A',
+        'email'     => 'daniel.garciav@vivaaerobus.com',
+        'password'  => Hash::make('SJD+2020'),
+        'active'    => 1,
         'remember_token' => Str::random(10),
     ];
 });

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\RejectedNotification;
+use App\Providers\RouteServiceProvider;
+use App\UploadDetails;
 use App\User;
 use App\Upload;
 use App\Mail\ApprovedNotification;
@@ -36,6 +38,15 @@ class MainController extends Controller
         }
     }
 
+    public function formAction(Upload $row)
+    {
+        $details = UploadDetails::where('uploads_id', '=', $row->id)->get();
+
+        return view('main.details')
+            ->with('title', 'Detalles de la carga en vuelo - ')
+            ->with(compact(['row', 'details']));
+    }
+
     public function updateAction(Upload $row)
     {
         $data = request()->validate([
@@ -49,11 +60,24 @@ class MainController extends Controller
         $row->update($data);
 
         $created_by = User::where('id',$row->created_by)->get('email');
+        $area = User::where('id',$row->created_by)->get('area');
+        $to = ['ccv@vivaaerobus.com', $created_by[0]->email, 'sergio.esquivel@vivaaerobus.com', 'juan.beltran@vivaaerobus.com'];
+
+        if ($area[0]->area == 'CUN')
+            array_push($to, RouteServiceProvider::CUN);
+        elseif ($area[0]->area == 'GDL')
+            array_push($to, RouteServiceProvider::GDL);
+        elseif ($area[0]->area == 'MEX')
+            array_push($to, RouteServiceProvider::MEX);
+        elseif ($area[0]->area == 'MTY')
+            array_push($to, RouteServiceProvider::MTY);
+        elseif ($area[0]->area == 'TIJ')
+            array_push($to, RouteServiceProvider::TIJ);
 
         if ($row->accept == 1)
-            Mail::to(['ccv@vivaaerobus.com', $created_by[0]->email])->queue(new ApprovedNotification($row));
+            Mail::to($to)->queue(new ApprovedNotification($row));
         else
-            Mail::to(['ccv@vivaaerobus.com', $created_by[0]->email])->queue(new RejectedNotification($row));
+            Mail::to($to)->queue(new RejectedNotification($row));
 
         return redirect()->route('main.index');
     }

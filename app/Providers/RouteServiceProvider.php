@@ -31,6 +31,41 @@ class RouteServiceProvider extends ServiceProvider
     public const FORM = '/uploads';
 
     /**
+     * The email of almacén Cancún.
+     *
+     * @var string
+     */
+    public const CUN = 'almacen.cun@vivaaerobus.com';
+
+    /**
+     * The email of almacén Guadalajara.
+     *
+     * @var string
+     */
+    public const GDL = 'almacen.gdl@vivaaerobus.com';
+
+    /**
+     * The email of almacén México.
+     *
+     * @var string
+     */
+    public const MEX = 'almacen.mex@vivaaerobus.com';
+
+    /**
+     * The email of almacén Monterrey.
+     *
+     * @var string
+     */
+    public const MTY = 'almacen.mty@vivaaerobus.com';
+
+    /**
+     * The email of almacén Tijuana.
+     *
+     * @var string
+     */
+    public const TIJ = 'almacen.tij@vivaaerobus.com';
+
+    /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void

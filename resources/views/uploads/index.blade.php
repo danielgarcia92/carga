@@ -59,10 +59,6 @@
                     <input type="text" class="form-control" id="send" name="send" placeholder="John Doe" value="{{ old('send') }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="receive">Recibe</label>
-                    <input type="text" class="form-control" id="receive" name="receive" placeholder="John Doe II" value="{{ old('receive') }}">
-                </div>
-                <div class="form-group">
                     <label for="description">* Descripción</label>
                     <textarea class="form-control" id="description" name="description" rows="3" maxlength="100" required>{{ old('description') }}</textarea>
                 </div>

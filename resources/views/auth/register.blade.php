@@ -56,10 +56,14 @@
 
                             <div class="col-md-6">
                                 <select id="area" type="text" class="form-control @error('area') is-invalid @enderror" name="area" value="{{ old('area') }}" required autocomplete="area" autofocus>
-                                    <option value="a1">Área 1</option>
-                                    <option value="a2">Área 2</option>
-                                    <option value="a3">Área 3</option>
-                                    <option value="a4">Área 4</option>
+                                    <option value=""></option>
+                                    <option value="CHAMP">CHAMP</option>
+                                    <option value="CCV">CCV</option>
+                                    <option value="CUN">CUN</option>
+                                    <option value="GDL">GDL</option>
+                                    <option value="MEX">MEX</option>
+                                    <option value="MTY">MTY</option>
+                                    <option value="TIJ">TIJ</option>
                                 </select>
 
                                 @error('area')

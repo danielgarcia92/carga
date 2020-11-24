@@ -11,10 +11,12 @@ class DatabaseSeeder extends Seeder
         $this->truncateTables([
             'origins'
         	, 'uploads'
+            , 'upload_details'
             , 'users'
         ]);
         $this->call(OriginSeeder::class);
         $this->call(UploadSeeder::class);
+        $this->call(UploadDetailsSeeder::class);
         $this->call(UserSeeder::class);
     }
 
