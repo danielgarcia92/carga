@@ -60,18 +60,22 @@ class MainController extends Controller
         $row->update($data);
 
         $created_by = User::where('id',$row->created_by)->get('email');
-        $area = User::where('id',$row->created_by)->get('area');
+        $base = User::where('id',$row->created_by)->get('base');
         $to = ['ccv@vivaaerobus.com', $created_by[0]->email, 'sergio.esquivel@vivaaerobus.com', 'juan.beltran@vivaaerobus.com'];
 
-        if ($area[0]->area == 'CUN')
+        if ($base[0]->base == 'CUN' || $row->to == 'CUN')
             array_push($to, RouteServiceProvider::CUN);
-        elseif ($area[0]->area == 'GDL')
+
+        if ($base[0]->base == 'GDL' || $row->to == 'GLD')
             array_push($to, RouteServiceProvider::GDL);
-        elseif ($area[0]->area == 'MEX')
+
+        if ($base[0]->base == 'MEX' || $row->to == 'MEX')
             array_push($to, RouteServiceProvider::MEX);
-        elseif ($area[0]->area == 'MTY')
+
+        if ($base[0]->base == 'MTY' || $row->to == 'MTY')
             array_push($to, RouteServiceProvider::MTY);
-        elseif ($area[0]->area == 'TIJ')
+
+        if ($base[0]->base == 'TIJ' || $row->to == 'TIJ')
             array_push($to, RouteServiceProvider::TIJ);
 
         if ($row->accept == 1)

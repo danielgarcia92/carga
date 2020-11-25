@@ -11,7 +11,7 @@ class FormNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Carga: Formulario enviado con éxito';
+    public $subject = 'Carga: Solicitud enviada con éxito';
 
     public $data;
 

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Envío de Formulario</title>
+        <title>Envío de Solicitud</title>
     </head>
     <body>
-        <p>Su formulario de envío de carga ha sido diligenciado satisfactoriamente, el equipo del centro de control está evaluando la información.</p>
+        <p>La solicitud de envío de carga ha sido diligenciada satisfactoriamente, el equipo del centro de control está evaluando la información.</p>
         <br/>
         <p>Los datos enviados son los siguiente: </p>
         <br/>
         <p><strong>Número de Vuelo: </strong>{{ $data['flightNumber'] }}</p>
         <p><strong>STD: </strong>{{ $data['std'] }}</p>
         <p><strong>Ruta: </strong>{{ $data['from'] }} - {{ $data['to'] }}</p>
-        <p><strong>Número de piezas totales: </strong>{{ $data['piecesNumber'] }}</p>
+        <p><strong>Piezas totales: </strong>{{ $data['pieces'] }}</p>
         <p><strong>Peso Total: </strong>{{ $data['weight'] }}</p>
         <p><strong>Volumen Total: </strong>{{ $data['volume'] }}</p>
         <p><strong>Descripción: </strong>{{ $data['description'] }}</p>

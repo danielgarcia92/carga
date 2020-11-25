@@ -37,5 +37,5 @@ class Upload extends Model
         , 'approved_by'
 	];
 
-	public $sortable = ['id', 'accept', 'flight_number', 'std', 'from', 'rego'];
+	public $sortable = ['id', 'accept', 'flight_number', 'std', 'from', 'to', 'rego'];
 }

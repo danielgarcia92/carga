@@ -7,11 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ChampNotification extends Mailable
+class AerocharterNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Carga: Formulario Champ enviado con éxito';
+    public $subject = 'Carga: Solicitud de Aerocharter enviada con éxito';
 
     public $data;
 
@@ -32,6 +32,6 @@ class ChampNotification extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.champ');
+        return $this->view('emails.aerocharter');
     }
 }

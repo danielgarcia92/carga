@@ -37,9 +37,9 @@
                             <div class="col-md-6">
                                 <select id="rol" type="text" class="form-control @error('rol') is-invalid @enderror" name="rol" value="{{ old('rol') }}" required autocomplete="rol" autofocus>
                                     <option value="admin">Administrador</option>
-                                    <option value="request">Solicitante</option>
                                     <option value="approval">Aprobador</option>
-                                    <option value="champ">Champ</option>
+                                    <option value="viva">Solicitante Viva Aerobus</option>
+                                    <option value="aerocharter">Solicitante Aerocharter</option>
                                     <option value="test">Pruebas</option>
                                 </select>
 
@@ -57,8 +57,26 @@
                             <div class="col-md-6">
                                 <select id="area" type="text" class="form-control @error('area') is-invalid @enderror" name="area" value="{{ old('area') }}" required autocomplete="area" autofocus>
                                     <option value=""></option>
-                                    <option value="CHAMP">CHAMP</option>
-                                    <option value="CCV">CCV</option>
+                                    <option value="ccv">CCV</option>
+                                    <option value="aerocharter">Aerocharter</option>
+                                    <option value="almacenes">Almacenes</option>
+                                    <option value="aeropuertos">Aeropuertos</option>
+                                </select>
+
+                                @error('area')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="base" class="col-md-4 col-form-label text-md-right">{{ __('Base') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="base" type="text" class="form-control @error('base') is-invalid @enderror" name="base" value="{{ old('base') }}" required autocomplete="base" autofocus>
+                                    <option value=""></option>
                                     <option value="CUN">CUN</option>
                                     <option value="GDL">GDL</option>
                                     <option value="MEX">MEX</option>
@@ -66,7 +84,7 @@
                                     <option value="TIJ">TIJ</option>
                                 </select>
 
-                                @error('area')
+                                @error('base')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

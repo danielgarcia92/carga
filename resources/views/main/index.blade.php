@@ -24,9 +24,10 @@
                 <thead>
                     <tr>
                         <th scope="col">@sortablelink('id', '#')</th>
-                        <th scope="col">@sortablelink('std', 'STD')</th>
+                        <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
                         <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
-                        <th scope="col">@sortablelink('from', 'Aeropuerto de salida')</th>
+                        <th scope="col">@sortablelink('from', 'Salida')</th>
+                        <th scope="col">@sortablelink('to', 'Llegada')</th>
                         <th scope="col">@sortablelink('rego', 'Matrícula')</th>
                         <th scope="col">Origen</th>
                         <th scope="col">@sortablelink('accept', 'Estatus')</th>
@@ -40,6 +41,7 @@
                         <td>{{ $upload->std }}</td>
                         <td>{{ $upload->flight_number }}</td>
                         <td>{{ $upload->from }}</td>
+                        <td>{{ $upload->to }}</td>
                         <td>{{ $upload->rego }}</td>
                         <td>{{ \App\Origin::where('id', $upload->origins_id)->first()->name }}</td>
                         @if($upload->accept === null)

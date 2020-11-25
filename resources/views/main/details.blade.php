@@ -100,19 +100,19 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>AWB / ULD </th>
-                                            <th>PIECES</th>
-                                            <th>WEIGHT</th>
-                                            <th>VOLUME</th>
-                                            <th>NATURE GOODS</th>
-                                            <th>USE BY OWNER/OPERATOR OFFICIAL USE</th>
+                                            <th>Número de guía </th>
+                                            <th>Piezas</th>
+                                            <th>Peso</th>
+                                            <th>Volumen</th>
+                                            <th>Tipo de carga</th>
+                                            <th>Ruta</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($details as $d)
                                             <tr>
                                                 <td><input type="text" name="guideNumber[]" class="form-control" value="{{ $d->guide_number }}" readonly></td>
-                                                <td><input type="text" name="piecesNumber[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
+                                                <td><input type="text" name="pieces[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
                                                 <td><input type="text" name="weight[]" class="form-control" value="{{ $d->weight }}" readonly></td>
                                                 <td><input type="text" name="volume[]" class="form-control" value="{{ $d->volume }}" readonly></td>
                                                 <td><input type="text" name="natureGoods[]" class="form-control" value="{{ $d->nature_goods }}" readonly></td>

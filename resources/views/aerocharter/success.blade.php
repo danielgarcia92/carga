@@ -8,7 +8,7 @@
         <h2 class="card-header text-center">Guardado con éxito</h2>
 
         <div class="card-body text-center">
-            <a href="{{ route('champ.index') }}" class="btn btn-link">Ingrese un nuevo registro</a>
+            <a href="{{ route('aerocharter.index') }}" class="btn btn-link">Ingrese un nuevo registro</a>
         </div>
     </div>
 

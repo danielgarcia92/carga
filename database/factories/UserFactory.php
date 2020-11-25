@@ -22,7 +22,8 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name'      => 'Daniel García Vergara',
         'rol'       => 'admin',
-        'area'      => 'N/A',
+        'area'      => 'TI',
+        'base'      => 'MTY',
         'email'     => 'daniel.garciav@vivaaerobus.com',
         'password'  => Hash::make('SJD+2020'),
         'active'    => 1,

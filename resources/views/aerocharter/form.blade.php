@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ url('champ') }}" class="needs-validation" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('aerocharter') }}" class="needs-validation" enctype="multipart/form-data">
                 {!! csrf_field() !!}
 
                 <div class="form-group">
@@ -55,21 +55,21 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>AWB / ULD </th>
-                                    <th>PIECES</th>
-                                    <th>WEIGHT</th>
-                                    <th>VOLUME</th>
-                                    <th>NATURE GOODS</th>
-                                    <th>USE BY OWNER/OPERATOR OFFICIAL USE</th>
+                                    <th>Número de guía </th>
+                                    <th>Piezas</th>
+                                    <th>Peso</th>
+                                    <th>Volumen</th>
+                                    <th>Tipo de carga</th>
+                                    <th>Ruta</th>
                                 </tr>
                             </thead>
                             <tbody>
                             @foreach($data as $d)
                                 <tr>
                                     <td><input type="text" name="guideNumber[]" class="form-control" value="{{ $d->guideNumber }}" readonly></td>
-                                    <td><input type="text" name="piecesNumber[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
-                                    <td><input type="text" name="weight[]" class="form-control" value="{{ $d->weightkg }}" readonly></td>
-                                    <td><input type="text" name="volume[]" class="form-control" value="{{ $d->volume }}" readonly></td>
+                                    <td><input type="text" name="pieces[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
+                                    <td><input type="text" name="weight[]" class="form-control" value="{{ round($d->weightkg, 2) }}" readonly></td>
+                                    <td><input type="text" name="volume[]" class="form-control" value="{{ round($d->volume, 2) }}" readonly></td>
                                     <td><input type="text" name="natureGoods[]" class="form-control" value="{{ $d->description }}" readonly></td>
                                     <td><input type="text" name="routeItem[]" class="form-control" value="{{ $d->routeItem }}" readonly></td>
                                 </tr>

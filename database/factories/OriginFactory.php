@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Origin::class, function (Faker $faker) {
     return [
-        'name' => 'Champ'
+        'name' => 'aerocharter'
     ];
 });

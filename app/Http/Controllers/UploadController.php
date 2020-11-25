@@ -23,7 +23,7 @@ class UploadController extends Controller
     /** @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View */
     public function indexAction()
     {
-        if (Auth::user()->rol == 'request' || Auth::user()->rol == 'admin') {
+        if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'admin') {
             return view('uploads.index')
                 ->with('title', 'Carga de información');
         }
@@ -46,7 +46,7 @@ class UploadController extends Controller
             'to'            => 'required|max:3',
             'flightNumber'  => 'required|max:4',
             'rego'          => 'required|max:6',
-            'piecesNumber'  => 'required',
+            'pieces'        => 'required',
             'weight'        => 'required',
             'volume'        => 'max:6',
             'send'          => 'required|max:100',
@@ -63,7 +63,7 @@ class UploadController extends Controller
             'flightNumber.length'   => 'Número de vuelo: máximo 4 dígitos',
             'rego.required'         => 'El campo Matrícula es obligatorio',
             'rego.size'             => 'Matrícula: máximo 6 dígitos',
-            'piecesNumber.required' => 'El campo Número de Piezas es obligatorio',
+            'pieces.required'       => 'El campo Número de Piezas es obligatorio',
             'weight.required'       => 'El campo Peso es obligatorio',
             'send.required'         => 'El campo Envía es obligatorio',
             'send.size'             => 'Envía: Máximo 100 caracteres',
@@ -81,7 +81,7 @@ class UploadController extends Controller
             'from'          => $data['from'],
             'to'            => $data['to'],
             'rego'          => $data['rego'],
-            'pieces'        => $data['piecesNumber'],
+            'pieces'        => $data['pieces'],
             'volume'        => $data['volume'],
             'send'          => $data['send'],
             'description'   => $data['description'],
@@ -93,12 +93,28 @@ class UploadController extends Controller
             'created_by'    => Auth::user()->getAuthIdentifier(),
         ]);
 
-        Mail::to(Auth::user()->email)->queue(new FormNotification($data));
+        $to = ['ccv@vivaaerobus.com', Auth::user()->email, 'vivacargo@vivaaerobus.com'];
+
+        Mail::to($to)->queue(new FormNotification($data));
 
         return view('uploads.success');
     }
 
-        /**
+    public function requestsAction()
+    {
+        $uploads = Upload::where('created_by', '=', Auth::user()->id)->get();
+
+        if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'admin') {
+            return view('uploads.requests')
+                ->with(compact('uploads'))
+                ->with('title', 'Mis solicitudes');
+        }
+        else {
+            return view('/home');
+        }
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Upload  $upload

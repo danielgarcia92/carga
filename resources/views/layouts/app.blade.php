@@ -37,19 +37,29 @@
                     @auth
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav mr-auto">
-                            @if ( Auth::user()->rol == 'request' || Auth::user()->rol == 'admin' )
+                            @if ( Auth::user()->rol == 'viva' || Auth::user()->rol == 'admin' )
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{ url('/uploads') }}">
                                         {{ 'Formulario' }} <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
-                            @endif
-                            @if( Auth::user()->rol == 'champ' || Auth::user()->rol == 'admin' )
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/champ') }}">
-                                        {{ 'Champ' }}
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ url('/viva_requests') }}">
+                                        {{ 'Mis solicitudes' }} <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
+                            @endif
+                            @if( Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'admin' )
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/aerocharter') }}">
+                                        {{ 'Aerocharter' }}
+                                    </a>
+                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ url('/aerocharter_requests') }}">
+                                            {{ 'Mis solicitudes' }}
+                                        </a>
+                                    </li>
                                 @endif
                             @if( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin' )
                                 <li class="nav-item">

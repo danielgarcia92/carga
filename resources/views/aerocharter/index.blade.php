@@ -34,7 +34,7 @@
                         <th scope="row">{{ $c->flight }}</th>
                         <td>{{ $c->STD }}</td>
                         <td>{{ $c->idMensajeRCV }}</td>
-                        <form method="POST" action="{{ url("champ_form") }}" novalidate>
+                        <form method="POST" action="{{ url("aerocharter_form") }}" novalidate>
                             {{ csrf_field() }}
                             <input type="hidden" id="idMensajeRCV" name="idMensajeRCV" value="{{ $c->idMensajeRCV }}"/>
                             <td><button type="submit"><i class="fab fa-wpforms"></i></button></td>

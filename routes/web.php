@@ -6,14 +6,16 @@ Route::get('/', 'HomeController@index')
     ->name('home');
 
 
-Route::get('/champ', 'ChampController@indexAction')
-    ->name('champ.index');
-Route::post('champ', 'ChampController@storeAction')
-    ->name('champ.store');
-Route::post('champ_form', 'ChampController@formAction')
-    ->name('champ.form');
-Route::get('/champ/success', function () {
-    return view('champ.success');
+Route::get('/aerocharter', 'AerocharterController@indexAction')
+    ->name('aerocharter.index');
+Route::get('/aerocharter_requests', 'AerocharterController@requestsAction')
+    ->name('aerocharter.requests');
+Route::post('aerocharter', 'AerocharterController@storeAction')
+    ->name('aerocharter.store');
+Route::post('aerocharter_form', 'AerocharterController@formAction')
+    ->name('aerocharter.form');
+Route::get('/aerocharter/success', function () {
+    return view('aerocharter.success');
 });
 
 
@@ -30,6 +32,8 @@ Route::delete('main/{row}', 'MainController@destroyAction')
 
 Route::get('/uploads', 'UploadController@indexAction')
     ->name('uploads.index');
+Route::get('/viva_requests', 'UploadController@requestsAction')
+    ->name('uploads.requests');
 Route::post('uploads', 'UploadController@storeAction')
     ->name('uploads.store');
 Route::get('success', function () {

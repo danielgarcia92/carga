@@ -43,8 +43,8 @@
                     <input type="text" class="form-control" id="rego" name="rego" placeholder="XA-VIH" maxlength="6" value="{{ old('rego') }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="piecesNumber">* Número de piezas</label>
-                    <input type="number" class="form-control" id="piecesNumber" name="piecesNumber" value="{{ old('piecesNumber') }}" min=0 required/>
+                    <label for="pieces">* Número de piezas</label>
+                    <input type="number" class="form-control" id="pieces" name="pieces" value="{{ old('pieces') }}" min=0 required/>
                 </div>
                 <div class="form-group">
                     <label for="weight">* Peso (Kg)</label>

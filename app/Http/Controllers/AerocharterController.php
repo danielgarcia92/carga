@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ChampNotification;
+use App\Mail\AerocharterNotification;
+use App\Origin;
 use App\Upload;
 use App\UploadDetails;
 use App\CargoAerocharter;
@@ -10,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
-class ChampController extends Controller
+class AerocharterController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -34,8 +35,8 @@ class ChampController extends Controller
                 ->orderBy('STD', 'desc')
                 ->get(['idMensajeRCV', 'flight', 'STD']);
 
-        if (Auth::user()->rol == 'champ' || Auth::user()->rol == 'admin') {
-            return view('champ.index')
+        if (Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'admin') {
+            return view('aerocharter.index')
                 ->with('title', 'Carga de información Champ')
                 ->with(compact('cargo'));
         }
@@ -55,8 +56,8 @@ class ChampController extends Controller
 
         $data = CargoAerocharter::where('idMensajeRCV', '=', $idMensajeRCV)->get();
 
-        if (Auth::user()->rol == 'champ' || Auth::user()->rol == 'admin') {
-            return view('champ.form')
+        if (Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'admin') {
+            return view('aerocharter.form')
                 ->with('title', 'Carga de información Champ')
                 ->with(compact('data'));
         }
@@ -77,7 +78,7 @@ class ChampController extends Controller
         $totalVolume = 0.0;
         $totalWeight = 0.0;
 
-        foreach ($request->input('piecesNumber') as $piece)
+        foreach ($request->input('pieces') as $piece)
             $totalPieces += $piece;
 
         foreach ($request->input('volume') as $volume)
@@ -107,7 +108,7 @@ class ChampController extends Controller
         ]);
 
         $guideNumber  = $request->get('guideNumber');
-        $piecesNumber = $request->get('piecesNumber');
+        $piecesNumber = $request->get('pieces');
         $weight       = $request->get('weight');
         $volume       = $request->get('volume');
         $natureGoods  = $request->get('natureGoods');
@@ -127,8 +128,23 @@ class ChampController extends Controller
 
         CargoAerocharter::where('idMensajeRCV', '=', $request->input('idMensajeRCV'))->update(array('inForm' => 1));
 
-        Mail::to(Auth::user()->email )->queue(new ChampNotification($data));
+        Mail::to(Auth::user()->email )->queue(new AerocharterNotification($data));
 
-        return view('champ.success');
+        return view('aerocharter.success');
+    }
+
+    public function requestsAction()
+    {
+        $origins = Origin::where('name', '=', Auth::user()->rol)->get('id');
+        $uploads = Upload::where('origins_id', '=', $origins[0]->id)->get();
+
+        if (Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'admin') {
+            return view('aerocharter.requests')
+                ->with(compact('uploads'))
+                ->with('title', 'Mis solicitudes');
+        }
+        else {
+            return view('/home');
+        }
     }
 }
