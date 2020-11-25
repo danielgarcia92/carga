@@ -13,8 +13,8 @@
         <p><strong>Aeropuerto de salida: </strong>{{ $data['from'] }}</p>
         <p><strong>Aeropuerto de llegada: </strong>{{ $data['to'] }}</p>
         <p><strong>Piezas totales: </strong>{{ $data['pieces'] }}</p>
-        <p><strong>Peso Total: </strong>{{ $data['weight'] }} Kg</p>
-        <p><strong>Volumen Total: </strong>{{ $data['volume'] }} MC</p>
+        <p><strong>Peso Total: </strong>{{ round($data['weight'], 2) }} Kg</p>
+        <p><strong>Volumen Total: </strong>{{ round($data['volume'], 2) }} MC</p>
         <p><strong>Descripción: </strong>{{ $data['description'] }}</p>
         <p><strong>Método de aseguramiento: </strong>{{ $data['assurance'] }}</p>
         <p><strong>Embalaje: </strong>{{ $data['packing'] }}</p>

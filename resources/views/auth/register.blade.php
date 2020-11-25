@@ -82,6 +82,7 @@
                                     <option value="MEX">MEX</option>
                                     <option value="MTY">MTY</option>
                                     <option value="TIJ">TIJ</option>
+                                    <option value="N/A">No Aplica</option>
                                 </select>
 
                                 @error('base')
