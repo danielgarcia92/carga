@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Carga Aprobada</title>
+        <title>Solicitud Rechazada</title>
     </head>
     <body>
-        <p>La carga ha sido <strong>APROBADA</strong></p>
+        La solicitud ha sido <strong>RECHAZADA</strong>
         <br/>
-        <p>Los datos de la carga son los siguientes: </p>
         <p><strong>Comentarios de CCV: </strong>{{ $data['message_approval'] }}</p>
         <p><strong>Número de Vuelo: </strong>{{ $data['flight_number'] }}</p>
         <p><strong>STD: </strong>{{ $data['std'] }}</p>

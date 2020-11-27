@@ -7,11 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class FormNotification extends Mailable
+class RejectedViva extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Comat: Solicitud enviada con éxito';
+    public $subject = 'Comat: La solicitud ha sido Rechazada';
 
     public $data;
 
@@ -32,6 +32,6 @@ class FormNotification extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.form');
+        return $this->view('emails.rejectedViva');
     }
 }

@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <label for="flightNumber">* Número de vuelo</label>
-                    <input type="text" class="form-control" id="flightNumber" name="flightNumber" value="{{ $data[0]->flight }}" required/>
+                    <input type="text" class="form-control" id="flight_number" name="flight_number" value="{{ $data[0]->flight }}" required/>
                 </div>
                 <div class="form-group">
                     <label for="rego">* Matrícula</label>
@@ -67,12 +67,12 @@
                             <tbody>
                             @foreach($data as $d)
                                 <tr>
-                                    <td><input type="text" name="guideNumber[]" class="form-control" value="{{ $d->guideNumber }}" readonly></td>
+                                    <td><input type="text" name="guide_number[]" class="form-control" value="{{ $d->guideNumber }}" readonly></td>
                                     <td><input type="text" name="pieces[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
                                     <td><input type="text" name="weight[]" class="form-control" value="{{ round($d->weightkg, 2) }}" readonly></td>
                                     <td><input type="text" name="volume[]" class="form-control" value="{{ round($d->volume, 2) }}" readonly></td>
-                                    <td><input type="text" name="natureGoods[]" class="form-control" value="{{ $d->description }}" readonly></td>
-                                    <td><input type="text" name="routeItem[]" class="form-control" value="{{ $d->routeItem }}" readonly></td>
+                                    <td><input type="text" name="nature_goods[]" class="form-control" value="{{ $d->description }}" readonly></td>
+                                    <td><input type="text" name="route_item[]" class="form-control" value="{{ $d->routeItem }}" readonly></td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -32,18 +32,59 @@ class RouteServiceProvider extends ServiceProvider
 
     /** @var string */
     public const ALMACEN_CUN = 'almacen.cun@vivaaerobus.com';
-
     /** @var string */
     public const ALMACEN_GDL = 'almacen.gdl@vivaaerobus.com';
-
     /** @var string */
     public const ALMACEN_MEX = 'almacen.mex@vivaaerobus.com';
-
     /** @var string */
     public const ALMACEN_MTY = 'almacen.mty@vivaaerobus.com';
-
     /** @var string */
     public const ALMACEN_TIJ = 'almacen.tij@vivaaerobus.com';
+
+    /** @var string */
+    public const SAEROCHARTER_CUN = 'supervisor-cargo-cun@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_CUN = 'mostrador-cargo-cun@aerocharter.com.mx';
+    /** @var string */
+    public const SAEROCHARTER_GDL = 'supervisor-cargo-gdl@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_GDL = 'mostrador-cargo-gdl@aerocharter.com.mx';
+    /** @var string */
+    public const SAEROCHARTER_MEX = 'supervisor-cargo-mex@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_MEX = 'mostrador-cargo-mex@aerocharter.com.mx';
+    /** @var string */
+    public const SAEROCHARTER_MTY = 'supervisor-cargo-mty@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_MTY = 'mostrador-cargo-mty@aerocharter.com.mx';
+    /** @var string */
+    public const SAEROCHARTER_TIJ = 'supervisor-cargo-tij@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_TIJ = 'mostrador-cargo-tij@aerocharter.com.mx';
+    /** @var string */
+    public const SAEROCHARTER_QRO = 'supervisor-cargo-qro@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_QRO = 'mostrador-cargo-qro@aerocharter.com.mx';
+    /** @var string */
+    public const SAEROCHARTER_MID = 'supervisor-cargo-mid@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_MID = 'mostrador-cargo-mid@aerocharter.com.mx';
+    /** @var string */
+    public const SAEROCHARTER_OAX = 'supervisor-cargo-oax@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_OAX = 'mostrador-cargo-oax@aerocharter.com.mx';
+    /** @var string */
+    public const SAEROCHARTER_SJD = 'supervisor-cargo-sjd@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_SJD = 'mostrador-cargo-sjd@aerocharter.com.mx';
+    /** @var string */
+    public const SAEROCHARTER_CJS = 'supervisor-cargo-cjs@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_CJS = 'mostrador-cargo-cjs@aerocharter.com.mx';
+    /** @var string */
+    public const SAEROCHARTER_CUL = 'supervisor-cargo-cul@aerocharter.com.mx';
+    /** @var string */
+    public const MAEROCHARTER_CUL = 'mostrador-cargo-cul@aerocharter.com.mx';
 
 
     /**

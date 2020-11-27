@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\FormNotification;
+use App\Mail\RequestViva;
 use App\Providers\RouteServiceProvider;
 use App\Upload;
 use Illuminate\Http\Request;
@@ -26,7 +26,7 @@ class UploadController extends Controller
     {
         if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'admin') {
             return view('uploads.index')
-                ->with('title', 'Carga de información');
+                ->with('title', 'Formulario de solicitud');
         }
         else {
             return view('/home');
@@ -45,7 +45,7 @@ class UploadController extends Controller
             'std'           => 'required|date',
             'from'          => 'required|max:3',
             'to'            => 'required|max:3',
-            'flightNumber'  => 'required|max:4',
+            'flight_number' => 'required|max:4',
             'rego'          => 'required|max:6',
             'pieces'        => 'required',
             'weight'        => 'required',
@@ -55,29 +55,29 @@ class UploadController extends Controller
             'assurance'     => 'required|max:100',
             'packing'       => 'required|max:100'
         ], [
-            'std.required'          => 'El campo Fecha de vuelo es obligatorio',
-            'from.required'         => 'El campo Aeropuerto de salida es obligatorio',
-            'from.size'             => 'Aeropuerto de salida: máximo 3 dígitos',
-            'to.required'           => 'El campo Aeropuerto de llegada es obligatorio',
-            'to.size'               => 'Aeropuerto de llegada: máximo 3 dígitos',
-            'flightNumber.required' => 'El campo Número de vuelo es obligatorio',
-            'flightNumber.length'   => 'Número de vuelo: máximo 4 dígitos',
-            'rego.required'         => 'El campo Matrícula es obligatorio',
-            'rego.size'             => 'Matrícula: máximo 6 dígitos',
-            'pieces.required'       => 'El campo Número de Piezas es obligatorio',
-            'weight.required'       => 'El campo Peso es obligatorio',
-            'send.required'         => 'El campo Envía es obligatorio',
-            'send.size'             => 'Envía: Máximo 100 caracteres',
-            'description.required'  => 'El campo Descripción es obligatorio',
-            'description.size'      => 'Descripción: Maximo 100 caracteres',
-            'assurance.required'    => 'El campo Método de aseguramiento es obligatorio',
-            'assurance.size'        => 'Método de aseguramiento: Maximo 100 caracteres',
-            'packing.required'      => 'El campo Embalaje es obligatorio',
-            'packing.size'          => 'Embalaje: Maximo 100 caracteres'
+            'std.required'           => 'El campo Fecha de vuelo es obligatorio',
+            'from.required'          => 'El campo Aeropuerto de salida es obligatorio',
+            'from.size'              => 'Aeropuerto de salida: máximo 3 dígitos',
+            'to.required'            => 'El campo Aeropuerto de llegada es obligatorio',
+            'to.size'                => 'Aeropuerto de llegada: máximo 3 dígitos',
+            'flight_number.required' => 'El campo Número de vuelo es obligatorio',
+            'flight_number.length'   => 'Número de vuelo: máximo 4 dígitos',
+            'rego.required'          => 'El campo Matrícula es obligatorio',
+            'rego.size'              => 'Matrícula: máximo 6 dígitos',
+            'pieces.required'        => 'El campo Número de Piezas es obligatorio',
+            'weight.required'        => 'El campo Peso es obligatorio',
+            'send.required'          => 'El campo Envía es obligatorio',
+            'send.size'              => 'Envía: Máximo 100 caracteres',
+            'description.required'   => 'El campo Descripción es obligatorio',
+            'description.size'       => 'Descripción: Maximo 100 caracteres',
+            'assurance.required'     => 'El campo Método de aseguramiento es obligatorio',
+            'assurance.size'         => 'Método de aseguramiento: Maximo 100 caracteres',
+            'packing.required'       => 'El campo Embalaje es obligatorio',
+            'packing.size'           => 'Embalaje: Maximo 100 caracteres'
         ]);
 
         Upload::updateOrCreate([
-            'flight_number' => 'VB' . $data['flightNumber'],
+            'flight_number' => 'VB' . $data['flight_number'],
             'std'           => date('Y-m-d H:i:s', strtotime($data['std'])),
             'from'          => $data['from'],
             'to'            => $data['to'],
@@ -99,7 +99,7 @@ class UploadController extends Controller
         if ($data['from'] == 'CUN' || $data['to'] == 'CUN')
             array_push($to, RouteServiceProvider::ALMACEN_CUN);
 
-        if ($data['from'] == 'GDL' || $data['to'] == 'GLD')
+        if ($data['from'] == 'GDL' || $data['to'] == 'GDL')
             array_push($to, RouteServiceProvider::ALMACEN_GDL);
 
         if ($data['from'] == 'MEX' || $data['to'] == 'MEX')
@@ -111,7 +111,7 @@ class UploadController extends Controller
         if ($data['from'] == 'TIJ' || $data['to'] == 'TIJ')
             array_push($to, RouteServiceProvider::ALMACEN_TIJ);
 
-        Mail::to($to)->queue(new FormNotification($data));
+        Mail::to($to)->queue(new RequestViva($data));
 
         return view('uploads.success');
     }

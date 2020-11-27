@@ -94,11 +94,10 @@
                     </div>
 
                     @if($row->origins_id == 2)
-
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12">
-                                    <table class="table table-bordered">
-                                        <thead>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <table class="table table-bordered">
+                                    <thead>
                                         <tr>
                                             <th>Número de guía </th>
                                             <th>Piezas</th>
@@ -107,8 +106,8 @@
                                             <th>Tipo de carga</th>
                                             <th>Ruta</th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
+                                    </thead>
+                                    <tbody>
                                         @foreach($details as $d)
                                             <tr>
                                                 <td><input type="text" name="guideNumber[]" class="form-control" value="{{ $d->guide_number }}" readonly></td>
@@ -119,10 +118,10 @@
                                                 <td><input type="text" name="routeItem[]" class="form-control" value="{{ $d->route_item }}" readonly></td>
                                             </tr>
                                         @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
+                        </div>
 
                     @endif
 

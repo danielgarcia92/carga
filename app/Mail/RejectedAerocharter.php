@@ -7,22 +7,24 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class RejectedNotification extends Mailable
+class RejectedAerocharter extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Carga Rechazada';
+    public $subject = 'Carga Aerocharter Rechazada';
 
     public $data;
+    public $items;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data, $items)
     {
         $this->data = $data;
+        $this->items = $items;
     }
 
     /**
@@ -32,6 +34,6 @@ class RejectedNotification extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.rejected');
+        return $this->view('emails.rejectedAerocharter');
     }
 }

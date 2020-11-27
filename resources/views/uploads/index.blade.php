@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Formulario')
+@section('title', 'Solicitud')
 
 @section('content')
 
@@ -35,8 +35,8 @@
                     <input type="text" class="form-control" id="to" name="to" placeholder="MEX" maxlength="3" value="{{ old('to') }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="flightNumber">* Número de vuelo</label>
-                    <input type="number" class="form-control" id="flightNumber" name="flightNumber" placeholder="Máximo 4 dígitos" min="0" value="{{ old('flightNumber') }}" required/>
+                    <label for="flight_number">* Número de vuelo</label>
+                    <input type="number" class="form-control" id="flight_number" name="flight_number" placeholder="Máximo 4 dígitos" min="0" value="{{ old('flight_number') }}" required/>
                 </div>
                 <div class="form-group">
                     <label for="rego">* Matrícula</label>

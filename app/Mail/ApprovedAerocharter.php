@@ -7,11 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AerocharterNotification extends Mailable
+class ApprovedAerocharter extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Carga: Solicitud de Aerocharter enviada con éxito';
+    public $subject = 'Carga Aerocharter Aprobada';
 
     public $data;
     public $items;
@@ -34,6 +34,6 @@ class AerocharterNotification extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.aerocharter');
+        return $this->view('emails.approvedAerocharter');
     }
 }
