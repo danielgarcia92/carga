@@ -14,15 +14,17 @@ class AerocharterNotification extends Mailable
     public $subject = 'Carga: Solicitud de Aerocharter enviada con éxito';
 
     public $data;
+    public $items;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data, $items)
     {
         $this->data = $data;
+        $this->items = $items;
     }
 
     /**

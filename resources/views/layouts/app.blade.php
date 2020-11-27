@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Carga') }}</title>
+    <title>{{ config('app.name', 'Carga-Comat') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -27,7 +27,11 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Carga') }}
+                    @if ( isset(Auth::user()->rol) && Auth::user()->rol == 'viva')
+                        {{ 'Comat' }}
+                    @else
+                        {{ 'Carga' }}
+                    @endif
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -40,7 +44,7 @@
                             @if ( Auth::user()->rol == 'viva' || Auth::user()->rol == 'admin' )
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{ url('/uploads') }}">
-                                        {{ 'Formulario' }} <span class="sr-only">(current)</span>
+                                        {{ 'Solicitar' }} <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
                                 <li class="nav-item active">
@@ -52,7 +56,7 @@
                             @if( Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'admin' )
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/aerocharter') }}">
-                                        {{ 'Aerocharter' }}
+                                        {{ 'Solicitar' }}
                                     </a>
                                 </li>
                                     <li class="nav-item">

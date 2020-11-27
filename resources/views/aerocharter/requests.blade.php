@@ -28,26 +28,30 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">@sortablelink('id', '#')</th>
-                            <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
                             <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
+                            <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
                             <th scope="col">@sortablelink('from', 'Salida')</th>
                             <th scope="col">@sortablelink('to', 'Llegada')</th>
                             <th scope="col">@sortablelink('rego', 'Matrícula')</th>
                             <th scope="col">Estatus</th>
+                            <th scope="col">Detalles</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($uploads as $upload)
                             @if($upload->accept === null)
                                 <tr>
-                                    <th scope="row">{{ $upload->id }}</th>
-                                    <td>{{ $upload->std }}</td>
                                     <td>{{ $upload->flight_number }}</td>
+                                    <td>{{ $upload->std }}</td>
                                     <td>{{ $upload->from }}</td>
                                     <td>{{ $upload->to }}</td>
                                     <td>{{ $upload->rego }}</td>
                                     <td><i class="fas fa-hourglass-half" style="color:#ffcc00;"></i></td>
+                                    <form method="POST" action="{{ url("aerocharter_requests/{$upload->id}") }}" novalidate>
+                                        {{ csrf_field() }}
+                                        <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>
+                                        <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
+                                    </form>
                                 </tr>
                             @endif
                         @endforeach
@@ -58,26 +62,30 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">@sortablelink('id', '#')</th>
-                            <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
                             <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
+                            <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
                             <th scope="col">@sortablelink('from', 'Salida')</th>
                             <th scope="col">@sortablelink('to', 'Llegada')</th>
                             <th scope="col">@sortablelink('rego', 'Matrícula')</th>
                             <th scope="col">Estatus</th>
+                            <th scope="col">Detalles</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($uploads as $upload)
                             @if($upload->accept == 1)
                                 <tr>
-                                    <th scope="row">{{ $upload->id }}</th>
-                                    <td>{{ $upload->std }}</td>
                                     <td>{{ $upload->flight_number }}</td>
+                                    <td>{{ $upload->std }}</td>
                                     <td>{{ $upload->from }}</td>
                                     <td>{{ $upload->to }}</td>
                                     <td>{{ $upload->rego }}</td>
                                     <td><i class="far fa-check-circle" style="color:#008000;"></i></td>
+                                    <form method="POST" action="{{ url("aerocharter_requests/{$upload->id}") }}" novalidate>
+                                        {{ csrf_field() }}
+                                        <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>
+                                        <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
+                                    </form>
                                 </tr>
                             @endif
                         @endforeach
@@ -88,26 +96,30 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th scope="col">@sortablelink('id', '#')</th>
-                            <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
                             <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
+                            <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
                             <th scope="col">@sortablelink('from', 'Salida')</th>
                             <th scope="col">@sortablelink('to', 'Llegada')</th>
                             <th scope="col">@sortablelink('rego', 'Matrícula')</th>
                             <th scope="col">Estatus</th>
+                            <th scope="col">Detalles</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($uploads as $upload)
                             @if($upload->accept == 0 && $upload->accept != null)
                                 <tr>
-                                    <th scope="row">{{ $upload->id }}</th>
-                                    <td>{{ $upload->std }}</td>
                                     <td>{{ $upload->flight_number }}</td>
+                                    <td>{{ $upload->std }}</td>
                                     <td>{{ $upload->from }}</td>
                                     <td>{{ $upload->to }}</td>
                                     <td>{{ $upload->rego }}</td>
                                     <td><i class="far fa-times-circle" style="color:#cb3234;"></i></td>
+                                    <form method="POST" action="{{ url("aerocharter_requests/{$upload->id}") }}" novalidate>
+                                        {{ csrf_field() }}
+                                        <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>
+                                        <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
+                                    </form>
                                 </tr>
                             @endif
                         @endforeach

@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('Integración Cargo - Champs') }}
+                    {{ __('Bienvenido a Solicitudes Carga-Comat') }}
                 </div>
             </div>
         </div>

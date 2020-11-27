@@ -86,70 +86,37 @@
                                     <td>{{ $row->message_approval }}</td>
                                 </tr>
                             @endif
-                            <tr>
-                                <th scope="row">Origen</th>
-                                <td>{{ \App\Origin::where('id', $row->origins_id)->first()->name }}</td>
-                            </tr>
                         </table>
                     </div>
 
-                    @if($row->origins_id == 2)
-
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12">
-                                    <table class="table table-bordered">
-                                        <thead>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Número de guía </th>
+                                        <th>Piezas</th>
+                                        <th>Peso</th>
+                                        <th>Volumen</th>
+                                        <th>Tipo de carga</th>
+                                        <th>Ruta</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($details as $d)
                                         <tr>
-                                            <th>Número de guía </th>
-                                            <th>Piezas</th>
-                                            <th>Peso</th>
-                                            <th>Volumen</th>
-                                            <th>Tipo de carga</th>
-                                            <th>Ruta</th>
+                                            <td><input type="text" name="guideNumber[]" class="form-control" value="{{ $d->guide_number }}" readonly></td>
+                                            <td><input type="text" name="pieces[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
+                                            <td><input type="text" name="weight[]" class="form-control" value="{{ round($d->weight, 2) }}" readonly></td>
+                                            <td><input type="text" name="volume[]" class="form-control" value="{{ round($d->volume,2) }}" readonly></td>
+                                            <td><input type="text" name="natureGoods[]" class="form-control" value="{{ $d->nature_goods }}" readonly></td>
+                                            <td><input type="text" name="routeItem[]" class="form-control" value="{{ $d->route_item }}" readonly></td>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($details as $d)
-                                            <tr>
-                                                <td><input type="text" name="guideNumber[]" class="form-control" value="{{ $d->guide_number }}" readonly></td>
-                                                <td><input type="text" name="pieces[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
-                                                <td><input type="text" name="weight[]" class="form-control" value="{{ round($d->weight, 2) }}" readonly></td>
-                                                <td><input type="text" name="volume[]" class="form-control" value="{{ round($d->volume, 2) }}" readonly></td>
-                                                <td><input type="text" name="natureGoods[]" class="form-control" value="{{ $d->nature_goods }}" readonly></td>
-                                                <td><input type="text" name="routeItem[]" class="form-control" value="{{ $d->route_item }}" readonly></td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                    @endif
-
-                    @if($row->accept === null)
-                        <div class="mx-auto w-50 card">
-                            @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
-                                <form method="POST" action="{{ url("main/details/{$row->id}") }}" validate>
-                                    {{ csrf_field() }}
-                                    {{ method_field('PUT') }}
-
-                                    <input type="hidden" name="id" value="{{ $row->id }}"/>
-                                    <input type="hidden" id="accept" name="accept"/>
-                                    <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
-                                    <center><textarea name="message_approval" rows="3" cols="40" required></textarea></center>
-                                    <br>
-                                    <center>
-                                        <button type="submit" onclick="approve()">
-                                            <i class="far fa-check-circle" style="color:#008000;"></i>
-                                        </button>
-                                        <button type="submit" onclick="reject()">
-                                            <i class="far fa-times-circle" style="color:#cb3234;"></i>
-                                        </button>
-                                    </center>
-                                </form>
-                            @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                    @endif
+                    </div>
                     <br>
                     <br>
                 </div>

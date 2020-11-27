@@ -30,7 +30,7 @@ class MainController extends Controller
 
         if (Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin') {
             return view('main.index')
-                ->with('title', 'Sistema de carga')
+                ->with('title', 'Sistema de Carga-Comat')
                 ->with(compact('uploads'));
         }
         else {
@@ -64,19 +64,19 @@ class MainController extends Controller
         $to = ['ccv@vivaaerobus.com', $created_by[0]->email, 'sergio.esquivel@vivaaerobus.com', 'juan.beltran@vivaaerobus.com'];
 
         if ($base[0]->base == 'CUN' || $row->to == 'CUN')
-            array_push($to, RouteServiceProvider::CUN);
+            array_push($to, RouteServiceProvider::ALMACEN_CUN);
 
         if ($base[0]->base == 'GDL' || $row->to == 'GLD')
-            array_push($to, RouteServiceProvider::GDL);
+            array_push($to, RouteServiceProvider::ALMACEN_GDL);
 
         if ($base[0]->base == 'MEX' || $row->to == 'MEX')
-            array_push($to, RouteServiceProvider::MEX);
+            array_push($to, RouteServiceProvider::ALMACEN_MEX);
 
         if ($base[0]->base == 'MTY' || $row->to == 'MTY')
-            array_push($to, RouteServiceProvider::MTY);
+            array_push($to, RouteServiceProvider::ALMACEN_MTY);
 
         if ($base[0]->base == 'TIJ' || $row->to == 'TIJ')
-            array_push($to, RouteServiceProvider::TIJ);
+            array_push($to, RouteServiceProvider::ALMACEN_TIJ);
 
         if ($row->accept == 1)
             Mail::to($to)->queue(new ApprovedNotification($row));

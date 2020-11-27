@@ -21,6 +21,7 @@
 
             <form method="POST" action="{{ url('aerocharter') }}" class="needs-validation" enctype="multipart/form-data">
                 {!! csrf_field() !!}
+                {{ method_field('PUT') }}
 
                 <div class="form-group">
                     <input type="hidden" id="idMensajeRCV" name="idMensajeRCV" value="{{ $data[0]->idMensajeRCV }}"/>

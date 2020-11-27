@@ -107,41 +107,60 @@ class AerocharterController extends Controller
             'created_by'    => Auth::user()->getAuthIdentifier(),
         ]);
 
-        $guideNumber  = $request->get('guideNumber');
-        $piecesNumber = $request->get('pieces');
-        $weight       = $request->get('weight');
-        $volume       = $request->get('volume');
-        $natureGoods  = $request->get('natureGoods');
-        $routeItem    = $request->get('routeItem');
+        $items['guideNumber']  = $request->get('guideNumber');
+        $items['piecesNumber'] = $request->get('pieces');
+        $items['weight']       = $request->get('weight');
+        $items['volume']       = $request->get('volume');
+        $items['natureGoods']  = $request->get('natureGoods');
+        $items['routeItem']    = $request->get('routeItem');
 
-        foreach ($guideNumber as $item => $value) {
+        foreach ($items['guideNumber'] as $item => $value) {
             UploadDetails::updateOrCreate([
-                'guide_number'  => $guideNumber[$item],
-                'pieces'        => $piecesNumber[$item],
-                'weight'        => $weight[$item],
-                'volume'        => $volume[$item],
-                'nature_goods'  => $natureGoods[$item],
-                'route_item'    => $routeItem[$item],
+                'guide_number'  => $items['guideNumber'][$item],
+                'pieces'        => $items['piecesNumber'][$item],
+                'weight'        => $items['weight'][$item],
+                'volume'        => $items['volume'][$item],
+                'nature_goods'  => $items['natureGoods'][$item],
+                'route_item'    => $items['routeItem'][$item],
                 'uploads_id'    => $data->id
             ]);
         }
 
         CargoAerocharter::where('idMensajeRCV', '=', $request->input('idMensajeRCV'))->update(array('inForm' => 1));
 
-        Mail::to(Auth::user()->email )->queue(new AerocharterNotification($data));
+        $to = ['ccv@vivaaerobus.com', Auth::user()->email, 'vivacargo@vivaaerobus.com'];
+        Mail::to( $to )->queue(new AerocharterNotification($data, $items));
 
         return view('aerocharter.success');
     }
 
     public function requestsAction()
     {
-        $origins = Origin::where('name', '=', Auth::user()->rol)->get('id');
-        $uploads = Upload::where('origins_id', '=', $origins[0]->id)->get();
-
         if (Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'admin') {
+            $origins = Origin::where('name', '=', Auth::user()->rol)->get('id');
+
+            if (isset($origins[0]->id))
+                $uploads = Upload::where('origins_id', '=', $origins[0]->id)->get();
+            else
+                $uploads = [];
+
             return view('aerocharter.requests')
                 ->with(compact('uploads'))
                 ->with('title', 'Mis solicitudes');
+        }
+        else {
+            return view('/home');
+        }
+    }
+
+    public function detailsAction(Upload $row)
+    {
+        if (Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'admin') {
+            $details = UploadDetails::where('uploads_id', '=', $row->id)->get();
+
+            return view('aerocharter.details')
+                ->with('title', 'Detalles de la carga en vuelo - ')
+                ->with(compact(['row', 'details']));
         }
         else {
             return view('/home');
