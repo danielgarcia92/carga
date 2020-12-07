@@ -3,82 +3,204 @@
 @section('title', 'Solicitud')
 
 @section('content')
-
-    <div class="mx-auto w-50 card">
-        <h2 class="card-header text-center">{{ $title }}</h2>
-        <div class="card-body">
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <h6>Por favor corregir los siguiente errores:</h6>
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form method="POST" action="{{ url('uploads') }}" class="needs-validation" enctype="multipart/form-data" novalidate>
-                {!! csrf_field() !!}
-
-                <div class="form-group">
-                    <label for="std">* Fecha de vuelo (UTC)</label>
-                    <input type="datetime-local" class="form-control" id="std" name="std" placeholder="Fecha" value="{{ old('std') }}" required/>
-                </div>
-                <div class="form-group">
-                    <label for="from">* Aeropuerto de salida</label>
-                    <input type="text" class="form-control" id="from" name="from" placeholder="MTY" maxlength="3" value="{{ old('from') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="to">* Aeropuerto de llegada</label>
-                    <input type="text" class="form-control" id="to" name="to" placeholder="MEX" maxlength="3" value="{{ old('to') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="flight_number">* Número de vuelo</label>
-                    <input type="number" class="form-control" id="flight_number" name="flight_number" placeholder="Máximo 4 dígitos" min="0" value="{{ old('flight_number') }}" required/>
-                </div>
-                <div class="form-group">
-                    <label for="rego">* Matrícula</label>
-                    <input type="text" class="form-control" id="rego" name="rego" placeholder="XA-VIH" maxlength="6" value="{{ old('rego') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="pieces">* Número de piezas</label>
-                    <input type="number" class="form-control" id="pieces" name="pieces" value="{{ old('pieces') }}" min=0 required/>
-                </div>
-                <div class="form-group">
-                    <label for="weight">* Peso (Kg)</label>
-                    <input type="number" class="form-control" id="weight" name="weight" value="{{ old('weight') }}" min=0 required/>
-                </div>
-                <div class="form-group">
-                    <label for="volume">Volumen (M3)</label>
-                    <input type="number" class="form-control" id="volume" name="volume" value="{{ old('volume') }}" min=0 step="0.01" required/>
-                </div>
-                <div class="form-group">
-                    <label for="send">* Envía</label>
-                    <input type="text" class="form-control" id="send" name="send" placeholder="John Doe" value="{{ old('send') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">* Descripción</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" maxlength="100" required>{{ old('description') }}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="assurance">* Método de aseguramiento</label>
-                    <textarea class="form-control" id="assurance" name="assurance" rows="3" maxlength="100" required>{{ old('assurance') }}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="packing">* Embalaje</label>
-                    <textarea class="form-control" id="packing" name="packing" rows="3" maxlength="100" required>{{ old('packing') }}</textarea>
-                </div>
-                <br>
-                @if ( Auth::user()->rol != 'test')
-                    <div class="mx-auto text-center">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Subir Formulario</button>
-                    </div>
-                @endif
-            </form>
+<div class="card card-custom gutter-b example example-compact">
+    <div class="card-header">
+        <h3 class="card-title">Formulario de Solicitud</h3>
+        <div class="card-toolbar">
+            <div class="example-tools justify-content-center">
+                <span class="example-toggle" data-toggle="tooltip" title="" data-original-title="View code"></span>
+                <span class="example-copy" data-toggle="tooltip" title="" data-original-title="Copy code"></span>
+            </div>
         </div>
     </div>
-    <br>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <h6>Por favor corregir los siguiente errores:</h6>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+   
+     <form method="POST" action="{{ url('uploads') }}" class="needs-validation" enctype="multipart/form-data" novalidate>
+        
+        {!! csrf_field() !!}
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Fecha de Vuelo (UTC):</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-calendar"></i>
+                            </span>
+                        </div>
+                        <input type="datetime-local" class="form-control" id="std" name="std" placeholder="Fecha" value="{{ old('std') }}" required>
+                    </div>
+                    <span class="form-text text-muted">Verifica que la fecha esté en UTC</span>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Aeropuerto de Salida:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-plane"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="from" name="from" placeholder="MTY" maxlength="3" value="{{ old('from') }}" required>
+                    </div>
+                    <span class="form-text text-muted">Utilizar Código IATA del Aeropuerto</span>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Aeropuerto de Llegada:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-plane"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="to" name="to" placeholder="MEX" maxlength="3" value="{{ old('to') }}" required>
+                    </div>
+                    <span class="form-text text-muted">Utilizar Código IATA del Aeropuerto</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Número de Vuelo:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-calendar-plus-o"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" id="flight_number" name="flight_number" placeholder="Máximo 4 dígitos" min="0" value="{{ old('flight_number') }}" required/>
+                    </div>
+                    <span class="form-text text-muted">Utilizar número de máximo 4 dígitos</span>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Matrícula:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-chain"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="rego" name="rego" placeholder="XA-VIH" maxlength="6" value="{{ old('rego') }}" required>
+                    </div>
+                    <span class="form-text text-muted">Formato XX-XXX</span>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>Número de Piezas:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-clipboard"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" id="pieces" name="pieces" value="{{ old('pieces') }}" min=0 required/>
+                    </div>
+                    <span class="form-text text-muted">Hasta 2 decimales</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Peso (Kg):</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-align-left"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" id="weight" name="weight" value="{{ old('weight') }}" min=0 required/>
+                    </div>
+                    <span class="form-text text-muted">Coloca el peso en KG con hasta 2 decimales</span>
+                </div>
+                <div class="col-lg-4">
+                    <label>Volumen (m3):</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-align-left"></i>
+                            </span>
+                        </div>
+                        <input type="number" class="form-control" id="volume" name="volume" value="{{ old('volume') }}" min=0 step="0.01" required/>
+                    </div>
+                    <span class="form-text text-muted">Coloca los metros cúbicos</span>
+                </div>
+                <div class="col-lg-4">
+                    <label>Envía:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-user"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="send" name="send" placeholder="John Doe" value="{{ old('send') }}" required>
+                    </div>
+                    <span class="form-text text-muted">Nombre de quien envía</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Descripción:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-comment"></i>
+                            </span>
+                        </div>
+                        <textarea class="form-control" id="description" name="description" rows="3" maxlength="100" required>{{ old('description') }}</textarea>
+                    </div>
+                    <span class="form-text text-muted">Describa de forma clara lo que contiene el paquete</span>
+                </div>
+                <div class="col-lg-4">
+                    <label>Método de Aseguramiento:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-gear"></i>
+                            </span>
+                        </div>
+                        <textarea class="form-control" id="assurance" name="assurance" rows="3" maxlength="100" required>{{ old('assurance') }}</textarea>
+                    </div>
+                    <span class="form-text text-muted">Describa el método de aseguramiento del paquete</span>
+                </div>
+                <div class="col-lg-4">
+                    <label>Embalaje:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-gift"></i>
+                            </span>
+                        </div>
+                        <textarea class="form-control" id="packing" name="packing" rows="3" maxlength="100" required>{{ old('packing') }}</textarea>
+                    </div>
+                    <span class="form-text text-muted">Define el método de embalaje del paquete</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-8">
+                    @if ( Auth::user()->rol != 'test')
+                    <button type="submit" class="btn btn-primary mr-2">Enviar</button>
+                    
+                    @endif
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--end::Form-->
+</div>
 
 @endsection
