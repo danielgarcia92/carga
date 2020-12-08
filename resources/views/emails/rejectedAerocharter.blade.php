@@ -6,6 +6,7 @@
     <body>
         La carga de Aerocharter ha sido <strong>RECHAZADA</strong>
         <br/>
+        <p><strong># Folio: </strong>{{ $data['id'] }}</p>
         <p><strong>Comentarios de CCV: </strong>{{ $data['message_approval'] }}</p>
         <p><strong>Número de Vuelo: </strong>{{ $data['flight_number'] }}</p>
         <p><strong>STD: </strong>{{ $data['std'] }}</p>
@@ -30,14 +31,14 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($items['guide_number'] as $key => $value)
+            @foreach($items as $key => $value)
                 <tr>
-                    <td><input type="text" class="form-control" value="{{ $items['guide_number'][$key] }}" readonly></td>
-                    <td><input type="text" class="form-control" value="{{ $items['pieces'][$key] }}" readonly></td>
-                    <td><input type="text" class="form-control" value="{{ round($items['weight'][$key], 2) }}" readonly></td>
-                    <td><input type="text" class="form-control" value="{{ round($items['volume'][$key], 2) }}" readonly></td>
-                    <td><input type="text" class="form-control" value="{{ $items['nature_goods'][$key] }}" readonly></td>
-                    <td><input type="text" class="form-control" value="{{ $items['route_item'][$key] }}" readonly></td>
+                    <td><input type="text" class="form-control" value="{{ $value->guide_number }}" readonly></td>
+                    <td><input type="text" class="form-control" value="{{ $value->pieces }}" readonly></td>
+                    <td><input type="text" class="form-control" value="{{ round($value->weight, 2) }}" readonly></td>
+                    <td><input type="text" class="form-control" value="{{ round($value->volume, 2) }}" readonly></td>
+                    <td><input type="text" class="form-control" value="{{ $value->nature_goods }}" readonly></td>
+                    <td><input type="text" class="form-control" value="{{ $value->route_item }}" readonly></td>
                 </tr>
             @endforeach
             </tbody>

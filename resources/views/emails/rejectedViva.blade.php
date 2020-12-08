@@ -6,6 +6,7 @@
     <body>
         La solicitud ha sido <strong>RECHAZADA</strong>
         <br/>
+        <p><strong># Folio: </strong>{{ $data['id'] }}</p>
         <p><strong>Comentarios de CCV: </strong>{{ $data['message_approval'] }}</p>
         <p><strong>Número de Vuelo: </strong>{{ $data['flight_number'] }}</p>
         <p><strong>STD: </strong>{{ $data['std'] }}</p>

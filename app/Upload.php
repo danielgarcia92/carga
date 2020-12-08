@@ -35,6 +35,10 @@ class Upload extends Model
         , 'origins_id'
         , 'created_by'
         , 'approved_by'
+        , 'file'
+        , 'email1'
+        , 'email2'
+        , 'email3'
 	];
 
 	public $sortable = ['id', 'accept', 'flight_number', 'std', 'from', 'to', 'rego'];

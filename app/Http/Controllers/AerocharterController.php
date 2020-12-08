@@ -91,9 +91,9 @@ class AerocharterController extends Controller
         $data = Upload::updateOrCreate([
             'std'           => $request->input('std'),
             'from'          => $request->input('from'),
-            'to'            => $request->input('to'),
+            'to'            => strtoupper($request->input('to')),
             'flight_number' => $request->input('flight_number'),
-            'rego'          => $request->input('rego'),
+            'rego'          => strtoupper($request->input('rego')),
 
             'pieces'        => $totalPieces,
             'volume_unit'   => 'MC',

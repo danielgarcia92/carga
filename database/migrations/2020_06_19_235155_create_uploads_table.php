@@ -27,7 +27,7 @@ class CreateUploadsTable extends Migration
             $table->string('packing');
             $table->string('message_approval')->nullable();
             $table->string('volume_unit')->nullable();
-            $table->float('volume', 5, 2);
+            $table->float('volume', 5, 2)->nullable();
             $table->float('pieces', 10, 2);
             $table->float('weight', 10, 2);
             $table->integer('origins_id')
@@ -43,6 +43,10 @@ class CreateUploadsTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->nullable();
+            $table->string('file')->nullable();
+            $table->string('email1')->nullable();
+            $table->string('email2')->nullable();
+            $table->string('email3')->nullable();
             $table->timestamps();
         });
     }

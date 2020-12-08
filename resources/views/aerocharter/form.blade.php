@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group">
                     <label for="to">* Aeropuerto de llegada</label>
-                    <input type="text" class="form-control" id="to" name="to" required>
+                    <input type="text" class="form-control" id="to" name="to"  maxlength="3" style="text-transform:uppercase" required>
                 </div>
                 <div class="form-group">
                     <label for="flightNumber">* Número de vuelo</label>
@@ -44,10 +44,10 @@
                 </div>
                 <div class="form-group">
                     <label for="rego">* Matrícula</label>
-                    @if($data[0]->rego != 'MX')
-                        <input type="text" class="form-control" id="rego" name="rego" value="{{ $data[0]->rego }}" required>
+                    @if($data[0]->rego === NULL || $data[0]->rego == 'MX')
+                        <input type="text" class="form-control" id="rego" name="rego" maxlength="6" style="text-transform:uppercase" required>
                     @else
-                        <input type="text" class="form-control" id="rego" name="rego" required>
+                        <input type="text" class="form-control" id="rego" name="rego" maxlength="6" value="{{ $data[0]->rego }}" required>
                     @endif
                 </div>
 
