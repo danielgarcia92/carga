@@ -24,6 +24,7 @@ $factory->define(Upload::class, function (Faker $faker) {
         'weight' 			=> $faker->numberBetween($min=0, $max=999),
         'origins_id' 		=> 1,
         'created_by'		=> 1,
-        'approved_by'		=> 1
+        'approved_by'		=> 1,
+        'email1'            => 'test@test.com'
     ];
 });

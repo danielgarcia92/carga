@@ -7,6 +7,7 @@
         La solicitud de envío de carga por parte de Aerocharter ha sido diligenciada satisfactoriamente, el equipo del centro de control de Viva Aerobus está evaluando la información.
         <br/>
         <p>Los datos enviados son los siguientes: </p>
+        <p><strong># Folio: </strong>{{ $data['id'] }}</p>
         <p><strong>Número de Vuelo: </strong>{{ $data['flight_number'] }}</p>
         <p><strong>STD: </strong>{{ $data['std'] }}</p>
         <p><strong>Aeropuerto de salida: </strong>{{ $data['from'] }}</p>

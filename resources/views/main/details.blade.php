@@ -67,6 +67,10 @@
                                 <th scope="row">Embalaje</th>
                                 <td>{{ $row->packing }}</td>
                             </tr>
+                            <tr>
+                                <th scope="row">Envia</th>
+                                <td>{{ \App\User::where('id', $row->created_by)->first()->name }}</td>
+                            </tr>
                             @if($row->accept == 1)
                                 <tr>
                                     <th scope="row">Aprobador por</th>
@@ -84,6 +88,12 @@
                                 <tr>
                                     <th scope="row">Mensaje de rechazo</th>
                                     <td>{{ $row->message_approval }}</td>
+                                </tr>
+                            @endif
+                            @if($row->file !== NULL)
+                                <tr>
+                                    <th scope="row">Imagen</th>
+                                    <td><a href="{{ asset($row->file) }}">Imagen</a></td>
                                 </tr>
                             @endif
                             <tr>
@@ -126,7 +136,7 @@
                     @endif
 
                     @if($row->accept === null)
-                        <div class="mx-auto w-50 card">
+                        <div class="mx-auto w-75 card">
                             @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
                                 <form method="POST" action="{{ url("main/details/{$row->id}") }}" validate>
                                     {{ csrf_field() }}

@@ -24,7 +24,7 @@
         </div>
     @endif
    
-     <form method="POST" action="{{ url('uploads') }}" class="needs-validation" enctype="multipart/form-data" novalidate>
+     <form method="POST" action="{{ url('uploads') }}" class="needs-validation" enctype="multipart/form-data">
         
         {!! csrf_field() !!}
         <div class="card-body">
@@ -50,7 +50,7 @@
                                 <i class="la la-plane"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" id="from" name="from" placeholder="MTY" maxlength="3" value="{{ old('from') }}" required>
+                        <input type="text" class="form-control" id="from" name="from" placeholder="XXX" maxlength="3" style="text-transform:uppercase" value="{{ old('from') }}" autocomplete="off" required>
                     </div>
                     <span class="form-text text-muted">Utilizar Código IATA del Aeropuerto</span>
                 </div>
@@ -63,7 +63,7 @@
                                 <i class="la la-plane"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" id="to" name="to" placeholder="MEX" maxlength="3" value="{{ old('to') }}" required>
+                        <input type="text" class="form-control" id="to" name="to" placeholder="XXX" maxlength="3" style="text-transform:uppercase" value="{{ old('to') }}" required>
                     </div>
                     <span class="form-text text-muted">Utilizar Código IATA del Aeropuerto</span>
                 </div>
@@ -78,7 +78,7 @@
                                 <i class="la la-calendar-plus-o"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" id="flight_number" name="flight_number" placeholder="Máximo 4 dígitos" min="0" value="{{ old('flight_number') }}" required/>
+                        <input type="number" class="form-control" id="flight_number" name="flight_number" placeholder="Máximo 4 dígitos" min="0" max="9999" value="{{ old('flight_number') }}" autocomplete="off" required/>
                     </div>
                     <span class="form-text text-muted">Utilizar número de máximo 4 dígitos</span>
                 </div>
@@ -91,7 +91,7 @@
                                 <i class="la la-chain"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" id="rego" name="rego" placeholder="XA-VIH" maxlength="6" value="{{ old('rego') }}" required>
+                        <input type="text" class="form-control" id="rego" name="rego" placeholder="XX-XXX" maxlength="6" style="text-transform:uppercase" value="{{ old('rego') }}" autocomplete="off" required>
                     </div>
                     <span class="form-text text-muted">Formato XX-XXX</span>
                 </div>
@@ -119,7 +119,7 @@
                                 <i class="la la-align-left"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" id="weight" name="weight" value="{{ old('weight') }}" min=0 required/>
+                        <input type="number" class="form-control" id="weight" name="weight" value="{{ old('weight') }}" min=0 step="0.01" required/>
                     </div>
                     <span class="form-text text-muted">Coloca el peso en KG con hasta 2 decimales</span>
                 </div>
@@ -131,7 +131,7 @@
                                 <i class="la la-align-left"></i>
                             </span>
                         </div>
-                        <input type="number" class="form-control" id="volume" name="volume" value="{{ old('volume') }}" min=0 step="0.01" required/>
+                        <input type="number" class="form-control" id="volume" name="volume" value="{{ old('volume') }}" min=0 step="0.01"/>
                     </div>
                     <span class="form-text text-muted">Coloca los metros cúbicos</span>
                 </div>
@@ -187,6 +187,54 @@
                     <span class="form-text text-muted">Define el método de embalaje del paquete</span>
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Enviar copia a:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="las la-envelope-open-text"></i>
+                            </span>
+                        </div>
+                        <input type="email" class="form-control" id="email1" name="email1" placeholder="test@test.com">
+                    </div>
+                    <span class="form-text text-muted">Sólo llenar en caso de querer enviar copia de la solicitud</span>
+                </div>
+                <div class="col-lg-4">
+                    <label>Enviar copia a:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="las la-envelope-open-text"></i>
+                            </span>
+                        </div>
+                        <input type="email" class="form-control" id="email2" name="email2" placeholder="test@test.com">
+                    </div>
+                    <span class="form-text text-muted">Sólo llenar en caso de querer enviar copia de la solicitud</span>
+                </div>
+                <div class="col-lg-4">
+                    <label>Enviar copia a:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="las la-envelope-open-text"></i>
+                            </span>
+                        </div>
+                        <input type="email" class="form-control" id="email3" name="email3" placeholder="test@test.com">
+                    </div>
+                    <span class="form-text text-muted">Sólo llenar en caso de querer enviar copia de la solicitud</span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-4">
+                    <label>Subir imagen:</label>
+                    <div class="input-group">
+                        <input type="file" id="file" name="file" accept="image/png, image/jpeg" />
+                    </div>
+                    <span class="form-text text-muted">Sólo llenar en caso de querer enviar una imagen de la solicitud</span>
+                </div>
+            </div>
+
         </div>
         <div class="card-footer">
             <div class="row">

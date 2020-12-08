@@ -58,8 +58,9 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">@sortablelink('id', '#')</th>
+                    <th scope="col">@sortablelink('id', 'Folio')</th>
                     <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
+                    <th scope="col">Enviado (UTC)</th>
                     <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
                     <th scope="col">@sortablelink('from', 'Salida')</th>
                     <th scope="col">@sortablelink('to', 'Llegada')</th>
@@ -72,8 +73,9 @@
             <tbody>
             @foreach($uploads as $upload)
                 <tr>
-                    <th scope="row">{{ $upload->id }}</th>
+                    <th>{{ $upload->id }}</th>
                     <td>{{ $upload->std }}</td>
+                    <td>{{ $upload->created_at }}</td>
                     <td>{{ $upload->flight_number }}</td>
                     <td>{{ $upload->from }}</td>
                     <td>{{ $upload->to }}</td>

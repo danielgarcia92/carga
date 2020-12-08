@@ -77,6 +77,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
+                        <th scope="col">@sortablelink('id', 'Folio')</th>
                         <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
                         <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
                         <th scope="col">@sortablelink('from', 'Salida')</th>
@@ -90,6 +91,7 @@
                     @foreach($uploads as $upload)
                         @if($upload->accept === null)
                             <tr>
+                                <th>{{ $upload->id }}</th>
                                 <td>{{ $upload->flight_number }}</td>
                                 <td>{{ $upload->std }}</td>
                                 <td>{{ $upload->from }}</td>
@@ -111,6 +113,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
+                        <th scope="col">@sortablelink('id', 'Folio')</th>
                         <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
                         <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
                         <th scope="col">@sortablelink('from', 'Salida')</th>
@@ -124,6 +127,7 @@
                     @foreach($uploads as $upload)
                         @if($upload->accept == 1)
                             <tr>
+                                <th>{{ $upload->id }}</th>
                                 <td>{{ $upload->flight_number }}</td>
                                 <td>{{ $upload->std }}</td>
                                 <td>{{ $upload->from }}</td>
@@ -145,6 +149,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
+                        <th scope="col">@sortablelink('id', 'Folio')</th>
                         <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
                         <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
                         <th scope="col">@sortablelink('from', 'Salida')</th>
@@ -158,6 +163,7 @@
                     @foreach($uploads as $upload)
                         @if($upload->accept == 0 && $upload->accept != null)
                             <tr>
+                                <th>{{ $upload->id }}</th>
                                 <td>{{ $upload->flight_number }}</td>
                                 <td>{{ $upload->std }}</td>
                                 <td>{{ $upload->from }}</td>

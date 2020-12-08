@@ -28,7 +28,7 @@ class MainController extends Controller
     /** @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View */
     public function indexAction()
     {
-        $uploads = Upload::sortable()->paginate(10000);
+        $uploads = Upload::sortable()->paginate(1000);
 
         if (Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin') {
             return view('main.index')
@@ -68,6 +68,12 @@ class MainController extends Controller
             if ($row->origins_id == 1){
                 $to = ['ccv@vivaaerobus.com', $created_by[0]->email, 'sergio.esquivel@vivaaerobus.com', 'juan.beltran@vivaaerobus.com'];
 
+                if ($row->email1)
+                    array_push($to, $row->email1);
+                if ($row->email2)
+                    array_push($to, $row->email2);
+                if ($row->email3)
+                    array_push($to, $row->email3);
                 if ($row->from == 'CUN' || $row->to == 'CUN')
                     array_push($to, RouteServiceProvider::ALMACEN_CUN);
                 if ($row->from == 'GDL' || $row->to == 'GDL')
