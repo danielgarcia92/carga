@@ -8,6 +8,6 @@ class UserSeeder extends Seeder
     /** @return void */
     public function run()
     {
-    	factory(User::class)->create();
+    	factory(User::class )->create();
     }
 }

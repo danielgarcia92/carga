@@ -7,6 +7,12 @@ use Faker\Generator as Faker;
 
 $factory->define(Origin::class, function (Faker $faker) {
     return [
+        'name' => 'viva'
+    ];
+});
+
+$factory->define(Origin::class, function (Faker $faker) {
+    return [
         'name' => 'aerocharter'
     ];
 });

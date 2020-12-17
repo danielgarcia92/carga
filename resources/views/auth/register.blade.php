@@ -94,6 +94,7 @@
                                         <option value="aerocharter">Aerocharter</option>
                                         <option value="almacenes">Almacenes</option>
                                         <option value="aeropuertos">Aeropuertos</option>
+                                        <option value="sobrecargos">Sobrecargos</option>
                                     </select>
                                     @error('area')
                                     <span class="invalid-feedback" role="alert">

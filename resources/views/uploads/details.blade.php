@@ -43,10 +43,10 @@
                                 <th scope="row">Matrícula</th>
                                 <td>{{ $row->rego }}</td>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <th scope="row">Volumen Total</th>
                                 <td>{{ round($row->volume, 2) . " m3" }}</td>
-                            </tr>
+                            </tr>-->
                             <tr>
                                 <th scope="row">Piezas totales</th>
                                 <td>{{ $row->pieces }}</td>

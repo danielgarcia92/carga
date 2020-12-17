@@ -42,6 +42,96 @@ class RouteServiceProvider extends ServiceProvider
     public const ALMACEN_TIJ = 'almacen.tij@vivaaerobus.com';
 
     /** @var string */
+    public const AEROPUERTOS_ACA = 'aca.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_BJX = 'bjx.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_CEN = 'cen.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_CJS = 'cjs.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_CUL = 'cul.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_CUN = 'cun.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_CUU = 'cuu.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_DGO = 'dgo.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_GDL = 'gdl.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_HMO = 'hmo.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_HUX = 'hux.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_LAP = 'lap.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_MEX = 'mex.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_MID = 'mid.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_MLM = 'mlm.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_MTY = 'mty.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_MXL = 'mxl.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_MZT = 'mzt.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_OAX = 'oax.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_PBC = 'pbc.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_PXM = 'pxm.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_REX = 'rex.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_SJD = 'sjd.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_SLP = 'slp.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_TAM = 'tam.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_TGZ = 'tgz.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_TRC = 'trc.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_VER = 'ver.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_VSA = 'vsa.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_ZCL = 'zcl.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_ZIH = 'zih.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_PVR = 'pvr.apto@vivaaerobus.com';
+    /** @var string */
+    public const AEROPUERTOS_TIJ = 'tij.apto@vivaaerobus.com';
+
+    /** @var string */
+    public const SOBRECARGO_1_MTY = 'mty.operaciones@vivaaerobus.com';
+    /** @var string */
+    public const SOBRECARGO_2_MTY = 'diana.mora@vivaaerobus.com';
+    /** @var string */
+    public const SOBRECARGO_1_GDL = 'ops.gdl@vivaaerobus.com';
+    /** @var string */
+    public const SOBRECARGO_2_GDL = 'luis.buenrostro@vivaaerobus.com';
+    /** @var string */
+    public const SOBRECARGO_1_TIJ = 'ivan.pacheco@vivaaerobus.com';
+    /** @var string */
+    public const SOBRECARGO_2_TIJ = 'ramon.ramos@vivaaerobus.com';
+    /** @var string */
+    public const SOBRECARGO_3_TIJ = 'vicente.cortes@vivaaerobus.com';
+    /** @var string */
+    public const SOBRECARGO_1_CUN = 'isai.fernandez@vivaaerobus.com';
+    /** @var string */
+    public const SOBRECARGO_2_CUN = 'ops.cun@vivaaerobus.com';
+    /** @var string */
+    public const SOBRECARGO_1_MEX = 'ops.mex@vivaaerobus.com';
+    /** @var string */
+    public const SOBRECARGO_2_MEX = 'mex.trafico@menziesaviation.com';
+
+    /** @var string */
     public const SAEROCHARTER_CUN = 'supervisor-cargo-cun@aerocharter.com.mx';
     /** @var string */
     public const MAEROCHARTER_CUN = 'mostrador-cargo-cun@aerocharter.com.mx';

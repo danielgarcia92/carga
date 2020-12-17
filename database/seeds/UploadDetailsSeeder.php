@@ -8,6 +8,6 @@ class UploadDetailsSeeder extends Seeder
     /** @return void */
     public function run()
     {
-        factory(UploadDetails::class)->create();
+        factory(UploadDetails::class )->create();
     }
 }

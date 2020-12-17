@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <label>Aeropuerto de Salida:</label>
+                    <label>* Aeropuerto de Salida:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <label>Aeropuerto de Llegada:</label>
+                    <label>* Aeropuerto de Llegada:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -71,7 +71,7 @@
 
             <div class="form-group row">
                 <div class="col-lg-4">
-                    <label>Número de Vuelo:</label>
+                    <label>* Número de Vuelo:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <label>Matrícula:</label>
+                    <label>* Matrícula:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <label>Número de Piezas:</label>
+                    <label>* Número de Piezas:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -112,7 +112,7 @@
 
             <div class="form-group row">
                 <div class="col-lg-4">
-                    <label>Peso (Kg):</label>
+                    <label>* Peso (Kg):</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -136,7 +136,7 @@
                     <span class="form-text text-muted">Coloca los metros cúbicos</span>
                 </div>
                 <div class="col-lg-4">
-                    <label>Envía:</label>
+                    <label>* Envía:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -151,7 +151,7 @@
 
             <div class="form-group row">
                 <div class="col-lg-4">
-                    <label>Descripción:</label>
+                    <label>* Descripción:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -163,7 +163,7 @@
                     <span class="form-text text-muted">Describa de forma clara lo que contiene el paquete</span>
                 </div>
                 <div class="col-lg-4">
-                    <label>Método de Aseguramiento:</label>
+                    <label>* Método de Aseguramiento:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -175,7 +175,7 @@
                     <span class="form-text text-muted">Describa el método de aseguramiento del paquete</span>
                 </div>
                 <div class="col-lg-4">
-                    <label>Embalaje:</label>
+                    <label>* Embalaje:</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
