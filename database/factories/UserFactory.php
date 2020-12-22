@@ -20,13 +20,13 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'name'      => 'Daniel García Vergara',
-        'rol'       => 'admin',
-        'area'      => 'TI',
-        'base'      => 'MTY',
-        'email'     => 'daniel.garciav@vivaaerobus.com',
-        'password'  => Hash::make('SJD+2020'),
-        'active'    => 1,
+        'name'           => 'Daniel García Vergara',
+        'rol'            => 'admin',
+        'areas_id'       => 6,
+        'airports_id'    => 21,
+        'email'          => 'daniel.garciav@vivaaerobus.com',
+        'password'       => Hash::make('SJD+2020'),
+        'active'         => 1,
         'remember_token' => Str::random(10),
     ];
 });

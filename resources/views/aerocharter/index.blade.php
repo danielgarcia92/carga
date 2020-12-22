@@ -58,8 +58,8 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Vuelo</th>
                     <th scope="col">STD</th>
+                    <th scope="col">Vuelo</th>
                     <th scope="col">idMensajeRCV</th>
                     <th scope="col">Formulario</th>
                 </tr>
@@ -67,8 +67,8 @@
             <tbody>
             @foreach($cargo as $c)
                 <tr>
-                    <th scope="row">{{ $c->flight }}</th>
                     <td>{{ $c->STD }}</td>
+                    <th scope="row">{{ $c->flight }}</th>
                     <td>{{ $c->idMensajeRCV }}</td>
                     <form method="POST" action="{{ url("aerocharter_form") }}" novalidate>
                         {{ csrf_field() }}

@@ -6,11 +6,11 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="mx-auto w-100">
                 <div class="card">
                     <div class="card-header">{{ $title }}{{ $row->flight_number }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body mx-auto w-75">
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <h6>Por favor corregir los siguiente errores:</h6>
@@ -137,26 +137,27 @@
 
                     @if($row->accept === null)
                         <div class="mx-auto w-75 card">
-                            @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
-                                <form method="POST" action="{{ url("main/details/{$row->id}") }}" validate>
-                                    {{ csrf_field() }}
-                                    {{ method_field('PUT') }}
+                            <form method="POST" action="{{ url("main/details/{$row->id}") }}" validate>
+                                {{ csrf_field() }}
+                                {{ method_field('PUT') }}
 
-                                    <input type="hidden" name="id" value="{{ $row->id }}"/>
-                                    <input type="hidden" id="accept" name="accept"/>
-                                    <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
-                                    <center><textarea name="message_approval" rows="3" cols="40" required></textarea></center>
-                                    <br>
+                                <input type="hidden" name="id" value="{{ $row->id }}"/>
+                                <input type="hidden" id="accept" name="accept"/>
+                                <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
+                                <center><textarea name="message_approval" rows="5" required></textarea></center>
+                                <br>
+                                @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
                                     <center>
-                                        <button type="submit" onclick="approve()">
-                                            <i class="far fa-check-circle" style="color:#008000;"></i>
-                                        </button>
-                                        <button type="submit" onclick="reject()">
-                                            <i class="far fa-times-circle" style="color:#cb3234;"></i>
-                                        </button>
+                                        <button type="submit" class="btn btn-primary" onclick="approve()"> Aprobar </button>
+                                        <button type="submit" class="btn btn-danger" onclick="reject()"> Rechazar </button>
                                     </center>
-                                </form>
-                            @endif
+                                @elseif (Auth::user()->rol == 'test')
+                                    <center>
+                                        <button type="submit" class="btn btn-primary" onclick="approve()" disabled> Aprobar </button>
+                                        <button type="submit" class="btn btn-danger" onclick="reject()" disabled> Rechazar </button>
+                                    </center>
+                                @endif
+                            </form>
                         </div>
                     @endif
                     <br>
@@ -165,4 +166,10 @@
             </div>
         </div>
     </div>
+    <style>
+        textarea {
+            font-size:20px;
+            width:100%;
+        }
+    </style>
 @endsection

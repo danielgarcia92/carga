@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="mx-auto w-75 card">
+    <div class="mx-auto card">
         <h2 class="card-header text-center">{{ $title }}</h2>
         <div class="card-body">
 

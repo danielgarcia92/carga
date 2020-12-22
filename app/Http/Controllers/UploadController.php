@@ -2,55 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Emails;
 use App\Upload;
+use App\Airports;
+use App\Flights;
 use App\Mail\RequestViva;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    /** @return void */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /** @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View */
+    /** @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse */
     public function indexAction()
     {
-        if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'admin') {
+        if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
+
+            date_default_timezone_set("America/Monterrey");
+
+            $flights= Flights::select('Dep', 'Flight', 'PortFrom', 'PortTo', 'Rego')
+                             ->where('SectorDate', date("Y-m-d"))
+                             ->get();
+
             return view('uploads.index')
-                ->with('title', 'Formulario de solicitud');
+                ->with('title', 'Formulario de solicitud')
+                ->with(compact('flights'));
         }
-        else {
-            return view('/home');
-        }
+
+        return redirect()->route('home');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse */
     public function storeAction()
     {
-        if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'admin') {
-            if  (Auth::user()->area == 'almacenes')
-                $to = ['ccv@vivaaerobus.com', Auth::user()->email, 'sergio.esquivel@vivaaerobus.com', 'juan.beltran@vivaaerobus.com'];
-            elseif (Auth::user()->area == 'aeropuertos')
-                $to = ['ccv@vivaaerobus.com', Auth::user()->email];
-            elseif (Auth::user()->area == 'sobrecargos')
-                $to = ['ccv@vivaaerobus.com', Auth::user()->email, 'sobrecargos@vivaaerobus.com', 'jorge.murga@vivaaerobus.com'];
-            else
-                $to = ['ccv@vivaaerobus.com', Auth::user()->email];
+        if (Auth::user()->rol == 'viva') {
+
+            $to = ['ccv@vivaaerobus.com', Auth::user()->email];
 
             $path = NULL;
             if (request()->file('file'))
@@ -100,17 +97,34 @@ class UploadController extends Controller
                 'send.required'          => 'El campo Envía es obligatorio',
                 'send.size'              => 'Envía: Máximo 100 caracteres',
                 'description.required'   => 'El campo Descripción es obligatorio',
-                'description.size'       => 'Descripción: Maximo 100 caracteres',
+                'description.size'       => 'Descripción: Máximo 100 caracteres',
                 'assurance.required'     => 'El campo Método de aseguramiento es obligatorio',
-                'assurance.size'         => 'Método de aseguramiento: Maximo 100 caracteres',
+                'assurance.size'         => 'Método de aseguramiento: Máximo 100 caracteres',
                 'packing.required'       => 'El campo Embalaje es obligatorio',
-                'packing.size'           => 'Embalaje: Maximo 100 caracteres'
+                'packing.size'           => 'Embalaje: Máximo 100 caracteres'
             ]);
+
+            $req['from_id'] = Airports::where('name', $req['from'])->get();
+            $req['to_id'] = Airports::where('name', $req['to'])->get();
+
+            if ( $req['from_id']->count() > 0) {
+                foreach ($req['from_id'] as $r)
+                    $req['from_id'] = $r->id;
+            } else
+                $req['from_id'] = 0;
+
+            if ( $req['to_id']->count() > 0) {
+                foreach ($req['to_id'] as $r)
+                    $req['to_id'] = $r->id;
+            } else
+                $req['to_id'] = 0;
 
             $data = Upload::updateOrCreate([
                 'flight_number' => 'VB' . $req['flight_number'],
                 'std'           => date('Y-m-d H:i:s', strtotime($req['std'])),
+                'from_id'       => $req['from_id'],
                 'from'          => strtoupper($req['from']),
+                'to_id'         => $req['to_id'],
                 'to'            => strtoupper($req['to']),
                 'rego'          => strtoupper($req['rego']),
                 'pieces'        => $req['pieces'],
@@ -129,127 +143,39 @@ class UploadController extends Controller
                 'email3'        => $email3
             ]);
 
-            if ( (Auth::user()->area == 'almacenes') && ($req['from'] == 'CUN' || $req['to'] == 'CUN') )
-                array_push($to, RouteServiceProvider::ALMACEN_CUN);
-            if ( (Auth::user()->area == 'almacenes') && ($req['from'] == 'GDL' || $req['to'] == 'GDL') )
-                array_push($to, RouteServiceProvider::ALMACEN_GDL);
-            if ( (Auth::user()->area == 'almacenes') && ($req['from'] == 'MEX' || $req['to'] == 'MEX') )
-                array_push($to, RouteServiceProvider::ALMACEN_MEX);
-            if ( (Auth::user()->area == 'almacenes') && ($req['from'] == 'MTY' || $req['to'] == 'MTY') )
-                array_push($to, RouteServiceProvider::ALMACEN_MTY);
-            if ( (Auth::user()->area == 'almacenes') && ($req['from'] == 'TIJ' || $req['to'] == 'TIJ') )
-                array_push($to, RouteServiceProvider::ALMACEN_TIJ);
+            $emails = Emails::where('areas_id', Auth::user()->areas_id)
+                            ->where(function($query) use ($req) {
+                                $query->where('airports_id', '=' , $req['from_id'])
+                                      ->orWhere('airports_id', '=' , $req['to_id'])
+                                      ->orWhere('airports_id', '=', 1);
+                            })
+                            ->get('email');
 
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'ACA' || $req['to'] == 'ACA') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_ACA);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'BJX' || $req['to'] == 'BJX') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_BJX);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'CEN' || $req['to'] == 'CEN') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_CEN);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'CJS' || $req['to'] == 'CJS') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_CJS);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'CUL' || $req['to'] == 'CUL') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_CUL);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'CUN' || $req['to'] == 'CUN') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_CUN);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'CUU' || $req['to'] == 'CUU') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_CUU);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'DGO' || $req['to'] == 'DGO') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_DGO);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'GDL' || $req['to'] == 'GDL') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_GDL);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'HMO' || $req['to'] == 'HMO') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_HMO);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'HUX' || $req['to'] == 'HUX') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_HUX);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'LAP' || $req['to'] == 'LAP') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_LAP);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'MEX' || $req['to'] == 'MEX') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_MEX);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'MID' || $req['to'] == 'MID') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_MID);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'MLM' || $req['to'] == 'MLM') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_MLM);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'MTY' || $req['to'] == 'MTY') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_MTY);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'MXL' || $req['to'] == 'MXL') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_MXL);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'MZT' || $req['to'] == 'MZT') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_MZT);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'OAX' || $req['to'] == 'OAX') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_OAX);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'PBC' || $req['to'] == 'PBC') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_PBC);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'PXM' || $req['to'] == 'PXM') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_PXM);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'REX' || $req['to'] == 'REX') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_REX);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'SJD' || $req['to'] == 'SJD') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_SJD);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'SLP' || $req['to'] == 'SLP') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_SLP);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'TAM' || $req['to'] == 'TAM') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_TAM);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'TGZ' || $req['to'] == 'TGZ') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_TGZ);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'TRC' || $req['to'] == 'TRC') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_TRC);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'VER' || $req['to'] == 'VER') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_VER);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'VSA' || $req['to'] == 'VSA') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_VSA);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'ZCL' || $req['to'] == 'ZCL') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_ZCL);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'ZIH' || $req['to'] == 'ZIH') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_ZIH);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'PVR' || $req['to'] == 'PVR') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_PVR);
-            if ( (Auth::user()->area == 'aeropuertos') && ($req['from'] == 'TIJ' || $req['to'] == 'TIJ') )
-                array_push($to, RouteServiceProvider::AEROPUERTOS_TIJ);
+            foreach ($emails as $email)
+                array_push($to, $email->email);
 
-            if ( (Auth::user()->area == 'sobrecargos') && ($req['from'] == 'MTY' || $req['to'] == 'MTY') ) {
-                array_push($to, RouteServiceProvider::SOBRECARGO_1_MTY);
-                array_push($to, RouteServiceProvider::SOBRECARGO_2_MTY);
-            }
-            if ( (Auth::user()->area == 'sobrecargos') && ($req['from'] == 'GDL' || $req['to'] == 'GDL') ) {
-                array_push($to, RouteServiceProvider::SOBRECARGO_1_GDL);
-                array_push($to, RouteServiceProvider::SOBRECARGO_2_GDL);
-            }
-            if ( (Auth::user()->area == 'sobrecargos') && ($req['from'] == 'TIJ' || $req['to'] == 'TIJ') ){
-                array_push($to, RouteServiceProvider::SOBRECARGO_1_GDL);
-                array_push($to, RouteServiceProvider::SOBRECARGO_2_TIJ);
-                array_push($to, RouteServiceProvider::SOBRECARGO_3_TIJ);
-            }
-            if ( (Auth::user()->area == 'sobrecargos') && ($req['from'] == 'CUN' || $req['to'] == 'CUN') ) {
-                array_push($to, RouteServiceProvider::SOBRECARGO_1_CUN);
-                array_push($to, RouteServiceProvider::SOBRECARGO_2_CUN);
-            }
-            if ( (Auth::user()->area == 'sobrecargos') && ($req['from'] == 'MEX' || $req['to'] == 'MEX') ) {
-                array_push($to, RouteServiceProvider::SOBRECARGO_1_MEX);
-                array_push($to, RouteServiceProvider::SOBRECARGO_2_MEX);
-            }
+            $subject = 'Comat: Solicitud Enviada ' . 'VB' . $req['flight_number'] . ' ' . $req['from'] . '-' . $req['to'] . ' ' . $req['std'];
 
-            Mail::to($to)->queue(new RequestViva($data));
+            Mail::to($to)->queue(new RequestViva($data, $subject));
 
-            return view('uploads.success');
+            return redirect()->route('uploads.success');
         }
-        else {
-            return view('/home');
-        }
+
+        return redirect()->route('home');
     }
 
     public function requestsAction()
     {
-        $uploads = Upload::where('created_by', '=', Auth::user()->id)->get();
+        if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
+            $uploads = Upload::where('created_by', '=', Auth::user()->id)->get();
 
-        if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'admin') {
             return view('uploads.requests')
                 ->with(compact('uploads'))
                 ->with('title', 'Mis solicitudes');
         }
-        else {
-            return view('/home');
-        }
+
+        return redirect()->route('home');
+
     }
 
     public function detailsAction(Upload $row)
@@ -259,54 +185,14 @@ class UploadController extends Controller
                 ->with('title', 'Detalles de la carga en vuelo - ')
                 ->with(compact('row'));
         }
-        else {
-            return view('/home');
-        }
+
+        return redirect()->route('home');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Upload  $upload
-     * @return \Illuminate\Http\Response
-     
-    public function show(Upload $upload)
+    public function successAction()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Upload  $upload
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Upload $upload)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Upload  $upload
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Upload $upload)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Upload  $upload
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Upload $upload)
-    {
-        //
+        return view('uploads.success');
     }
 
 }

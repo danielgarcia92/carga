@@ -90,11 +90,9 @@
                                 <div class="col-9">
                                     <select id="area" type="text" class="form-control @error('area') is-invalid @enderror" name="area" value="{{ old('area') }}" required autocomplete="area" autofocus>
                                         <option value=""></option>
-                                        <option value="ccv">CCV</option>
-                                        <option value="aerocharter">Aerocharter</option>
-                                        <option value="almacenes">Almacenes</option>
-                                        <option value="aeropuertos">Aeropuertos</option>
-                                        <option value="sobrecargos">Sobrecargos</option>
+                                        @foreach(\App\Areas::all() as $area)
+                                            <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                        @endforeach
                                     </select>
                                     @error('area')
                                     <span class="invalid-feedback" role="alert">
@@ -108,17 +106,14 @@
                             <div class="form-group row">
                                 <label class="col-form-label col-3 text-lg-right text-left">Base</label>
                                 <div class="col-9">
-                                    <select id="base" type="text" class="form-control @error('base') is-invalid @enderror" name="base" value="{{ old('base') }}" required autocomplete="base" autofocus>
-                                        <option value=""></option>
-                                        <option value="CUN">CUN</option>
-                                        <option value="GDL">GDL</option>
-                                        <option value="MEX">MEX</option>
-                                        <option value="MTY">MTY</option>
-                                        <option value="TIJ">TIJ</option>
-                                        <option value="N/A">No Aplica</option>
+                                    <select id="base" type="text" class="form-control @error('base') is-invalid @enderror" name="base" value="{{ old('base') }}" autocomplete="base" autofocus>
+                                        <option value="">N/A</option>
+                                        @foreach(\App\Airports::where('base', 1)->get() as $base)
+                                            <option value={{ $base->id }}>{{ $base->name }}</option>
+                                        @endforeach
                                     </select>
                                     @error('base')
-                                    <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror

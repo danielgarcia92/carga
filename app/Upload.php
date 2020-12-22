@@ -9,17 +9,17 @@ class Upload extends Model
 {
     use Sortable;
 
-	/**
-     * The attributes that are mass assignable.
-     *
-     * @var array 
-     */
+    protected $connection = 'sqlsrv';
+
+	/** @var array */
 	protected $fillable = [
 	    'accept'
         , 'flight_number'
         , 'legcd'
         , 'std'
+        , 'from_id'
         , 'from'
+        , 'to_id'
         , 'to'
         , 'rego'
         , 'guide_number'

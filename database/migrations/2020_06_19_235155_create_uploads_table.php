@@ -13,12 +13,22 @@ class CreateUploadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('uploads', function (Blueprint $table) {
+        Schema::connection('sqlsrv')->create('uploads', function (Blueprint $table) {
             $table->id();
             $table->integer('accept')->nullable();
             $table->string('flight_number');
             $table->dateTime('std');
+            $table->integer('from_id')
+                ->foreign('airports_id')
+                ->references('id')
+                ->on('airports')
+                ->nullable();
             $table->string('from', 3);
+            $table->integer('to_id')
+                ->foreign('airports_id')
+                ->references('id')
+                ->on('airports')
+                ->nullable();
             $table->string('to', 3)->nullable();
             $table->string('rego', 6)->nullable();
             $table->string('send')->nullable();

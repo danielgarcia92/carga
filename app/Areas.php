@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CargoAerocharter extends Model
+class Areas extends Model
 {
     protected $connection = 'sqlsrv';
 
-    protected $table = 'tblCargoAeroCharter';
+    /** @var array */
+    protected $fillable = [
+        'name'
+    ];
 }

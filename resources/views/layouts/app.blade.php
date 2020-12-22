@@ -128,29 +128,32 @@
                                         <!--begin::Header Nav-->
                                         @auth
                                         <ul class="menu-nav">
-                                            @if (Auth::user()->rol == 'admin' )
-                                            <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
-                                                <a class="menu-link" href="{{ url('/viva_requests') }}">
-                                                    <span class="menu-text">{{ 'Mis solicitudes' }}</span> 
-                                                </a>
-                                            </li>
-                                            <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
-                                                <a class="menu-link" href="{{ url('/uploads') }}">
-                                                    <span class="menu-text">{{ 'Solicitar' }}</span> 
-                                                    
-                                                </a>
-                                            </li>
-                                            <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
-                                                <a class="menu-link" href="{{ url('/main') }}">
-                                                    <span class="menu-text">{{ 'Aprobar' }}</span>
-                                                </a>
-                                            </li>
-                                            <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
-                                                 <a class="menu-link" href="{{ url('/register') }}">
-                                                    <span class="menu-text">{{ 'Registrar' }}</span>
-                                                </a>
-                                            </li>
-                                            <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
+                                            @if ( Auth::user()->rol == 'admin' )
+                                                <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
+                                                    <a class="menu-link" href="{{ url('/register') }}">
+                                                        <span class="menu-text">{{ 'Registrar' }}</span>
+                                                    </a>
+                                                </li>
+                                            @endif
+
+                                            @if (Auth::user()->rol == 'test' || Auth::user()->rol == 'admin' )
+                                                <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
+                                                    <a class="menu-link" href="{{ url('/viva_requests') }}">
+                                                        <span class="menu-text">{{ 'Mis solicitudes' }}</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
+                                                    <a class="menu-link" href="{{ url('/uploads') }}">
+                                                        <span class="menu-text">{{ 'Solicitar' }}</span>
+
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
+                                                    <a class="menu-link" href="{{ url('/main') }}">
+                                                        <span class="menu-text">{{ 'Aprobar' }}</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
                                                     <a class="menu-link" href="{{ url('/aerocharter_requests') }}">
                                                         <span class="menu-text">{{ 'Solicitudes Aerocharter' }}</span>
                                                     </a>
@@ -256,6 +259,13 @@
             function reject() {
                 document.getElementById('accept').value = "0";
                 return confirm('¿Realmente desea rechazar la solicitud?')
+            }
+
+            function populate() {
+                document.getElementById('std').value  = $('#flight_number').find("option:selected").attr("Dep");
+                document.getElementById('from').value = $('#flight_number').find("option:selected").attr("PortFrom");
+                document.getElementById('to').value   = $('#flight_number').find("option:selected").attr("PortTo");
+                document.getElementById('rego').value = $('#flight_number').find("option:selected").attr("Rego");
             }
         </script>
         

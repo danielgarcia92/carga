@@ -23,25 +23,60 @@
             </ul>
         </div>
     @endif
-   
+
      <form method="POST" action="{{ url('uploads') }}" class="needs-validation" enctype="multipart/form-data">
         
         {!! csrf_field() !!}
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-lg-4">
-                    <label>Fecha de Vuelo (UTC):</label>
+                    <label>* Número de Vuelo:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-calendar-plus-o"></i>
+                            </span>
+                        </div>
+
+                        <select class="form-control" onchange="populate()" id="flight_number" name="flight_number" required>
+                            <option value=""></option>
+                            @foreach($flights as $flight)
+                                <option Dep="{{ $flight->Dep }}" PortFrom="{{ $flight->PortFrom }}" PortTo="{{ $flight->PortTo }}" Rego="{{ $flight->Rego }}" value="{{ $flight->Flight }}"> VB{{ $flight->Flight }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <span class="form-text text-muted">Utilizar número de máximo 4 dígitos</span>
+                </div>
+
+                <div class="col-lg-4">
+                    <label>* Fecha de Vuelo (UTC):</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="la la-calendar"></i>
                             </span>
                         </div>
-                        <input type="datetime-local" class="form-control" id="std" name="std" placeholder="Fecha" value="{{ old('std') }}" required>
+                        <input type="text" class="form-control" id="std" name="std" placeholder="Fecha" readonly/>
                     </div>
                     <span class="form-text text-muted">Verifica que la fecha esté en UTC</span>
                 </div>
 
+                <div class="col-lg-4">
+                    <label>* Matrícula:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="la la-chain"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" id="rego" name="rego" placeholder="XX-XXX" maxlength="6" style="text-transform:uppercase" readonly>
+                    </div>
+                    <span class="form-text text-muted">Formato XX-XXX</span>
+                </div>
+
+            </div>
+
+            <div class="form-group row">
                 <div class="col-lg-4">
                     <label>* Aeropuerto de Salida:</label>
                     <div class="input-group">
@@ -50,7 +85,7 @@
                                 <i class="la la-plane"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" id="from" name="from" placeholder="XXX" maxlength="3" style="text-transform:uppercase" value="{{ old('from') }}" autocomplete="off" required>
+                        <input type="text" class="form-control" id="from" name="from" placeholder="XXX" maxlength="3" style="text-transform:uppercase" readonly>
                     </div>
                     <span class="form-text text-muted">Utilizar Código IATA del Aeropuerto</span>
                 </div>
@@ -63,37 +98,9 @@
                                 <i class="la la-plane"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" id="to" name="to" placeholder="XXX" maxlength="3" style="text-transform:uppercase" value="{{ old('to') }}" required>
+                        <input type="text" class="form-control" id="to" name="to" placeholder="XXX" maxlength="3" style="text-transform:uppercase" readonly>
                     </div>
                     <span class="form-text text-muted">Utilizar Código IATA del Aeropuerto</span>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-lg-4">
-                    <label>* Número de Vuelo:</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="la la-calendar-plus-o"></i>
-                            </span>
-                        </div>
-                        <input type="number" class="form-control" id="flight_number" name="flight_number" placeholder="Máximo 4 dígitos" min="0" max="9999" value="{{ old('flight_number') }}" autocomplete="off" required/>
-                    </div>
-                    <span class="form-text text-muted">Utilizar número de máximo 4 dígitos</span>
-                </div>
-
-                <div class="col-lg-4">
-                    <label>* Matrícula:</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="la la-chain"></i>
-                            </span>
-                        </div>
-                        <input type="text" class="form-control" id="rego" name="rego" placeholder="XX-XXX" maxlength="6" style="text-transform:uppercase" value="{{ old('rego') }}" autocomplete="off" required>
-                    </div>
-                    <span class="form-text text-muted">Formato XX-XXX</span>
                 </div>
 
                 <div class="col-lg-4">
@@ -162,6 +169,7 @@
                     </div>
                     <span class="form-text text-muted">Describa de forma clara lo que contiene el paquete</span>
                 </div>
+
                 <div class="col-lg-4">
                     <label>* Método de Aseguramiento:</label>
                     <div class="input-group">
@@ -234,19 +242,18 @@
                     <span class="form-text text-muted">Sólo llenar en caso de querer enviar una imagen de la solicitud</span>
                 </div>
             </div>
+        </div>
 
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-8">
-                    @if ( Auth::user()->rol != 'test')
-                    <button type="submit" class="btn btn-primary mr-2">Enviar</button>
-                    
-                    @endif
-                </div>
-            </div>
-        </div>
+         <div class="card-footer">
+             <div class="row">
+                 <div class="col-lg-4"></div>
+                 <div class="col-lg-8">
+                     @if ( Auth::user()->rol != 'test')
+                         <button type="submit" class="btn btn-primary mr-2">Enviar</button>
+                     @endif
+                 </div>
+             </div>
+         </div>
     </form>
     <!--end::Form-->
 </div>

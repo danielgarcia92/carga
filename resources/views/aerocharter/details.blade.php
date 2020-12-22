@@ -6,11 +6,11 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-16">
                 <div class="card">
                     <div class="card-header">{{ $title }}{{ $row->flight_number }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body mx-auto w-75">
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <h6>Por favor corregir los siguiente errores:</h6>

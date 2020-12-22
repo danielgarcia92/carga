@@ -9,11 +9,9 @@ class UploadDetails extends Model
 {
     use Sortable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    protected $connection = 'sqlsrv';
+
+    /** @var array */
     protected $fillable = [
         'guide_number'
         , 'pieces'

@@ -13,7 +13,7 @@ class CreateOriginsTable extends Migration
      */
     public function up()
     {
-        Schema::create('origins', function (Blueprint $table) {
+        Schema::connection('sqlsrv')->create('origins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();

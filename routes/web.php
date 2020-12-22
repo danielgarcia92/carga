@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')
     ->name('home');
 
-
 Route::get('/aerocharter', 'AerocharterController@indexAction')
     ->name('aerocharter.index');
 Route::get('/aerocharter_requests', 'AerocharterController@requestsAction')
@@ -17,9 +16,8 @@ Route::post('/aerocharter_requests/{row}', 'AerocharterController@detailsAction'
     ->name('aerocharter.details');
 Route::post('aerocharter_form', 'AerocharterController@formAction')
     ->name('aerocharter.form');
-Route::get('/aerocharter/success', function () {
-    return view('aerocharter.success');
-});
+Route::get('/aerocharter/success', 'AerocharterController@successAction')
+    ->name('aerocharter.success');
 
 Route::get('/main', 'MainController@indexAction')
     ->name('main.index');
@@ -41,9 +39,7 @@ Route::post('/viva_requests/{row}', 'UploadController@detailsAction')
     ->name('uploads.details');
 Route::post('uploads', 'UploadController@storeAction')
     ->name('uploads.store');
-Route::get('success', function () {
-    return view('uploads.success');
-});
-
+Route::get('/uploads/success', 'UploadController@successAction')
+    ->name('uploads.success');
 
 Auth::routes();

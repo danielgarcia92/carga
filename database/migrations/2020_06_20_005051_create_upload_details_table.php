@@ -13,7 +13,7 @@ class CreateUploadDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('upload_details', function (Blueprint $table) {
+        Schema::connection('sqlsrv')->create('upload_details', function (Blueprint $table) {
             $table->id();
             $table->string('guide_number');
             $table->float('pieces', 10, 2);
