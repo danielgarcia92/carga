@@ -12,7 +12,6 @@ use App\Mail\ApprovedAerocharter;
 use App\Mail\RejectedAerocharter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Providers\RouteServiceProvider;
 
 class MainController extends Controller
 {
@@ -91,19 +90,19 @@ class MainController extends Controller
                 array_push($to, $row->email3);
 
             if ($row->origins_id == 1 && $row->accept == 1) {
-                $subject = 'Comat: Solicitud Aprobada ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
+                $subject = 'Comat: Solicitud APROBADA ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
                 Mail::to($to)->queue(new ApprovedViva($row, $subject));
             }
             elseif ($row->origins_id == 1 && $row->accept == 0) {
-                $subject = 'Comat: Solicitud Rechazada ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
+                $subject = 'Comat: Solicitud RECHAZADA ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
                 Mail::to($to)->queue(new RejectedViva($row, $subject));
             }
             elseif ($row->origins_id == 2 && $row->accept == 1) {
-                $subject = 'Carga: Solicitud Aerocharter Aprobada ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
+                $subject = 'Carga: Solicitud Aerocharter APROBADA ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
                 Mail::to($to)->queue(new ApprovedAerocharter($row, $items, $subject));
             }
             else {
-                $subject = 'Carga: Solicitud Aerocharter Rechazada ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
+                $subject = 'Carga: Solicitud Aerocharter RECHAZADA ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
                 Mail::to($to)->queue(new RejectedAerocharter($row, $items, $subject));
             }
 

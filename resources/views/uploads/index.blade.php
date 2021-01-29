@@ -237,7 +237,7 @@
                 <div class="col-lg-4">
                     <label>Subir imagen:</label>
                     <div class="input-group">
-                        <input type="file" id="file" name="file" accept="image/png, image/jpeg" />
+                        <input type="file" class="form-control" id="file" name="file" accept="image/png, image/jpeg" />
                     </div>
                     <span class="form-text text-muted">Sólo llenar en caso de querer enviar una imagen de la solicitud</span>
                 </div>

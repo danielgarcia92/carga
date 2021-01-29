@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Mail\RequestAerocharter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class AerocharterController extends Controller
 {
@@ -71,6 +72,14 @@ class AerocharterController extends Controller
             $totalVolume = 0.0;
             $totalWeight = 0.0;
 
+            $path = NULL;
+            if (request()->file('file'))
+                $path = Storage::disk('public')->put('image', request()->file('file'));
+
+            $inter_cargo = NULL;
+            if (request()->input('int_cargo'))
+                $inter_cargo = request()->input('$inter_cargo');
+
             foreach ($request->input('pieces') as $piece)
                 $totalPieces += $piece;
 
@@ -104,14 +113,16 @@ class AerocharterController extends Controller
                 'flight_number' => $request->input('flight_number'),
                 'rego'          => strtoupper($request->input('rego')),
 
-                'pieces' => $totalPieces,
-                'volume_unit' => 'MC',
-                'volume' => $totalVolume,
-                'weight' => $totalWeight,
+                'pieces'        => $totalPieces,
+                'volume_unit'   => 'MC',
+                'volume'        => $totalVolume,
+                'weight'        => $totalWeight,
 
-                'description' => $request->input('description'),
-                'assurance' => $request->input('assurance'),
-                'packing' => $request->input('packing'),
+                'description'   => $request->input('description'),
+                'assurance'     => $request->input('assurance'),
+                'packing'       => $request->input('packing'),
+                'file'          => $path,
+                'inter_cargo'   => $inter_cargo,
 
                 'origins_id' => 2,
                 'created_by' => Auth::user()->getAuthIdentifier(),

@@ -92,6 +92,20 @@
                     <label for="packing">* Embalaje</label>
                     <textarea class="form-control" id="packing" name="packing" rows="3" maxlength="100" required>{{ old('packing') }}</textarea>
                 </div>
+                <div class="form-group">
+                    <label for="inter_cargo">N° Auth de envío carga internacional</label>
+                    <input type="text" class="form-control" id="inter_cargo" maxlength="20" name="inter_cargo">
+                    <span class="form-text text-muted">Sólo llenar en caso de vuelo internacional</span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <label>Subir archivo:</label>
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="file" name="file" accept="image/png, image/jpeg, application/pdf" />
+                        </div>
+                        <span class="form-text text-muted">Sólo llenar en caso de querer enviar un archivo</span>
+                    </div>
+                </div>
                 <br>
                 @if ( Auth::user()->rol != 'test')
                     <div class="mx-auto text-center">

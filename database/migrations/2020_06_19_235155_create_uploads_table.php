@@ -57,6 +57,7 @@ class CreateUploadsTable extends Migration
             $table->string('email1')->nullable();
             $table->string('email2')->nullable();
             $table->string('email3')->nullable();
+            $table->string('inter_cargo')->nullable();
             $table->timestamps();
         });
     }
