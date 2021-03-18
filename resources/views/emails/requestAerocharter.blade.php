@@ -4,7 +4,7 @@
         <title>Envío de solicitud de carga Aerocharter</title>
     </head>
     <body>
-        La solicitud de envío de carga por parte de Aerocharter ha sido diligenciada satisfactoriamente, el equipo del centro de control de Viva Aerobus está evaluando la información.
+        La solicitud de carga por parte de Aerocharter ha sido enviada satisfactoriamente, el equipo del centro de control de Viva Aerobus está evaluando la información.
         <br/>
         <p>Los datos enviados son los siguientes: </p>
         <p><strong># Folio: </strong>{{ $data['id'] }}</p>
