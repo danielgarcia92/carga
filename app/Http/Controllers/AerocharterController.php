@@ -179,7 +179,8 @@ class AerocharterController extends Controller
             $origins = Origin::where('name', '=', Auth::user()->rol)->get('id');
 
             if (isset($origins[0]->id))
-                $uploads = Upload::where('origins_id', '=', $origins[0]->id)->get();
+                $uploads = Upload::where('origins_id', '=', $origins[0]->id)
+                                 ->where('created_by', '=', Auth::user()->id)->get();
             else
                 $uploads = [];
 
