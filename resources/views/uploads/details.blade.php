@@ -86,6 +86,12 @@
                                     <td>{{ $row->message_approval }}</td>
                                 </tr>
                             @endif
+                            @if($row->file !== NULL)
+                                <tr>
+                                    <th scope="row">Imagen</th>
+                                    <td><a href="{{ asset($row->file) }}">Imagen</a></td>
+                                </tr>
+                            @endif
                         </table>
                     </div>
 

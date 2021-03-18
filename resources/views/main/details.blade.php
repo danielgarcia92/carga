@@ -43,10 +43,12 @@
                                 <th scope="row">Matrícula</th>
                                 <td>{{ $row->rego }}</td>
                             </tr>
-                            <tr>
-                                <th scope="row">Volumen Total</th>
-                                <td>{{ round($row->volume, 2) . " m3" }}</td>
-                            </tr>
+                            @if($row->volume !== NULL)
+                                <tr>
+                                    <th scope="row">Volumen Total</th>
+                                    <td>{{ round($row->volume, 2) . " m3" }}</td>
+                                </tr>
+                            @endif
                             <tr>
                                 <th scope="row">Piezas totales</th>
                                 <td>{{ $row->pieces }}</td>
@@ -147,15 +149,19 @@
                                 <center><textarea name="message_approval" rows="5" required></textarea></center>
                                 <br>
                                 @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
-                                    <center>
-                                        <button type="submit" class="btn btn-primary" onclick="approve()"> Aprobar </button>
-                                        <button type="submit" class="btn btn-danger" onclick="reject()"> Rechazar </button>
-                                    </center>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <td></td>
+                                            <td><center><button type="submit" class="btn btn-primary" onclick="approve()"> Aprobar </button></center></td>
+                                            <td><center><button type="submit" class="btn btn-danger" onclick="reject()"> Rechazar </button></center></td>
+                                            <td></td>
+                                        </tr>
+                                        </thead>
+                                    </table>
                                 @elseif (Auth::user()->rol == 'test')
-                                    <center>
-                                        <button type="submit" class="btn btn-primary" onclick="approve()" disabled> Aprobar </button>
-                                        <button type="submit" class="btn btn-danger" onclick="reject()" disabled> Rechazar </button>
-                                    </center>
+                                    <button type="submit" class="btn btn-primary" onclick="approve()" disabled> Aprobar </button>
+                                    <button type="submit" class="btn btn-danger" onclick="reject()" disabled> Rechazar </button>
                                 @endif
                             </form>
                         </div>
