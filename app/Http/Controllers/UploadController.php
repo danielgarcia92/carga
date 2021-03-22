@@ -143,7 +143,10 @@ class UploadController extends Controller
                 'email3'        => $email3
             ]);
 
-            $emails = Emails::where('areas_id', Auth::user()->areas_id)
+            $emails = Emails::where(function($query) use ($req) {
+                                $query->where('areas_id', '=', 1)
+                                      ->orWhere('areas_id', Auth::user()->areas_id);
+                            })
                             ->where(function($query) use ($req) {
                                 $query->where('airports_id', '=' , $req['from_id'])
                                       ->orWhere('airports_id', '=' , $req['to_id'])

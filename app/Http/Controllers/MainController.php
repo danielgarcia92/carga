@@ -71,7 +71,10 @@ class MainController extends Controller
 
             $to = ['ccv@vivaaerobus.com', $created_by[0]->email];
 
-            $emails = Emails::where('areas_id', $areas_id[0]->areas_id)
+            $emails = Emails::where(function($query) use ($areas_id ) {
+                                $query->where('areas_id', '=', 1)
+                                    ->orWhere('areas_id', $areas_id[0]->areas_id);
+                            })
                             ->where(function($query) use ($row) {
                                 $query->where('airports_id', '=' , $row->from_id)
                                       ->orWhere('airports_id', '=' , $row->to_id)
