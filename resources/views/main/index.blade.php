@@ -97,6 +97,7 @@
             @endforeach
             </tbody>
         </table>
+            {{ $uploads->links() }}
     </div>
 </div>
 @endsection

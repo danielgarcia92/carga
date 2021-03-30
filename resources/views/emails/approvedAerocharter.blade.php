@@ -6,7 +6,7 @@
     <body>
         La carga de Aerocharter ha sido <strong>APROBADA</strong>
         <br/>
-        <p>Los datos aprobados son los siguientes: </p>
+        <p><strong># Folio: </strong>{{ $data['id'] }}</p>
         <p><strong>Comentarios de CCV: </strong>{{ $data['message_approval'] }}</p>
         <p><strong>Número de Vuelo: </strong>{{ $data['flight_number'] }}</p>
         <p><strong>STD: </strong>{{ $data['std'] }}</p>

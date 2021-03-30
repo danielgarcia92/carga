@@ -102,6 +102,16 @@
                                 <th scope="row">Origen</th>
                                 <td>{{ \App\Origin::where('id', $row->origins_id)->first()->name }}</td>
                             </tr>
+                            <tr>
+                                <th scope="row">Estatus</th>
+                                @if($row->accept == 1)
+                                    <td style="color:#008000;">Aprobado</td>
+                                @elseif($row->accept == 0 && $row->accept != null)
+                                    <td style="color:#cb3234;">Rechazado</td>
+                                @else
+                                    <td style="color:#ffcc00;">Pendiente</td>
+                                @endif
+                            </tr>
                         </table>
                     </div>
 
@@ -137,34 +147,22 @@
 
                     @endif
 
-                    @if($row->accept === null)
-                        <div class="mx-auto w-75 card">
-                            <form method="POST" action="{{ url("main/details/{$row->id}") }}" validate>
-                                {{ csrf_field() }}
-                                {{ method_field('PUT') }}
+                    <div id="bUpd">
+                        <center>
+                            <button type="submit" class="btn btn-secondary" onclick="form1()"> Actualizar estatus </button>
+                        </center>
+                    </div>
 
-                                <input type="hidden" name="id" value="{{ $row->id }}"/>
-                                <input type="hidden" id="accept" name="accept"/>
-                                <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
-                                <center><textarea name="message_approval" rows="5" required></textarea></center>
-                                <br>
-                                @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <td></td>
-                                            <td><center><button type="submit" class="btn btn-primary" onclick="approve()"> Aprobar </button></center></td>
-                                            <td><center><button type="submit" class="btn btn-danger" onclick="reject()"> Rechazar </button></center></td>
-                                            <td></td>
-                                        </tr>
-                                        </thead>
-                                    </table>
-                                @elseif (Auth::user()->rol == 'test')
-                                    <button type="submit" class="btn btn-primary" onclick="approve()" disabled> Aprobar </button>
-                                    <button type="submit" class="btn btn-danger" onclick="reject()" disabled> Rechazar </button>
-                                @endif
-                            </form>
-                        </div>
+                    @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
+                        <form method="POST" action="{{ url("main/details/{$row->id}") }}" validate>
+                            {{ csrf_field() }}
+                            {{ method_field('PUT') }}
+
+                            <input type="hidden" name="id" value="{{ $row->id }}"/>
+                            <input type="hidden" id="accept" name="accept"/>
+                            <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
+                            <div id="form1"></div>
+                        </form>
                     @endif
                     <br>
                     <br>

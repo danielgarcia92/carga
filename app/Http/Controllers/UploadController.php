@@ -24,10 +24,9 @@ class UploadController extends Controller
     {
         if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
 
-            date_default_timezone_set("America/Monterrey");
-
-            $flights= Flights::select('Dep', 'Flight', 'PortFrom', 'PortTo', 'Rego')
+            $flights= Flights::select('DepZulu', 'Flight', 'PortFrom', 'PortTo', 'Rego')
                              ->where('SectorDate', date("Y-m-d"))
+                             ->where('DepZulu', '>=', date("Y-m-d H:i:s", strtotime('+1 hour')))
                              ->get();
 
             return view('uploads.index')

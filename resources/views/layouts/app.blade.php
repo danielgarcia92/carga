@@ -253,12 +253,16 @@
         <script>
             function approve() {
                 document.getElementById('accept').value = "1";
-                return confirm('¿Realmente desea aprobar la solicitud?')
+                window.onbeforeunload = function() {
+                    return "¿Realmente desea aprobar la solicitud?";
+                }
             }
 
             function reject() {
                 document.getElementById('accept').value = "0";
-                return confirm('¿Realmente desea rechazar la solicitud?')
+                window.onbeforeunload = function() {
+                    return "¿Realmente desea rechazar la solicitud?";
+                }
             }
 
             function populate() {
@@ -266,6 +270,26 @@
                 document.getElementById('from').value = $('#flight_number').find("option:selected").attr("PortFrom");
                 document.getElementById('to').value   = $('#flight_number').find("option:selected").attr("PortTo");
                 document.getElementById('rego').value = $('#flight_number').find("option:selected").attr("Rego");
+            }
+
+            function form1() {
+                let tag = '<div class="mx-auto w-75 card">';
+                    tag += '<center><textarea name="message_approval" rows="5" required></textarea></center>';
+                    tag += '<br>';
+                    tag += '<table class="table">';
+                    tag += '<thead>';
+                    tag += '<tr>';
+                    tag += '<td></td>';
+                    tag += '<td><center><button type="submit" class="btn btn-primary" onclick="approve()"> Aprobar </button></center></td>';
+                    tag += '<td><center><button type="submit" class="btn btn-danger" onclick="reject()"> Rechazar </button></center></td>';
+                    tag += '<td></td>';
+                    tag += '</tr>';
+                    tag += '</thead>';
+                    tag += '</table>';
+                    tag += '</div>';
+
+                    $("#bUpd").html("");
+                    $("#form1").append(tag);
             }
         </script>
         
