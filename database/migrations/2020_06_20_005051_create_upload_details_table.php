@@ -19,6 +19,8 @@ class CreateUploadDetailsTable extends Migration
             $table->float('pieces', 10, 2);
             $table->float('weight', 10, 2);
             $table->float('volume', 5, 2);
+            $table->string('partial');
+            $table->string('density');
             $table->string('nature_goods');
             $table->string('route_item');
             $table->integer('accept')->nullable();

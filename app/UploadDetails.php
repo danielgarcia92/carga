@@ -17,6 +17,8 @@ class UploadDetails extends Model
         , 'pieces'
         , 'weight'
         , 'volume'
+        , 'partial'
+        , 'density'
         , 'nature_goods'
         , 'route_item'
         , 'uploads_id'

@@ -26,6 +26,8 @@
                 <th>Piezas</th>
                 <th>Peso</th>
                 <th>Volumen</th>
+                <th>Parcial</th>
+                <th>Densidad</th>
                 <th>Tipo de carga</th>
                 <th>Ruta</th>
             </tr>
@@ -37,6 +39,8 @@
                         <td><input type="text" class="form-control" value="{{ $items['pieces'][$key] }}" readonly/></td>
                         <td><input type="text" class="form-control" value="{{ round($items['weight'][$key], 2) }}" readonly/></td>
                         <td><input type="text" class="form-control" value="{{ round($items['volume'][$key], 2) }}" readonly/></td>
+                        <td><input type="text" class="form-control" value="{{ round($items['partial'][$key], 2) }}" readonly/></td>
+                        <td><input type="text" class="form-control" value="{{ round($items['density'][$key], 3) }}" readonly/></td>
                         <td><input type="text" class="form-control" value="{{ $items['nature_goods'][$key] }}" readonly/></td>
                         <td><input type="text" class="form-control" value="{{ $items['route_item'][$key] }}" readonly/></td>
                     </tr>

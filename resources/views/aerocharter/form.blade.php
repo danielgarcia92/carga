@@ -60,6 +60,8 @@
                                     <th>Piezas</th>
                                     <th>Peso</th>
                                     <th>Volumen</th>
+                                    <th>Parcial</th>
+                                    <th>Densidad</th>
                                     <th>Tipo de carga</th>
                                     <th>Ruta</th>
                                 </tr>
@@ -71,6 +73,8 @@
                                     <td><input type="text" name="pieces[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
                                     <td><input type="text" name="weight[]" class="form-control" value="{{ round($d->weightkg, 2) }}" readonly></td>
                                     <td><input type="text" name="volume[]" class="form-control" value="{{ round($d->volume, 2) }}" readonly></td>
+                                    <td><input type="text" name="partial[]" class="form-control" value="{{ round($d->partial, 2) }}" readonly></td>
+                                    <td><input type="text" name="density[]" class="form-control" value="{{ round($d->density, 2) }}" readonly></td>
                                     <td><input type="text" name="nature_goods[]" class="form-control" value="{{ $d->description }}" readonly></td>
                                     <td><input type="text" name="route_item[]" class="form-control" value="{{ $d->routeItem }}" readonly></td>
                                 </tr>

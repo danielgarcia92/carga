@@ -132,15 +132,19 @@ class AerocharterController extends Controller
             $items['pieces'] = $request->get('pieces');
             $items['weight'] = $request->get('weight');
             $items['volume'] = $request->get('volume');
+            $items['partial'] = $request->get('partial');
+            $items['density'] = $request->get('density');
             $items['nature_goods'] = $request->get('nature_goods');
             $items['route_item'] = $request->get('route_item');
 
             foreach ($items['guide_number'] as $item => $value) {
                 UploadDetails::updateOrCreate([
                     'guide_number' => $items['guide_number'][$item],
-                    'pieces' => $items['pieces'][$item],
-                    'weight' => $items['weight'][$item],
-                    'volume' => $items['volume'][$item],
+                    'pieces'  => $items['pieces'][$item],
+                    'weight'  => $items['weight'][$item],
+                    'volume'  => $items['volume'][$item],
+                    'partial' => $items['partial'][$item],
+                    'density' => $items['density'][$item],
                     'nature_goods' => $items['nature_goods'][$item],
                     'route_item' => $items['route_item'][$item],
                     'uploads_id' => $data->id

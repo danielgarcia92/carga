@@ -43,10 +43,12 @@
                                 <th scope="row">Matrícula</th>
                                 <td>{{ $row->rego }}</td>
                             </tr>
-                            <tr>
-                                <th scope="row">Volumen Total</th>
-                                <td>{{ round($row->volume, 2) . " m3" }}</td>
-                            </tr>
+                            @if($row->volume != 0)
+                                <tr>
+                                    <th scope="row">Volumen Total</th>
+                                    <td>{{ round($row->volume, 2) . " m3" }}</td>
+                                </tr>
+                            @endif
                             <tr>
                                 <th scope="row">Piezas totales</th>
                                 <td>{{ $row->pieces }}</td>
@@ -98,6 +100,8 @@
                                         <th>Piezas</th>
                                         <th>Peso</th>
                                         <th>Volumen</th>
+                                        <th>Parcial</th>
+                                        <th>Densidad</th>
                                         <th>Tipo de carga</th>
                                         <th>Ruta</th>
                                     </tr>
@@ -109,6 +113,8 @@
                                             <td><input type="text" name="pieces[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
                                             <td><input type="text" name="weight[]" class="form-control" value="{{ round($d->weight, 2) }}" readonly></td>
                                             <td><input type="text" name="volume[]" class="form-control" value="{{ round($d->volume,2) }}" readonly></td>
+                                            <td><input type="text" name="partial[]" class="form-control" value="{{ round($d->partial,2) }}" readonly></td>
+                                            <td><input type="text" name="density[]" class="form-control" value="{{ round($d->density,2) }}" readonly></td>
                                             <td><input type="text" name="natureGoods[]" class="form-control" value="{{ $d->nature_goods }}" readonly></td>
                                             <td><input type="text" name="routeItem[]" class="form-control" value="{{ $d->route_item }}" readonly></td>
                                         </tr>
