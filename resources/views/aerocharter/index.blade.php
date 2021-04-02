@@ -58,7 +58,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">STD</th>
+                    <th scope="col">STD (Hora local)</th>
                     <th scope="col">Vuelo</th>
                     <th scope="col">idMensajeRCV</th>
                     <th scope="col">Formulario</th>

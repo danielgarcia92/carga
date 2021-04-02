@@ -28,9 +28,11 @@ class AerocharterController extends Controller
         if (Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
 
             date_default_timezone_set("America/Monterrey");
+            $from = Airports::where('id', '=', Auth::user()->airports_id)->get('name');
 
             $cargo = CargoAerocharter::where('STD', '>=', date("Y-m-d"))
                                      ->where('inForm', '=', 0)
+                                     ->where('portFrom', '=', $from[0]->name)
                                      ->groupBy('IdMensajeRCV', 'flight', 'STD')
                                      ->orderBy('STD', 'DESC')
                                      ->get(['idMensajeRCV', 'flight', 'STD']);
