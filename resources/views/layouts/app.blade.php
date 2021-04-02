@@ -253,16 +253,10 @@
         <script>
             function approve() {
                 document.getElementById('accept').value = "1";
-                window.onbeforeunload = function() {
-                    return "¿Realmente desea aprobar la solicitud?";
-                }
             }
 
             function reject() {
                 document.getElementById('accept').value = "0";
-                window.onbeforeunload = function() {
-                    return "¿Realmente desea rechazar la solicitud?";
-                }
             }
 
             function populate() {
@@ -274,7 +268,7 @@
 
             function form1() {
                 let tag = '<div class="mx-auto w-75 card">';
-                    tag += '<center><textarea name="message_approval" rows="5" required></textarea></center>';
+                    tag += '<center><textarea name="message_approval" rows="5" maxlength="255" required></textarea></center>';
                     tag += '<br>';
                     tag += '<table class="table">';
                     tag += '<thead>';

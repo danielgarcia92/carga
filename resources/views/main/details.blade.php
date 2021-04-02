@@ -158,7 +158,7 @@
                     </div>
 
                     @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
-                        <form method="POST" action="{{ url("main/details/{$row->id}") }}" validate>
+                        <form method="POST" onSubmit="if(!confirm('¿Realmente desea enviar la actualización?')){return false;}" action="{{ url("main/details/{$row->id}") }}" validate>
                             {{ csrf_field() }}
                             {{ method_field('PUT') }}
 
