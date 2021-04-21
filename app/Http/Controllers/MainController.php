@@ -67,11 +67,12 @@ class MainController extends Controller
 
             $areas_id    = User::where('id', $row->created_by)->get('areas_id');
             $created_by  = User::where('id', $row->created_by)->get('email');
-            $approved_by = User::where('id', $row->approved_by)->get('name');
+            $approved_name = User::where('id', $row->approved_by)->get('name');
             $items  = UploadDetails::where('uploads_id', '=', $row->id)->get();
 
-            $row->approved_by = $approved_by;
             $to = ['ccv@vivaaerobus.com', $created_by[0]->email];
+
+            $approved_name = $approved_name[0]->name;
 
             $emails = Emails::where(function($query) use ($areas_id ) {
                                 $query->where('areas_id', '=', 1)
@@ -96,19 +97,19 @@ class MainController extends Controller
 
             if ($row->origins_id == 1 && $row->accept == 1) {
                 $subject = 'Comat: Solicitud APROBADA ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
-                Mail::to($to)->queue(new ApprovedViva($row, $subject));
+                Mail::to($to)->queue(new ApprovedViva($row, $subject, $approved_name));
             }
             elseif ($row->origins_id == 1 && $row->accept == 0) {
                 $subject = 'Comat: Solicitud RECHAZADA ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
-                Mail::to($to)->queue(new RejectedViva($row, $subject));
+                Mail::to($to)->queue(new RejectedViva($row, $subject, $approved_name));
             }
             elseif ($row->origins_id == 2 && $row->accept == 1) {
                 $subject = 'Carga: Solicitud Aerocharter APROBADA ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
-                Mail::to($to)->queue(new ApprovedAerocharter($row, $items, $subject));
+                Mail::to($to)->queue(new ApprovedAerocharter($row, $items, $subject, $approved_name));
             }
             else {
                 $subject = 'Carga: Solicitud Aerocharter RECHAZADA ' . $row->flight_number . ' ' . $row->from . '-' . $row->to . ' ' . $row->std;
-                Mail::to($to)->queue(new RejectedAerocharter($row, $items, $subject));
+                Mail::to($to)->queue(new RejectedAerocharter($row, $items, $subject, $approved_name));
             }
 
             return redirect()->route('main.index');

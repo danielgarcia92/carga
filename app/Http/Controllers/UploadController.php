@@ -128,7 +128,7 @@ class UploadController extends Controller
                 'rego'          => strtoupper($req['rego']),
                 'pieces'        => $req['pieces'],
                 'volume'        => $req['volume'],
-                'send'          => Auth::user()->getAuthIdentifierName(),
+                'send'          => Auth::user()->name,
                 'description'   => $req['description'],
                 'assurance'     => $req['assurance'],
                 'packing'       => $req['packing'],

@@ -16,7 +16,7 @@
         <p><strong>Descripción: </strong>{{ $data['description'] }}</p>
         <p><strong>Método de aseguramiento: </strong>{{ $data['assurance'] }}</p>
         <p><strong>Embalaje: </strong>{{ $data['packing'] }}</p>
-        <p><strong>Solicitante: </strong>{{ $data['send'] }}</p>
-        <p><strong>Aprobador: </strong>{{ $data['approved_by'] }}</p>
+        <p><strong>Solicitado por: </strong>{{ $data['send'] }}</p>
+        <p><strong>Rechazado por: </strong>{{ $approved_name }}</p>
     </body>
 </html>

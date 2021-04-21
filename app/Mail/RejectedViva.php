@@ -12,16 +12,18 @@ class RejectedViva extends Mailable
 
     public $data;
     public $subject;
+    public $approved_name;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data, $subject)
+    public function __construct($data, $subject, $approved_name)
     {
         $this->data    = $data;
         $this->subject = $subject;
+        $this->approved_name = $approved_name;
     }
 
     /** @return $this */
