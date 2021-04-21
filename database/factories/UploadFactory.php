@@ -10,9 +10,9 @@ $factory->define(Upload::class, function (Faker $faker) {
         'accept' 			=> $faker->numberBetween($min=0, $max=1),
         'flight_number' 	=> 'VB' . $faker->numberBetween($min=0, $max=9999),
         'std'				=> $faker->dateTime($max='now', $timezone=null),
-        'from_id'           => 22,
+        'from_id'           => 27,
         'from'				=> 'MTY',
-        'to_id'             => 19,
+        'to_id'             => 24,
         'to'				=> 'MEX',
         'rego'				=> 'XA-V' . strtoupper(Str::random(2)),
         'send'				=> $faker->text($maxNbChars = 30),
@@ -27,6 +27,6 @@ $factory->define(Upload::class, function (Faker $faker) {
         'origins_id' 		=> 1,
         'created_by'		=> 1,
         'approved_by'		=> 1,
-        'email1'            => 'test@vivaaerobus.com'
+        'email1'            => 'david.ramos@vivaaerobus.com'
     ];
 });

@@ -26,7 +26,7 @@ class MainController extends Controller
     {
         if (Auth::user()->rol == 'approval' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
 
-            $uploads = Upload::sortable()->paginate(50);
+            $uploads = Upload::orderBy('id', 'DESC')->sortable()->paginate(50);
 
             return view('main.index')
                 ->with('title', 'Sistema de Carga-Comat')
