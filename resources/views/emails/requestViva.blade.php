@@ -16,5 +16,6 @@
         <p><strong>Descripción: </strong>{{ $data['description'] }}</p>
         <p><strong>Método de aseguramiento: </strong>{{ $data['assurance'] }}</p>
         <p><strong>Embalaje: </strong>{{ $data['packing'] }}</p>
+        <p><strong>Solicitante: </strong>{{ $data['send'] }}</p>
     </body>
 </html>

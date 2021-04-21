@@ -65,10 +65,12 @@ class MainController extends Controller
 
             $row->update($data);
 
-            $areas_id   = User::where('id', $row->created_by)->get('areas_id');
-            $created_by = User::where('id', $row->created_by)->get('email');
+            $areas_id    = User::where('id', $row->created_by)->get('areas_id');
+            $created_by  = User::where('id', $row->created_by)->get('email');
+            $approved_by = User::where('id', $row->approved_by)->get('name');
             $items  = UploadDetails::where('uploads_id', '=', $row->id)->get();
 
+            $row->approved_by = $approved_by;
             $to = ['ccv@vivaaerobus.com', $created_by[0]->email];
 
             $emails = Emails::where(function($query) use ($areas_id ) {

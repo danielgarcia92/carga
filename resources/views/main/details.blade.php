@@ -75,7 +75,7 @@
                             </tr>
                             @if($row->accept == 1)
                                 <tr>
-                                    <th scope="row">Aprobador por</th>
+                                    <th scope="row">Aprobado por</th>
                                     <td>{{ \App\User::where('id', $row->approved_by)->first()->name }}</td>
                                 </tr>
                                 <tr>

@@ -128,6 +128,7 @@ class AerocharterController extends Controller
 
                 'origins_id' => 2,
                 'created_by' => Auth::user()->getAuthIdentifier(),
+                'send'       => Auth::user()->getAuthIdentifierName(),
             ]);
 
             $items['guide_number'] = $request->get('guide_number');
