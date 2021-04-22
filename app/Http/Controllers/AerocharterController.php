@@ -178,7 +178,7 @@ class AerocharterController extends Controller
 
             $subject = 'Carga: Solicitud Aerocharter Enviada ' . $data['flight_number'] . ' ' . $data['from'] . '-' . $data['to'] . ' ' . $data['std'];
 
-            Mail::to($to)->queue(new RequestAerocharter($data, $items, $subject));
+            Mail::to($to)->queue(new RequestAerocharter($data, $items, $subject, $path));
 
             return redirect()->route('aerocharter.success');
         }

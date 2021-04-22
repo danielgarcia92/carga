@@ -158,7 +158,7 @@ class UploadController extends Controller
 
             $subject = 'Comat: Solicitud Enviada ' . 'VB' . $req['flight_number'] . ' ' . $req['from'] . '-' . $req['to'] . ' ' . $req['std'];
 
-            Mail::to($to)->queue(new RequestViva($data, $subject));
+            Mail::to($to)->queue(new RequestViva($data, $subject, $path));
 
             return redirect()->route('uploads.success');
         }

@@ -11,13 +11,15 @@ class RequestAerocharter extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
+    public $path;
     public $items;
     public $subject;
 
     /** @return void */
-    public function __construct($data, $items, $subject)
+    public function __construct($data, $items, $subject, $path)
     {
         $this->data    = $data;
+        $this->path    = $path;
         $this->items   = $items;
         $this->subject = $subject;
     }
@@ -25,6 +27,13 @@ class RequestAerocharter extends Mailable
     /** @return $this */
     public function build()
     {
-        return $this->view('emails.requestAerocharter');
+        if ($this->path == NULL) {
+            return $this->view('emails.requestAerocharter');
+        } else {
+            return $this->view('emails.requestAerocharter')
+                ->attach(public_path($this->path), [
+                    'as' => $this->path
+                ]);
+        }
     }
 }

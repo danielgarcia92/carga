@@ -11,18 +11,27 @@ class RequestViva extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
+    public $path;
     public $subject;
 
     /** @return void */
-    public function __construct($data, $subject)
+    public function __construct($data, $subject, $path)
     {
         $this->data    = $data;
+        $this->path    = $path;
         $this->subject = $subject;
     }
 
     /** @return $this */
     public function build()
     {
-        return $this->view('emails.requestViva');
+        if ($this->path == NULL) {
+            return $this->view('emails.requestViva');
+        } else {
+            return $this->view('emails.requestViva')
+                ->attach(public_path($this->path), [
+                    'as' => $this->path
+                ]);
+        }
     }
 }
