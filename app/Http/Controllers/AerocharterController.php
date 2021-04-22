@@ -82,8 +82,12 @@ class AerocharterController extends Controller
             if (request()->input('int_cargo'))
                 $inter_cargo = request()->input('$inter_cargo');
 
-            foreach ($request->input('pieces') as $piece)
-                $totalPieces += $piece;
+            foreach ($request->input('pieces') as $r => $piece) {
+                if ($request->input('partial')[$r] == 0)
+                    $totalPieces += $piece;
+                else
+                    $totalPieces += $request->input('partial')[$r];
+            }
 
             foreach ($request->input('volume') as $volume)
                 $totalVolume += $volume;
