@@ -19,7 +19,7 @@ class AdminController extends Controller
     {
         if (Auth::user()->rol == 'admin') {
 
-            $users = User::all();
+            $users = User::orderBy('id', 'ASC')->get();
 
             return view('admin.users')
                 ->with('title', 'Actualización de Usuarios')
@@ -34,7 +34,10 @@ class AdminController extends Controller
     {
         if (Auth::user()->rol == 'admin') {
 
-            $emails = Emails::all();
+            $emails = Emails::select('emails.id', 'emails.email', 'areas.name AS area', 'airports.name AS airport', 'emails.active')
+                            ->join('areas', 'emails.areas_id', '=', 'areas.id')
+                            ->join('airports', 'emails.airports_id', '=', 'airports.id')
+                            ->get();
 
             return view('admin.emails')
                 ->with('title', 'Actualización de correos de copia de las solicitudes')

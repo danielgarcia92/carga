@@ -42,9 +42,9 @@ Route::post('uploads', 'UploadController@storeAction')
 Route::get('/uploads/success', 'UploadController@successAction')
     ->name('uploads.success');
 
-Route::get('/users', 'AdminController@usersAction')
+Route::get('/admin/users', 'AdminController@usersAction')
     ->name('admin.users');
-Route::get('/emails', 'AdminController@emailsAction')
+Route::get('/admin/emails', 'AdminController@emailsAction')
     ->name('admin.emails');
 
 Auth::routes();

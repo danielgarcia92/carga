@@ -135,12 +135,12 @@
                                                     </a>
                                                 </li>
                                                 <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
-                                                    <a class="menu-link" href="{{ url('/users') }}">
+                                                    <a class="menu-link" href="{{ url('/admin/users') }}">
                                                         <span class="menu-text">{{ 'Usuarios' }}</span>
                                                     </a>
                                                 </li>
                                                 <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
-                                                    <a class="menu-link" href="{{ url('/emails') }}">
+                                                    <a class="menu-link" href="{{ url('/admin/emails') }}">
                                                         <span class="menu-text">{{ 'Correos' }}</span>
                                                     </a>
                                                 </li>

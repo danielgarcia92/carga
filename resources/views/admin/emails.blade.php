@@ -50,8 +50,8 @@
                     <tr>
                         <td>{{ $email->id }}</td>
                         <td>{{ $email->email }}</td>
-                        <td>{{ $email->areas_id }}</td>
-                        <td>{{ $email->airports_id }}</td>
+                        <td>{{ $email->area }}</td>
+                        <td>{{ $email->airport }}</td>
                         <td>{{ $email->active }}</td>
                     </tr>
                 @endforeach
