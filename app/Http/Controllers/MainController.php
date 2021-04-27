@@ -83,6 +83,7 @@ class MainController extends Controller
                                       ->orWhere('airports_id', '=' , $row->to_id)
                                       ->orWhere('airports_id', '=', 1);
                             })
+                            ->where('active', 1)
                             ->get('email');
 
             foreach ($emails as $email)

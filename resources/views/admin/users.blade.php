@@ -43,6 +43,7 @@
                         <th>Correo</th>
                         <th>Rol</th>
                         <th>Activo</th>
+                        <th>Activar/Desactivar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,19 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->rol }}</td>
                         <td>{{ $user->active }}</td>
+                        @if($user->active == 1)
+                            <form method="POST" action="{{ url("admin/users/{$user->id}") }}" novalidate>
+                                {{ csrf_field() }}
+                                <input type="hidden" id="active" name="active" value="0"/>
+                                <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-user-lock" style="color:#cb3234;"></i></button></td>
+                            </form>
+                        @else
+                            <form method="POST" action="{{ url("admin/users/{$user->id}") }}" novalidate>
+                                {{ csrf_field() }}
+                                <input type="hidden" id="active" name="active" value="1"/>
+                                <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-user-check" style="color:#008000;"></i></button></td>
+                            </form>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

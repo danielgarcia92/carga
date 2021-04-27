@@ -39,7 +39,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::FORM;
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Get a validator for an incoming registration request.

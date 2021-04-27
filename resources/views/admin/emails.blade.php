@@ -43,6 +43,7 @@
                         <th>Área</th>
                         <th>Aeropuerto</th>
                         <th>Activo</th>
+                        <th>Activar/Desactivar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,6 +54,17 @@
                         <td>{{ $email->area }}</td>
                         <td>{{ $email->airport }}</td>
                         <td>{{ $email->active }}</td>
+                        <form method="POST" action="{{ url("admin/emails/{$email->id}") }}" novalidate>
+                            {{ csrf_field() }}
+                            <input type="hidden" id="id" name="id" value="{{ $email->id }}"/>
+                            @if($email->active == 1)
+                                <input type="hidden" id="active" name="active" value="0"/>
+                                <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-ban" style="color:#cb3234;"></i></button></td>
+                            @else
+                                <input type="hidden" id="active" name="active" value="1"/>
+                                <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-check" style="color:#008000;"></i></button></td>
+                            @endif
+                        </form>
                     </tr>
                 @endforeach
                 </tbody>

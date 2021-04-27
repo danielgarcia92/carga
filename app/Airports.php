@@ -13,5 +13,4 @@ class Airports extends Model
         'name'
         , 'base'
     ];
-
 }

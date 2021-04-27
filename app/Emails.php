@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Emails extends Model
 {
+    public $timestamps = false;
     protected $connection = 'sqlsrv';
 
     /** @var array */
     protected $fillable = [
-        'name'
-        , 'base'
+        'email'
+        , 'areas_id'
+        , 'airports_id'
+        , 'active'
     ];
 }

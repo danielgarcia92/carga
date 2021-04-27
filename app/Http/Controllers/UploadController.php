@@ -153,6 +153,7 @@ class UploadController extends Controller
                                       ->orWhere('airports_id', '=' , $req['to_id'])
                                       ->orWhere('airports_id', '=', 1);
                             })
+                            ->where('active', 1)
                             ->get('email');
 
             foreach ($emails as $email)

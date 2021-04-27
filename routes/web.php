@@ -44,7 +44,13 @@ Route::get('/uploads/success', 'UploadController@successAction')
 
 Route::get('/admin/users', 'AdminController@usersAction')
     ->name('admin.users');
+Route::post('/admin/users/{row}', 'AdminController@updateUserAction')
+    ->where('row', '[0-9]+')
+    ->name('admin.users.update');
 Route::get('/admin/emails', 'AdminController@emailsAction')
     ->name('admin.emails');
+Route::post('/admin/emails/{row}', 'AdminController@updateEmailAction')
+    ->where('row', '[0-9]+')
+    ->name('admin.emails.update');
 
 Auth::routes();
