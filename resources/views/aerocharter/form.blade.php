@@ -113,7 +113,7 @@
                 <br>
                 @if ( Auth::user()->rol != 'test')
                     <div class="mx-auto text-center">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Subir Formulario</button>
+                        <button type="submit" onClick="this.form.submit(); this.disabled=true; this.innerHTML='Enviando ...'; " class="btn btn-success"><i class="fa fa-upload"></i> Enviar Formulario</button>
                     </div>
                 @endif
             </form>

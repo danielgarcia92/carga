@@ -249,7 +249,9 @@
                  <div class="col-lg-4"></div>
                  <div class="col-lg-8">
                      @if ( Auth::user()->rol != 'test')
-                         <button type="submit" class="btn btn-primary mr-2">Enviar</button>
+                         <div class="mx-auto">
+                             <button type="submit" onClick="this.form.submit(); this.disabled=true; this.innerHTML='Enviando ...'; " class="btn btn-success"><i class="fa fa-upload"></i> Enviar Formulario</button>
+                         </div>
                      @endif
                  </div>
              </div>
