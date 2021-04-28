@@ -169,3 +169,4 @@ fabric.properties
 bootstrap/cache/.gitignore
 storage/app/.gitignore
 storage/app/public/.gitignore
+public/image
