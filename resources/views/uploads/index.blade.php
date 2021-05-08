@@ -45,7 +45,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <span class="form-text text-muted">Utilizar número de máximo 4 dígitos</span>
+                    <span class="form-text text-muted">Número de vuelo máximo 4 dígitos</span>
                 </div>
 
                 <div class="col-lg-4">

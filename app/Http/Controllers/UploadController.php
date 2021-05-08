@@ -74,7 +74,7 @@ class UploadController extends Controller
                 'std'           => 'required|date',
                 'from'          => 'required|max:3',
                 'to'            => 'required|max:3',
-                'flight_number' => 'required|max:4',
+                'flight_number' => 'required|max:5',
                 'rego'          => 'required|max:6',
                 'pieces'        => 'required',
                 'weight'        => 'required',

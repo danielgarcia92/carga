@@ -104,11 +104,11 @@
                             <!--end::Group-->
                             <!--begin::Group-->
                             <div class="form-group row">
-                                <label class="col-form-label col-3 text-lg-right text-left">Base</label>
+                                <label class="col-form-label col-3 text-lg-right text-left">Estación</label>
                                 <div class="col-9">
                                     <select id="base" type="text" class="form-control @error('base') is-invalid @enderror" name="base" value="{{ old('base') }}" autocomplete="base" autofocus>
-                                        <option value="">N/A</option>
-                                        @foreach(\App\Airports::where('base', 1)->get() as $base)
+                                        <option value=""></option>
+                                        @foreach(\App\Airports::orderBy('name', 'ASC')->get() as $base)
                                             <option value={{ $base->id }}>{{ $base->name }}</option>
                                         @endforeach
                                     </select>
