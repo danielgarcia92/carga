@@ -60,12 +60,12 @@
     <div class="card-body">
         <ul class="nav nav-tabs md-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="pending-tab-md" data-toggle="tab" href="#pending-md" role="tab" aria-controls="pending-md"
-                   aria-selected="true">Pendientes</a>
+                <a class="nav-link active" id="approved-tab-md" data-toggle="tab" href="#approved-md" role="tab" aria-controls="approved-md"
+                   aria-selected="true">Aprobadas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="approved-tab-md" data-toggle="tab" href="#approved-md" role="tab" aria-controls="approved-md"
-                   aria-selected="false">Aprobadas</a>
+                <a class="nav-link" id="pending-tab-md" data-toggle="tab" href="#pending-md" role="tab" aria-controls="pending-md"
+                   aria-selected="false">Pendientes</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="rejected-tab-md" data-toggle="tab" href="#rejected-md" role="tab" aria-controls="rejected-md"
@@ -73,7 +73,7 @@
             </li>
         </ul>
         <div class="tab-content card pt-5" id="myTabContent">
-            <div class="tab-pane fade show active" id="pending-md" role="tabpanel" aria-labelledby="pending-tab-md">
+            <div class="tab-pane fade show active" id="approved-md" role="tabpanel" aria-labelledby="approved-tab-md">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -88,28 +88,27 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($uploads as $upload)
-                        @if($upload->accept === null)
-                            <tr>
-                                <th>{{ $upload->id }}</th>
-                                <td>{{ $upload->flight_number }}</td>
-                                <td>{{ $upload->std }}</td>
-                                <td>{{ $upload->from }}</td>
-                                <td>{{ $upload->to }}</td>
-                                <td>{{ $upload->rego }}</td>
-                                <td><i class="fas fa-hourglass-half" style="color:#ffcc00;"></i></td>
-                                <form method="POST" action="{{ url("aerocharter_requests/{$upload->id}") }}" novalidate>
-                                    {{ csrf_field() }}
-                                    <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>
-                                    <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
-                                </form>
-                            </tr>
-                        @endif
+                    @foreach($approved as $appr)
+                        <tr>
+                            <th>{{ $appr->id }}</th>
+                            <td>{{ $appr->flight_number }}</td>
+                            <td>{{ $appr->std }}</td>
+                            <td>{{ $appr->from }}</td>
+                            <td>{{ $appr->to }}</td>
+                            <td>{{ $appr->rego }}</td>
+                            <td><i class="far fa-check-circle" style="color:#008000;"></i></td>
+                            <form method="POST" action="{{ url("aerocharter_requests/{$appr->id}") }}" novalidate>
+                                {{ csrf_field() }}
+                                <input type="hidden" id="id" name="id" value="{{ $appr->id }}"/>
+                                <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
+                            </form>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
+                {{ $approved->links() }}
             </div>
-            <div class="tab-pane fade" id="approved-md" role="tabpanel" aria-labelledby="approved-tab-md">
+            <div class="tab-pane fade" id="pending-md" role="tabpanel" aria-labelledby="pending-tab-md">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -124,26 +123,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($uploads as $upload)
-                        @if($upload->accept == 1)
-                            <tr>
-                                <th>{{ $upload->id }}</th>
-                                <td>{{ $upload->flight_number }}</td>
-                                <td>{{ $upload->std }}</td>
-                                <td>{{ $upload->from }}</td>
-                                <td>{{ $upload->to }}</td>
-                                <td>{{ $upload->rego }}</td>
-                                <td><i class="far fa-check-circle" style="color:#008000;"></i></td>
-                                <form method="POST" action="{{ url("aerocharter_requests/{$upload->id}") }}" novalidate>
-                                    {{ csrf_field() }}
-                                    <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>
-                                    <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
-                                </form>
-                            </tr>
-                        @endif
+                    @foreach($pending as $pend)
+                        <tr>
+                            <th>{{ $pend->id }}</th>
+                            <td>{{ $pend->flight_number }}</td>
+                            <td>{{ $pend->std }}</td>
+                            <td>{{ $pend->from }}</td>
+                            <td>{{ $pend->to }}</td>
+                            <td>{{ $pend->rego }}</td>
+                            <td><i class="fas fa-hourglass-half" style="color:#ffcc00;"></i></td>
+                            <form method="POST" action="{{ url("aerocharter_requests/{$pend->id}") }}" novalidate>
+                                {{ csrf_field() }}
+                                <input type="hidden" id="id" name="id" value="{{ $pend->id }}"/>
+                                <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
+                            </form>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
+                {{ $pending->links() }}
             </div>
             <div class="tab-pane fade" id="rejected-md" role="tabpanel" aria-labelledby="rejected-tab-md">
                 <table class="table table-striped">
@@ -160,26 +158,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($uploads as $upload)
-                        @if($upload->accept == 0 && $upload->accept != null)
-                            <tr>
-                                <th>{{ $upload->id }}</th>
-                                <td>{{ $upload->flight_number }}</td>
-                                <td>{{ $upload->std }}</td>
-                                <td>{{ $upload->from }}</td>
-                                <td>{{ $upload->to }}</td>
-                                <td>{{ $upload->rego }}</td>
-                                <td><i class="far fa-times-circle" style="color:#cb3234;"></i></td>
-                                <form method="POST" action="{{ url("aerocharter_requests/{$upload->id}") }}" novalidate>
-                                    {{ csrf_field() }}
-                                    <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>
-                                    <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
-                                </form>
-                            </tr>
-                        @endif
+                    @foreach($rejected as $rej)
+                        <tr>
+                            <th>{{ $rej->id }}</th>
+                            <td>{{ $rej->flight_number }}</td>
+                            <td>{{ $rej->std }}</td>
+                            <td>{{ $rej->from }}</td>
+                            <td>{{ $rej->to }}</td>
+                            <td>{{ $rej->rego }}</td>
+                            <td><i class="far fa-times-circle" style="color:#cb3234;"></i></td>
+                            <form method="POST" action="{{ url("aerocharter_requests/{$rej->id}") }}" novalidate>
+                                {{ csrf_field() }}
+                                <input type="hidden" id="id" name="id" value="{{ $rej->id }}"/>
+                                <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
+                            </form>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
+                {{ $rejected->links() }}
             </div>
         </div>
     </div>

@@ -172,10 +172,14 @@ class UploadController extends Controller
     public function requestsAction()
     {
         if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
-            $uploads = Upload::where('created_by', '=', Auth::user()->id)->get();
+            $pending  = Upload::sortable(['id' => 'desc'])->where('created_by', '=', Auth::user()->id)->where('accept', '=', NULL)->paginate(50);
+            $approved = Upload::sortable(['id' => 'desc'])->where('created_by', '=', Auth::user()->id)->where('accept', '=', 1)->paginate(50);
+            $rejected = Upload::sortable(['id' => 'desc'])->where('created_by', '=', Auth::user()->id)->where('accept', '=', 0)->paginate(50);
 
             return view('uploads.requests')
-                ->with(compact('uploads'))
+                ->with(compact('pending'))
+                ->with(compact('approved'))
+                ->with(compact('rejected'))
                 ->with('title', 'Mis solicitudes');
         }
 

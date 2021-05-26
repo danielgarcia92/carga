@@ -193,14 +193,35 @@ class AerocharterController extends Controller
         if (Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
             $origins = Origin::where('name', '=', Auth::user()->rol)->get('id');
 
-            if (isset($origins[0]->id))
-                $uploads = Upload::where('origins_id', '=', $origins[0]->id)
-                                 ->where('created_by', '=', Auth::user()->id)->get();
-            else
-                $uploads = [];
+            if (isset($origins[0]->id)) {
+                $approved = Upload::sortable(['id' => 'desc'])
+                    ->where('origins_id', '=', $origins[0]->id)
+                    ->where('created_by', '=', Auth::user()->id)
+                    ->where('accept', '=', 1)
+                    ->paginate(50);
+
+                $pending = Upload::sortable(['id' => 'desc'])
+                    ->where('origins_id', '=', $origins[0]->id)
+                    ->where('created_by', '=', Auth::user()->id)
+                    ->where('accept', '=', NULL)
+                    ->paginate(50);
+
+                $rejected = Upload::sortable(['id' => 'desc'])
+                    ->where('origins_id', '=', $origins[0]->id)
+                    ->where('created_by', '=', Auth::user()->id)
+                    ->where('accept', '=', 0)
+                    ->paginate(50);
+            }
+            else {
+                $approved = [];
+                $pending  = [];
+                $rejected = [];
+            }
 
             return view('aerocharter.requests')
-                ->with(compact('uploads'))
+                ->with(compact('approved'))
+                ->with(compact('pending'))
+                ->with(compact('rejected'))
                 ->with('title', 'Mis solicitudes');
         }
 
