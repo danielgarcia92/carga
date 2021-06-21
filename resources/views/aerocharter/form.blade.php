@@ -32,11 +32,11 @@
                 </div>
                 <div class="form-group">
                     <label for="from">* Aeropuerto de salida</label>
-                    <input type="text" class="form-control" id="from" name="from" value="{{ $data[0]->portFrom }}" required>
+                    <input type="text" class="form-control" id="from" name="from" value="{{ $data[0]->portFrom }}" maxlength="3" style="text-transform:uppercase" required>
                 </div>
                 <div class="form-group">
                     <label for="to">* Aeropuerto de llegada</label>
-                    <input type="text" class="form-control" id="to" name="to"  maxlength="3" style="text-transform:uppercase" required>
+                    <input type="text" class="form-control" id="to" name="to" value="{{ substr($data[0]->idMensajeRCV, -3) }}" maxlength="3" required>
                 </div>
                 <div class="form-group">
                     <label for="flightNumber">* Número de vuelo</label>
