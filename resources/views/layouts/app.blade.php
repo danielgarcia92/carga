@@ -83,26 +83,32 @@
                                     <div class="topbar-item">
                                         <div class="btn btn-icon w-auto d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
                                             <div class="d-flex flex-column text-right pr-3">
-                                                <span class="text-white font-weight-bolder font-size-sm d-none d-md-inline">{{ Auth::user()->name }}</span>
-                                                <span class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline">
-                                                     @if ( isset(Auth::user()->rol) && Auth::user()->rol == 'viva')
-                                                        {{ 'Comat' }}
-                                                    @else
-                                                        {{ 'Carga' }}
-                                                    @endif
-                                                </span>
-                                                <div class="btn-hover-transparent-white">
-                                                    <a class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline" href="{{ route('logout') }}"
-                                                       onclick="event.preventDefault();
-                                                                     document.getElementById('logout-form').submit();">
-                                                        {{ 'Cerrar Sesión' }}
-                                                    </a>
+                                                @guest
+                                                    <span class="text-white font-weight-bolder font-size-sm d-none d-md-inline"></span>
+                                                @endguest
+                                                @auth
+                                                    <span class="text-white font-weight-bolder font-size-sm d-none d-md-inline">{{ Auth::user()->name }}</span>
+                                                    <span class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline">
+                                                        @if ( isset(Auth::user()->rol) && Auth::user()->rol == 'viva')
+                                                            {{ 'Comat' }}
+                                                        @else
+                                                            {{ 'Carga' }}
+                                                        @endif
+                                                    </span>
+                                                    <div class="btn-hover-transparent-white">
+                                                        <a class="text-white opacity-50 font-weight-bold font-size-sm d-none d-md-inline" href="{{ route('logout') }}"
+                                                           onclick="event.preventDefault();
+                                                                         document.getElementById('logout-form').submit();">
+                                                            {{ 'Cerrar Sesión' }}
+                                                        </a>
 
-                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                        @csrf
-                                                    </form>
-                                                </div>
+                                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                            @csrf
+                                                        </form>
+                                                    </div>
+                                                @endauth
                                             </div>
+
                                             <span class="symbol symbol-35">
                                                 <span class="symbol-label font-size-h5 font-weight-bold text-white bg-white-o-30">
                                                     <img src="{{ asset('media/svg/misc/015-telegram.svg') }}" class="h-50 align-self-center" alt="">
@@ -181,7 +187,7 @@
                                                     </a>
                                                 </li>    
                                             @endif
-                                            
+
                                         </ul>
                                         @endauth
                                         <!--end::Header Nav-->
