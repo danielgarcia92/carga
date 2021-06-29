@@ -26,7 +26,7 @@ class UploadController extends Controller
 
             $DepZulu = date("Y-m-d H:i:s", strtotime('+1 hour'));
             date_default_timezone_set("America/Monterrey");
-            $flights= Flights::select('DepZulu', 'Flight', 'PortFrom', 'PortTo', 'Rego')
+            $flights= Flights::select('Dep', 'DepZulu', 'Flight', 'PortFrom', 'PortTo', 'Rego')
                              ->where('SectorDate', '>=', date("Y-m-d"))
                              ->where('DepZulu', '>=', $DepZulu )
                              ->get();
@@ -72,6 +72,7 @@ class UploadController extends Controller
 
             $req = request()->validate([
                 'std'           => 'required|date',
+                'stdZulu'       => 'required|date',
                 'from'          => 'required|max:3',
                 'to'            => 'required|max:3',
                 'flight_number' => 'required|max:5',
@@ -85,6 +86,7 @@ class UploadController extends Controller
                 'packing'       => 'required|max:100'
             ], [
                 'std.required'           => 'El campo Fecha de vuelo es obligatorio',
+                'stdZulu.required'       => 'El campo Fecha de vuelo Zulu es obligatorio',
                 'from.required'          => 'El campo Aeropuerto de salida es obligatorio',
                 'from.size'              => 'Aeropuerto de salida: máximo 3 dígitos',
                 'to.required'            => 'El campo Aeropuerto de llegada es obligatorio',
@@ -123,6 +125,7 @@ class UploadController extends Controller
             $data = Upload::updateOrCreate([
                 'flight_number' => 'VB' . $req['flight_number'],
                 'std'           => date('Y-m-d H:i:s', strtotime($req['std'])),
+                'std_zulu'      => date('Y-m-d H:i:s', strtotime($req['stdZulu'])),
                 'from_id'       => $req['from_id'],
                 'from'          => strtoupper($req['from']),
                 'to_id'         => $req['to_id'],
@@ -159,7 +162,7 @@ class UploadController extends Controller
             foreach ($emails as $email)
                 array_push($to, $email->email);
 
-            $subject = 'Comat: Solicitud Enviada ' . 'VB' . $req['flight_number'] . ' ' . $req['from'] . '-' . $req['to'] . ' ' . $req['std'];
+            $subject = 'Comat: Solicitud Enviada ' . 'VB' . $req['flight_number'] . ' ' . $req['from'] . '-' . $req['to'] . ' ' . $req['stdZulu'];
 
             Mail::to($to)->queue(new RequestViva($data, $subject, $path));
 

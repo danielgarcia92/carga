@@ -21,6 +21,8 @@ Route::get('/aerocharter/success', 'AerocharterController@successAction')
 
 Route::get('/main', 'MainController@indexAction')
     ->name('main.index');
+Route::get('/main/notification', 'MainController@notificationAction')
+    ->name('main.notification');
 Route::post('/main/{row}', 'MainController@formAction')
     ->where('row', '[0-9]+')
     ->name('main.form');

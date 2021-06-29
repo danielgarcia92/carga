@@ -58,7 +58,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">STD (Hora local)</th>
+                    <th scope="col">STD (Hora Zulu)</th>
                     <th scope="col">Vuelo</th>
                     <th scope="col">idMensajeRCV</th>
                     <th scope="col">Formulario</th>
@@ -67,7 +67,7 @@
             <tbody>
             @foreach($cargo as $c)
                 <tr>
-                    <td>{{ $c->STD }}</td>
+                    <td>{{ $c->STDZulu }}</td>
                     <th scope="row">{{ $c->flight }}</th>
                     <td>{{ $c->idMensajeRCV }}</td>
                     <form method="POST" action="{{ url("aerocharter_form") }}" novalidate>

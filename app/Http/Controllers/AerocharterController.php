@@ -8,6 +8,7 @@ use App\Origin;
 use App\Upload;
 use App\UploadDetails;
 use App\CargoAerocharter;
+use App\vvCargoAerocharter;
 use Illuminate\Http\Request;
 use App\Mail\RequestAerocharter;
 use Illuminate\Support\Facades\Auth;
@@ -27,15 +28,16 @@ class AerocharterController extends Controller
     {
         if (Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
 
+            $DepZulu = date("Y-m-d H:i:s", strtotime('+1 hour'));
             date_default_timezone_set("America/Monterrey");
             $from = Airports::where('id', '=', Auth::user()->airports_id)->get('name');
 
-            $cargo = CargoAerocharter::where('STD', '>=', date("Y-m-d"))
+            $cargo = vvCargoAerocharter::where('STD', '>=', date("Y-m-d"))
                                      ->where('inForm', '=', 0)
                                      ->where('portFrom', '=', $from[0]->name)
-                                     ->groupBy('IdMensajeRCV', 'flight', 'STD')
-                                     ->orderBy('STD', 'DESC')
-                                     ->get(['idMensajeRCV', 'flight', 'STD']);
+                                     ->groupBy('IdMensajeRCV', 'flight', 'STDZulu')
+                                     ->orderBy('STDZulu', 'DESC')
+                                     ->get(['idMensajeRCV', 'flight', 'STDZulu']);
 
             return view('aerocharter.index')
                 ->with('title', 'Carga de información Champ')
@@ -52,7 +54,7 @@ class AerocharterController extends Controller
 
             $idMensajeRCV = request()->validate([ 'idMensajeRCV' => 'required' ]);
 
-            $data = CargoAerocharter::where('idMensajeRCV', '=', $idMensajeRCV)->get();
+            $data = vvCargoAerocharter::where('idMensajeRCV', '=', $idMensajeRCV)->get();
 
             return view('aerocharter.form')
                 ->with('title', 'Carga de información Champ')
@@ -112,6 +114,7 @@ class AerocharterController extends Controller
 
             $data = Upload::updateOrCreate([
                 'std'           => $request->input('std'),
+                'std_zulu'      => $request->input('stdZulu'),
                 'from_id'       => $req['from_id'],
                 'from'          => strtoupper($request->input('from')),
                 'to_id'         => $req['to_id'],

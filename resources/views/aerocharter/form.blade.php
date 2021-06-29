@@ -27,8 +27,9 @@
                     <input type="hidden" id="idMensajeRCV" name="idMensajeRCV" value="{{ $data[0]->idMensajeRCV }}"/>
                 </div>
                 <div class="form-group">
-                    <label for="std">* Fecha de vuelo (UTC)</label>
-                    <input type="text" class="form-control" id="std" name="std" value="{{ $data[0]->STD }}" required/>
+                    <label for="std">* Fecha de vuelo (Hora Zulu)</label>
+                    <input type="hidden" id="std" name="std" value="{{ $data[0]->STD }}" required/>
+                    <input type="text" class="form-control" id="stdZulu" name="stdZulu" value="{{ $data[0]->STDZulu }}" required/>
                 </div>
                 <div class="form-group">
                     <label for="from">* Aeropuerto de salida</label>
@@ -44,10 +45,10 @@
                 </div>
                 <div class="form-group">
                     <label for="rego">* Matrícula</label>
-                    @if($data[0]->rego === NULL || $data[0]->rego == 'MX')
+                    @if($data[0]->rego_ === NULL)
                         <input type="text" class="form-control" id="rego" name="rego" minlength="6" maxlength="6" style="text-transform:uppercase" required>
                     @else
-                        <input type="text" class="form-control" id="rego" name="rego" maxlength="6" value="{{ $data[0]->rego }}" required>
+                        <input type="text" class="form-control" id="rego" name="rego" maxlength="6" value="{{ $data[0]->rego_ }}" required>
                     @endif
                 </div>
 

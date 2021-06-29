@@ -41,7 +41,7 @@
                         <select class="form-control" onchange="populate()" id="flight_number" name="flight_number" required>
                             <option value=""></option>
                             @foreach($flights as $flight)
-                                <option Dep="{{ $flight->DepZulu }}" PortFrom="{{ $flight->PortFrom }}" PortTo="{{ $flight->PortTo }}" Rego="{{ $flight->Rego }}" value="{{ $flight->Flight }}"> VB{{ $flight->Flight }}</option>
+                                <option Dep="{{ $flight->Dep }}" DepZulu="{{ $flight->DepZulu }}" PortFrom="{{ $flight->PortFrom }}" PortTo="{{ $flight->PortTo }}" Rego="{{ $flight->Rego }}" value="{{ $flight->Flight }}"> VB{{ $flight->Flight }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -56,9 +56,10 @@
                                 <i class="la la-calendar"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" id="std" name="std" placeholder="Fecha" readonly/>
+                        <input type="hidden" class="form-control" id="std" name="std" readonly/>
+                        <input type="text" class="form-control" id="stdZulu" name="stdZulu" placeholder="Fecha" readonly/>
                     </div>
-                    <span class="form-text text-muted">Verifica que la fecha esté en UTC</span>
+                    <span class="form-text text-muted">Verificar que la fecha esté en UTC</span>
                 </div>
 
                 <div class="col-lg-4">
@@ -128,7 +129,7 @@
                         </div>
                         <input type="number" class="form-control" id="weight" name="weight" value="{{ old('weight') }}" min=0 step="0.01" required/>
                     </div>
-                    <span class="form-text text-muted">Coloca el peso en KG con hasta 2 decimales</span>
+                    <span class="form-text text-muted">Colocar el peso en KG con hasta 2 decimales</span>
                 </div>
                 <div class="col-lg-4">
                     <label>Volumen (m3):</label>
@@ -140,7 +141,7 @@
                         </div>
                         <input type="number" class="form-control" id="volume" name="volume" value="{{ old('volume') }}" min=0 step="0.01"/>
                     </div>
-                    <span class="form-text text-muted">Coloca los metros cúbicos</span>
+                    <span class="form-text text-muted">Colocar los metros cúbicos</span>
                 </div>
                 <div class="col-lg-4">
                     <label>* Envía:</label>
@@ -180,7 +181,7 @@
                         </div>
                         <textarea class="form-control" id="assurance" name="assurance" rows="3" maxlength="100" required>{{ old('assurance') }}</textarea>
                     </div>
-                    <span class="form-text text-muted">Describa el método de aseguramiento del paquete</span>
+                    <span class="form-text text-muted">Describir el método de aseguramiento del paquete</span>
                 </div>
                 <div class="col-lg-4">
                     <label>* Embalaje:</label>
@@ -192,7 +193,7 @@
                         </div>
                         <textarea class="form-control" id="packing" name="packing" rows="3" maxlength="100" required>{{ old('packing') }}</textarea>
                     </div>
-                    <span class="form-text text-muted">Define el método de embalaje del paquete</span>
+                    <span class="form-text text-muted">Definir el método de embalaje del paquete</span>
                 </div>
             </div>
             <div class="form-group row">

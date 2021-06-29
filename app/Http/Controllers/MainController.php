@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Emails;
 use App\User;
+use App\Emails;
 use App\Upload;
 use App\UploadDetails;
 use App\Mail\ApprovedViva;
 use App\Mail\RejectedViva;
 use App\Mail\ApprovedAerocharter;
 use App\Mail\RejectedAerocharter;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -119,6 +120,31 @@ class MainController extends Controller
 
         return redirect()->route('home');
 
+    }
+
+    public function notificationAction() {
+        if (Auth::user()->rol == 'notification') {
+
+            //date_default_timezone_set("America/Monterrey");
+
+            $uploads = Upload::where('accept', '=', NULL)
+                ->where('STD', '>=', date("Y-m-d"))
+                ->get();
+
+            foreach ($uploads as $key => $upload) {
+                $stdZulu = Carbon::parse($upload->std_zulu);
+                $date = Carbon::now()->setTimezone('UTC');
+                $diff[$key] = $date->diffInMinutes($stdZulu);
+
+            }
+
+            return view('main.notification')
+                ->with('title', 'Notificaciones')
+                ->with(compact('diff'))
+                ->with(compact('uploads'));
+        }
+
+        return redirect()->route('home');
     }
 
 }

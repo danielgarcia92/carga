@@ -40,7 +40,8 @@ class Upload extends Model
         , 'email2'
         , 'email3'
         , 'int_cargo'
+        , 'std_zulu'
 	];
 
-	public $sortable = ['id', 'accept', 'flight_number', 'std', 'from', 'to', 'rego'];
+	public $sortable = ['id', 'accept', 'flight_number', 'std', 'std_zulu', 'from', 'to', 'rego'];
 }
