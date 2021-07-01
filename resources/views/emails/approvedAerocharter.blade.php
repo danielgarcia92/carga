@@ -9,7 +9,7 @@
         <p><strong># Folio: </strong>{{ $data['id'] }}</p>
         <p><strong>Comentarios de CCV: </strong>{{ $data['message_approval'] }}</p>
         <p><strong>Número de Vuelo: </strong>{{ $data['flight_number'] }}</p>
-        <p><strong>STD: </strong>{{ $data['std'] }}</p>
+        <p><strong>Fecha de vuelo (UTC): </strong>{{ $data['std_zulu'] }}</p>
         <p><strong>Ruta: </strong>{{ $data['from'] }} - {{ $data['to'] }}</p>
         <p><strong>Piezas Totales: </strong>{{ $data['pieces'] }}</p>
         <p><strong>Peso Total: </strong>{{ round($data['weight'], 2) }}</p>

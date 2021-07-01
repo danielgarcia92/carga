@@ -28,16 +28,17 @@ class AerocharterController extends Controller
     {
         if (Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
 
-            $DepZulu = date("Y-m-d H:i:s", strtotime('+1 hour'));
+            $dateZulu = date("Y-m-d H:i:s", strtotime('+1 hour'));
             date_default_timezone_set("America/Monterrey");
             $from = Airports::where('id', '=', Auth::user()->airports_id)->get('name');
 
-            $cargo = vvCargoAerocharter::where('STD', '>=', date("Y-m-d"))
+            $cargo = vvCargoAerocharter::where('OUT', '>=', date("Y-m-d"))
                                      ->where('inForm', '=', 0)
                                      ->where('portFrom', '=', $from[0]->name)
-                                     ->groupBy('IdMensajeRCV', 'flight', 'STDZulu')
-                                     ->orderBy('STDZulu', 'DESC')
-                                     ->get(['idMensajeRCV', 'flight', 'STDZulu']);
+                                     //->where('OUTZulu', '>=', $dateZulu )
+                                     ->groupBy('IdMensajeRCV', 'flight', 'OUTZulu')
+                                     ->orderBy('OUTZulu', 'DESC')
+                                     ->get(['idMensajeRCV', 'flight', 'OUTZulu']);
 
             return view('aerocharter.index')
                 ->with('title', 'Carga de información Champ')
@@ -180,7 +181,7 @@ class AerocharterController extends Controller
             foreach ($emails as $email)
                 array_push($to, $email->email);
 
-            $subject = 'Carga: Solicitud Aerocharter Enviada ' . $data['flight_number'] . ' ' . $data['from'] . '-' . $data['to'] . ' ' . $data['std'];
+            $subject = 'Carga: Solicitud Aerocharter Enviada ' . $data['flight_number'] . ' ' . $data['from'] . '-' . $data['to'] . ' ' . $data['std_zulu'];
 
             Mail::to($to)->queue(new RequestAerocharter($data, $items, $subject, $path));
 
@@ -201,18 +202,21 @@ class AerocharterController extends Controller
                     ->where('origins_id', '=', $origins[0]->id)
                     ->where('created_by', '=', Auth::user()->id)
                     ->where('accept', '=', 1)
+                    ->where('std_zulu', '<>', NULL)
                     ->paginate(50);
 
                 $pending = Upload::sortable(['id' => 'desc'])
                     ->where('origins_id', '=', $origins[0]->id)
                     ->where('created_by', '=', Auth::user()->id)
                     ->where('accept', '=', NULL)
+                    ->where('std_zulu', '<>', NULL)
                     ->paginate(50);
 
                 $rejected = Upload::sortable(['id' => 'desc'])
                     ->where('origins_id', '=', $origins[0]->id)
                     ->where('created_by', '=', Auth::user()->id)
                     ->where('accept', '=', 0)
+                    ->where('std_zulu', '<>', NULL)
                     ->paginate(50);
             }
             else {

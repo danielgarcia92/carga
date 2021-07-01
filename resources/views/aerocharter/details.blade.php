@@ -24,8 +24,8 @@
 
                         <table class="table table-striped">
                             <tr>
-                                <th scope="row">STD</th>
-                                <td>{{ $row->std }}</td>
+                                <th scope="row">STD (UTC)</th>
+                                <td>{{ $row->std_zulu }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Vuelo</th>

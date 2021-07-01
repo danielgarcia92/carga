@@ -79,7 +79,7 @@
                     <thead>
                     <tr>
                         <th scope="col">@sortablelink('id', 'Folio')</th>
-                        <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
+                        <th scope="col">@sortablelink('std', 'Fecha de vuelo (UTC)')</th>
                         <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
                         <th scope="col">@sortablelink('from', 'Salida')</th>
                         <th scope="col">@sortablelink('to', 'Llegada')</th>
@@ -92,7 +92,7 @@
                     @foreach($approved as $appr)
                         <tr>
                             <th scope="row">{{ $appr->id }}</th>
-                            <td>{{ $appr->std }}</td>
+                            <td>{{ $appr->std_zulu }}</td>
                             <td>{{ $appr->flight_number }}</td>
                             <td>{{ $appr->from }}</td>
                             <td>{{ $appr->to }}</td>
@@ -114,7 +114,7 @@
                     <thead>
                     <tr>
                         <th scope="col">@sortablelink('id', 'Folio')</th>
-                        <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
+                        <th scope="col">@sortablelink('std', 'Fecha de vuelo (UTC)')</th>
                         <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
                         <th scope="col">@sortablelink('from', 'Salida')</th>
                         <th scope="col">@sortablelink('to', 'Llegada')</th>
@@ -127,7 +127,7 @@
                     @foreach($pending as $pend)
                         <tr>
                             <th>{{ $pend->id }}</th>
-                            <td>{{ $pend->std }}</td>
+                            <td>{{ $pend->std_zulu }}</td>
                             <td>{{ $pend->flight_number }}</td>
                             <td>{{ $pend->from }}</td>
                             <td>{{ $pend->to }}</td>
@@ -149,7 +149,7 @@
                     <thead>
                     <tr>
                         <th scope="col">@sortablelink('id', 'Folio')</th>
-                        <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
+                        <th scope="col">@sortablelink('std', 'Fecha de vuelo (UTC)')</th>
                         <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
                         <th scope="col">@sortablelink('from', 'Salida')</th>
                         <th scope="col">@sortablelink('to', 'Llegada')</th>
@@ -162,7 +162,7 @@
                     @foreach($rejected as $rej)
                         <tr>
                             <th scope="row">{{ $rej->id }}</th>
-                            <td>{{ $rej->std }}</td>
+                            <td>{{ $rej->std_zulu }}</td>
                             <td>{{ $rej->flight_number }}</td>
                             <td>{{ $rej->from }}</td>
                             <td>{{ $rej->to }}</td>

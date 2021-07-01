@@ -79,7 +79,7 @@
                     <tr>
                         <th scope="col">@sortablelink('id', 'Folio')</th>
                         <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
-                        <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
+                        <th scope="col">@sortablelink('std', 'Fecha de vuelo (UTC)')</th>
                         <th scope="col">@sortablelink('from', 'Salida')</th>
                         <th scope="col">@sortablelink('to', 'Llegada')</th>
                         <th scope="col">@sortablelink('rego', 'Matrícula')</th>
@@ -92,7 +92,7 @@
                         <tr>
                             <th>{{ $appr->id }}</th>
                             <td>{{ $appr->flight_number }}</td>
-                            <td>{{ $appr->std }}</td>
+                            <td>{{ $appr->std_zulu }}</td>
                             <td>{{ $appr->from }}</td>
                             <td>{{ $appr->to }}</td>
                             <td>{{ $appr->rego }}</td>
@@ -114,7 +114,7 @@
                     <tr>
                         <th scope="col">@sortablelink('id', 'Folio')</th>
                         <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
-                        <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
+                        <th scope="col">@sortablelink('std', 'Fecha de vuelo (UTC)')</th>
                         <th scope="col">@sortablelink('from', 'Salida')</th>
                         <th scope="col">@sortablelink('to', 'Llegada')</th>
                         <th scope="col">@sortablelink('rego', 'Matrícula')</th>
@@ -127,7 +127,7 @@
                         <tr>
                             <th>{{ $pend->id }}</th>
                             <td>{{ $pend->flight_number }}</td>
-                            <td>{{ $pend->std }}</td>
+                            <td>{{ $pend->std_zulu }}</td>
                             <td>{{ $pend->from }}</td>
                             <td>{{ $pend->to }}</td>
                             <td>{{ $pend->rego }}</td>
@@ -149,7 +149,7 @@
                     <tr>
                         <th scope="col">@sortablelink('id', 'Folio')</th>
                         <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
-                        <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
+                        <th scope="col">@sortablelink('std', 'Fecha de vuelo (UTC)')</th>
                         <th scope="col">@sortablelink('from', 'Salida')</th>
                         <th scope="col">@sortablelink('to', 'Llegada')</th>
                         <th scope="col">@sortablelink('rego', 'Matrícula')</th>
@@ -162,7 +162,7 @@
                         <tr>
                             <th>{{ $rej->id }}</th>
                             <td>{{ $rej->flight_number }}</td>
-                            <td>{{ $rej->std }}</td>
+                            <td>{{ $rej->std_zulu }}</td>
                             <td>{{ $rej->from }}</td>
                             <td>{{ $rej->to }}</td>
                             <td>{{ $rej->rego }}</td>

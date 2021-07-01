@@ -265,7 +265,7 @@
                 document.getElementById('rego').value = $('#flight_number').find("option:selected").attr("Rego");
                 document.getElementById('to').value   = $('#flight_number').find("option:selected").attr("PortTo");
                 document.getElementById('from').value = $('#flight_number').find("option:selected").attr("PortFrom");
-                document.getElementById('stdZulu').value  = $('#flight_number').find("option:selected").attr("DepZulu");
+                document.getElementById('stdZulu').value  = $('#flight_number').find("option:selected").attr("OUTZulu");
             }
 
             function form1() {

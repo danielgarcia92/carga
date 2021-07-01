@@ -59,7 +59,7 @@
             <thead>
                 <tr>
                     <th scope="col">@sortablelink('id', 'Folio')</th>
-                    <th scope="col">@sortablelink('std', 'STD (UTC)')</th>
+                    <th scope="col">@sortablelink('std', 'Fecha de vuelo (UTC)')</th>
                     <th scope="col">Enviado (UTC)</th>
                     <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
                     <th scope="col">@sortablelink('from', 'Salida')</th>
