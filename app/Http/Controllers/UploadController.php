@@ -175,9 +175,9 @@ class UploadController extends Controller
     public function requestsAction()
     {
         if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
-            $pending  = Upload::sortable(['id' => 'desc'])->where('created_by', '=', Auth::user()->id)->where('accept', '=', NULL)->paginate(50);
-            $approved = Upload::sortable(['id' => 'desc'])->where('created_by', '=', Auth::user()->id)->where('accept', '=', 1)->paginate(50);
-            $rejected = Upload::sortable(['id' => 'desc'])->where('created_by', '=', Auth::user()->id)->where('accept', '=', 0)->paginate(50);
+            $pending  = Upload::sortable(['id' => 'desc'])->where('created_by', '=', Auth::user()->id)->where('accept', '=', NULL)->where('std_zulu', '<>', NULL)->paginate(50);
+            $approved = Upload::sortable(['id' => 'desc'])->where('created_by', '=', Auth::user()->id)->where('accept', '=', 1)->where('std_zulu', '<>', NULL)->paginate(50);
+            $rejected = Upload::sortable(['id' => 'desc'])->where('created_by', '=', Auth::user()->id)->where('accept', '=', 0)->where('std_zulu', '<>', NULL)->paginate(50);
 
             return view('uploads.requests')
                 ->with(compact('pending'))
