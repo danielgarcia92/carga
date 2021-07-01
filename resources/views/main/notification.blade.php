@@ -40,7 +40,13 @@
             </thead>
             <tbody>
             @foreach($uploads as $key => $upload)
-                <tr>
+                @if($diff[$key] === 'El vuelo ya salió')
+                    <tr class="table-danger">
+                @elseif($diff[$key] <= 45)
+                    <tr class="bg-warning">
+                @else
+                    <tr>
+                @endif
                     <th>{{ $upload->id }}</th>
                     <td>{{ $upload->std_zulu }}</td>
                     <td>{{ $upload->created_at }}</td>
@@ -49,8 +55,9 @@
                     <td>{{ $upload->to }}</td>
                     <td>{{ $upload->rego }}</td>
                     <td>{{ \App\Origin::where('id', $upload->origins_id)->first()->name }}</td>
-                    <td>{{ $diff[$key]  }} Minutos</td>
+                    <td>{{ $diff[$key] }}</td>
                 </tr>
+
             @endforeach
             </tbody>
         </table>

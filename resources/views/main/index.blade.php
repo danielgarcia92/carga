@@ -74,7 +74,7 @@
             @foreach($uploads as $upload)
                 <tr>
                     <th>{{ $upload->id }}</th>
-                    <td>{{ $upload->std }}</td>
+                    <td>{{ $upload->std_zulu }}</td>
                     <td>{{ $upload->created_at }}</td>
                     <td>{{ $upload->flight_number }}</td>
                     <td>{{ $upload->from }}</td>

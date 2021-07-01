@@ -27,7 +27,9 @@ class MainController extends Controller
     {
         if (Auth::user()->rol == 'approval' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
 
-            $uploads = Upload::sortable(['id' => 'desc'])->paginate(50);
+            $uploads = Upload::sortable(['id' => 'desc'])
+                ->where('std_zulu', '<>', NULL)
+                ->paginate(50);
 
             return view('main.index')
                 ->with('title', 'Sistema de Carga-Comat')
@@ -125,17 +127,21 @@ class MainController extends Controller
     public function notificationAction() {
         if (Auth::user()->rol == 'notification') {
 
-            //date_default_timezone_set("America/Monterrey");
+            date_default_timezone_set("America/Monterrey");
 
-            $uploads = Upload::where('accept', '=', NULL)
-                ->where('STD', '>=', date("Y-m-d"))
+            $uploads = Upload::sortable(['std_zulu' => 'asc'])
+                ->where('accept', '=', NULL)
+                ->where('std', '>=', date("Y-m-d"))
                 ->get();
 
+            date_default_timezone_set('UTC');
             foreach ($uploads as $key => $upload) {
                 $stdZulu = Carbon::parse($upload->std_zulu);
                 $date = Carbon::now()->setTimezone('UTC');
-                $diff[$key] = $date->diffInMinutes($stdZulu);
-
+                $diff[$key]  = $date->diffInMinutes($stdZulu);
+                $diff2[$key] = $date->diffForHumans($stdZulu);
+                if(strpos($diff2[$key], 'after') !== false)
+                    $diff[$key] = 'El vuelo ya salió';
             }
 
             return view('main.notification')
