@@ -8,5 +8,5 @@ class vvCargoAerocharter extends Model
 {
     protected $connection = 'sqlsrv';
 
-    protected $table = 'vwCargo_alterno';
+    protected $table = 'vvCargo';
 }
