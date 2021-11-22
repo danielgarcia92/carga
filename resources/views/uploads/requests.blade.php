@@ -187,3 +187,8 @@
 <br>
 
 @endsection
+
+@php
+    $url1=$_SERVER['REQUEST_URI'];
+    header("Refresh: 60; URL=$url1");
+@endphp
