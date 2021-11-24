@@ -185,7 +185,12 @@
                                                     <a class="menu-link" href="{{ url('/main') }}">
                                                         <span class="menu-text">{{ 'Aprobar' }}</span>
                                                     </a>
-                                                </li>    
+                                                </li>
+                                                <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
+                                                    <a class="menu-link" href="{{ url('/main/notification') }}">
+                                                        <span class="menu-text">{{ 'Notificaciones' }}</span>
+                                                    </a>
+                                                </li>
                                             @endif
 
                                             @if( Auth::user()->rol == 'notification')

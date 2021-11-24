@@ -125,7 +125,7 @@ class MainController extends Controller
     }
 
     public function notificationAction() {
-        if (Auth::user()->rol == 'notification') {
+        if (Auth::user()->rol == 'approval' || Auth::user()->rol == 'notification') {
 
             date_default_timezone_set("America/Monterrey");
 
