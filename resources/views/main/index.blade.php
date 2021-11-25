@@ -73,26 +73,49 @@
             <tbody>
             @foreach($uploads as $upload)
                 <tr>
-                    <th>{{ $upload->id }}</th>
-                    <td>{{ $upload->std_zulu }}</td>
-                    <td>{{ $upload->created_at }}</td>
-                    <td>{{ $upload->flight_number }}</td>
-                    <td>{{ $upload->from }}</td>
-                    <td>{{ $upload->to }}</td>
-                    <td>{{ $upload->rego }}</td>
-                    <td>{{ \App\Origin::where('id', $upload->origins_id)->first()->name }}</td>
-                    @if($upload->accept === null)
-                        <td><i class="fas fa-hourglass-half" style="color:#ffcc00;"></i></td>
-                    @elseif($upload->accept == 1)
-                        <td><i class="far fa-check-circle" style="color:#008000;"></i></td>
+                    @if($upload->country_code != 'MX')
+                        <th bgcolor="#9acd32">{{ $upload->id }}</th>
+                        <td bgcolor="#9acd32">{{ $upload->std_zulu }}</td>
+                        <td bgcolor="#9acd32">{{ $upload->created_at }}</td>
+                        <td bgcolor="#9acd32">{{ $upload->flight_number }}</td>
+                        <td bgcolor="#9acd32">{{ $upload->from }}</td>
+                        <td bgcolor="#9acd32">{{ $upload->to }}</td>
+                        <td bgcolor="#9acd32">{{ $upload->rego }}</td>
+                        <td bgcolor="#9acd32">{{ \App\Origin::where('id', $upload->origins_id)->first()->name }}</td>
+                        @if($upload->accept === null)
+                            <td bgcolor="#9acd32"><i class="fas fa-hourglass-half" style="color:#ffcc00;"></i></td>
+                        @elseif($upload->accept == 1)
+                            <td bgcolor="#9acd32"><i class="far fa-check-circle" style="color:#008000;"></i></td>
+                        @else
+                            <td bgcolor="#9acd32"><i class="far fa-times-circle" style="color:#cb3234;"></i></td>
+                        @endif
+                        <form method="POST" action="{{ url("main/{$upload->id}") }}" novalidate>
+                            {{ csrf_field() }}
+                            <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>
+                            <td bgcolor="#9acd32"><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
+                        </form>
                     @else
-                        <td><i class="far fa-times-circle" style="color:#cb3234;"></i></td>
+                        <th>{{ $upload->id }}</th>
+                        <td>{{ $upload->std_zulu }}</td>
+                        <td>{{ $upload->created_at }}</td>
+                        <td>{{ $upload->flight_number }}</td>
+                        <td>{{ $upload->from }}</td>
+                        <td>{{ $upload->to }}</td>
+                        <td>{{ $upload->rego }}</td>
+                        <td>{{ \App\Origin::where('id', $upload->origins_id)->first()->name }}</td>
+                        @if($upload->accept === null)
+                            <td><i class="fas fa-hourglass-half" style="color:#ffcc00;"></i></td>
+                        @elseif($upload->accept == 1)
+                            <td><i class="far fa-check-circle" style="color:#008000;"></i></td>
+                        @else
+                            <td><i class="far fa-times-circle" style="color:#cb3234;"></i></td>
+                        @endif
+                        <form method="POST" action="{{ url("main/{$upload->id}") }}" novalidate>
+                            {{ csrf_field() }}
+                            <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>
+                            <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
+                        </form>
                     @endif
-                    <form method="POST" action="{{ url("main/{$upload->id}") }}" novalidate>
-                        {{ csrf_field() }}
-                        <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>
-                        <td><button type="submit" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i></button></td>
-                    </form>
                 </tr>
             @endforeach
             </tbody>

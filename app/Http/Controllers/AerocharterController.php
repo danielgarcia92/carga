@@ -36,9 +36,9 @@ class AerocharterController extends Controller
                                      ->where('inForm', '=', 0)
                                      ->where('portFrom', '=', $from[0]->name)
                                      ->where('OUTZulu', '>=', $dateZulu )
-                                     ->groupBy('IdMensajeRCV', 'flight', 'OUTZulu')
+                                     ->groupBy('IdMensajeRCV', 'flight', 'country_code', 'OUTZulu')
                                      ->orderBy('OUTZulu', 'DESC')
-                                     ->get(['idMensajeRCV', 'flight', 'OUTZulu']);
+                                     ->get(['idMensajeRCV', 'flight', 'country_code', 'OUTZulu']);
 
             return view('aerocharter.index')
                 ->with('title', 'Carga de información Champ')
@@ -128,6 +128,7 @@ class AerocharterController extends Controller
                 'volume'        => $totalVolume,
                 'weight'        => $totalWeight,
 
+                'country_code'  => $request->input('country_code'),
                 'description'   => $request->input('description'),
                 'assurance'     => $request->input('assurance'),
                 'packing'       => $request->input('packing'),
