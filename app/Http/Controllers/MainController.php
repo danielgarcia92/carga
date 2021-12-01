@@ -10,6 +10,7 @@ use App\Mail\ApprovedViva;
 use App\Mail\RejectedViva;
 use App\Mail\ApprovedAerocharter;
 use App\Mail\RejectedAerocharter;
+use App\vwUploadsNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -129,17 +130,17 @@ class MainController extends Controller
 
             date_default_timezone_set("America/Monterrey");
 
-            $uploads = Upload::sortable(['std_zulu' => 'asc'])
+            $uploads = vwUploadsNotification::where('accept', '=', NULL) //::sortable(['std_zulu' => 'asc'])
                 ->where('accept', '=', NULL)
                 ->where('std', '>=', date("Y-m-d"))
                 ->get();
 
             date_default_timezone_set('UTC');
             foreach ($uploads as $key => $upload) {
-                $stdZulu = Carbon::parse($upload->std_zulu);
+                $OUTZulu = Carbon::parse($upload->OUTZulu);
                 $date = Carbon::now()->setTimezone('UTC');
-                $diff[$key]  = $date->diffInMinutes($stdZulu);
-                $diff2[$key] = $date->diffForHumans($stdZulu);
+                $diff[$key]  = $date->diffInMinutes($OUTZulu);
+                $diff2[$key] = $date->diffForHumans($OUTZulu);
                 if(strpos($diff2[$key], 'after') !== false)
                     $diff[$key] = 'El vuelo ya salió';
             }

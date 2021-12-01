@@ -48,7 +48,7 @@
                     <tr>
                 @endif
                     <th>{{ $upload->id }}</th>
-                    <td>{{ $upload->std_zulu }}</td>
+                    <td>{{ $upload->OUTZulu }}</td>
                     <td>{{ $upload->created_at }}</td>
                     <td>{{ $upload->flight_number }}</td>
                     <td>{{ $upload->from }}</td>
