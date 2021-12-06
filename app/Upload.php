@@ -42,7 +42,8 @@ class Upload extends Model
         , 'int_cargo'
         , 'std_zulu'
         , 'country_code'
+        , 'flight_type'
 	];
 
-	public $sortable = ['id', 'accept', 'flight_number', 'std', 'std_zulu', 'from', 'to', 'rego'];
+	public $sortable = ['id', 'accept', 'flight_number', 'std', 'std_zulu', 'from', 'to', 'rego', 'flight_type'];
 }

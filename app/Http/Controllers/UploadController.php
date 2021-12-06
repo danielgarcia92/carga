@@ -146,7 +146,8 @@ class UploadController extends Controller
                 'email1'        => $email1,
                 'email2'        => $email2,
                 'email3'        => $email3,
-                'country_code'  => 'MX'
+                'country_code'  => 'MX',
+                'flight_type'   => 'NACIONAL'
             ]);
 
             $emails = Emails::where(function($query) use ($req) {

@@ -52,9 +52,10 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="country_code">País</label>
-                    <input type="text" class="form-control" id="country_code" name="country_code" value="{{ $data[0]->country_code }}" readonly>
+                    <label for="flight_type">Tipo de vuelo</label>
+                    <input type="text" class="form-control" id="flight_type" name="flight_type" value="{{ $data[0]->FLIGHT_TYPE }}" readonly>
                 </div>
+                <input type="hidden" class="form-control" id="country_code" name="country_code" value="{{ $data[0]->country_code }}" readonly>
 
                 <div class="row">
                     <div class="col-md-12 col-sm-12">

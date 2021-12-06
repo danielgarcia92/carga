@@ -73,7 +73,7 @@
             <tbody>
             @foreach($uploads as $upload)
                 <tr>
-                    @if($upload->country_code != 'MX')
+                    @if($upload->flight_type != 'NACIONAL')
                         <th bgcolor="#9acd32">{{ $upload->id }}</th>
                         <td bgcolor="#9acd32">{{ $upload->std_zulu }}</td>
                         <td bgcolor="#9acd32">{{ $upload->created_at }}</td>

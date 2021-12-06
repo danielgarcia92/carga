@@ -61,7 +61,7 @@
                     <th scope="col">Fecha de vuelo (UTC)</th>
                     <th scope="col">Vuelo</th>
                     <th scope="col">idMensajeRCV</th>
-                    <th scope="col">País</th>
+                    <th scope="col">Tipo de vuelo</th>
                     <th scope="col">Formulario</th>
                 </tr>
             </thead>
@@ -71,7 +71,7 @@
                     <td>{{ $c->OUTZulu }}</td>
                     <th scope="row">{{ $c->flight }}</th>
                     <td>{{ $c->idMensajeRCV }}</td>
-                    <td>{{ $c->country_code }}</td>
+                    <td>{{ $c->flight_type }}</td>
                     <form method="POST" action="{{ url("aerocharter_form") }}" novalidate>
                         {{ csrf_field() }}
                         <input type="hidden" id="idMensajeRCV" name="idMensajeRCV" value="{{ $c->idMensajeRCV }}"/>
