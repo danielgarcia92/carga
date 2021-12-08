@@ -136,7 +136,10 @@ class MainController extends Controller
                 ->get();
 
             date_default_timezone_set('UTC');
+
+            $diff[0] = 'Nada pendiente';
             foreach ($uploads as $key => $upload) {
+                print_r($upload);
                 $OUTZulu = Carbon::parse($upload->OUTZulu);
                 $date = Carbon::now()->setTimezone('UTC');
                 $diff[$key]  = $date->diffInMinutes($OUTZulu);

@@ -35,7 +35,7 @@ class AerocharterController extends Controller
             $cargo = vvCargoAerocharter::where('OUT', '>=', date("Y-m-d"))
                                      ->where('inForm', '=', 0)
                                      ->where('portFrom', '=', $from[0]->name)
-                                     //->where('OUTZulu', '>=', $dateZulu )
+                                     ->where('OUTZulu', '>=', $dateZulu )
                                      ->groupBy('IdMensajeRCV', 'flight', 'country_code', 'flight_type', 'OUTZulu')
                                      ->orderBy('OUTZulu', 'DESC')
                                      ->get(['idMensajeRCV', 'flight', 'country_code', 'flight_type', 'OUTZulu']);
