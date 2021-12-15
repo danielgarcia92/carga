@@ -130,9 +130,10 @@ class MainController extends Controller
 
             date_default_timezone_set("America/Monterrey");
 
-            $uploads = vwUploadsNotification::where('accept', '=', NULL) //::sortable(['std_zulu' => 'asc'])
+            $uploads = vwUploadsNotification::where('accept', '=', NULL)
                 ->where('accept', '=', NULL)
                 ->where('std', '>=', date("Y-m-d"))
+                ->orderBy('OUTZulu', 'ASC')
                 ->get();
 
             date_default_timezone_set('UTC');

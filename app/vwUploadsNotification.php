@@ -10,11 +10,4 @@ class vwUploadsNotification extends Model
 
     protected $table = 'vwUploadsNotification';
 
-    /** @var array */
-    protected $fillable = [
-        'std_zulu'
-        , 'OUTZulu'
-    ];
-
-    public $sortable = ['std_zulu', 'OUTZulu'];
 }
