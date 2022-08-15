@@ -70,7 +70,7 @@
                                 <td>{{ $row->packing }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Envia</th>
+                                <th scope="row">Envía</th>
                                 <td>{{ \App\User::where('id', $row->created_by)->first()->name }}</td>
                             </tr>
                             @if($row->accept == 1)
@@ -149,13 +149,21 @@
                             </div>
                         </div>
 
+                        <div id="bUpd">
+                            <center>
+                                <button type="submit" class="btn btn-secondary" onclick="form2()"> Actualizar estatus </button>
+                            </center>
+                        </div>
+
                     @endif
 
-                    <div id="bUpd">
-                        <center>
-                            <button type="submit" class="btn btn-secondary" onclick="form1()"> Actualizar estatus </button>
-                        </center>
-                    </div>
+                    @if($row->origins_id == 1)
+                        <div id="bUpd">
+                            <center>
+                                <button type="submit" class="btn btn-secondary" onclick="form1()"> Actualizar estatus </button>
+                            </center>
+                        </div>
+                    @endif
 
                     @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
                         <form method="POST" onSubmit="if(!confirm('¿Realmente desea enviar la actualización?')){return false;}" action="{{ url("main/details/{$row->id}") }}" validate>

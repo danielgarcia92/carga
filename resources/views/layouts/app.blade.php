@@ -275,7 +275,7 @@
 
             function form1() {
                 let tag = '<div class="mx-auto w-75 card">';
-                    tag += '<center><textarea name="message_approval" rows="5" maxlength="255" required></textarea></center>';
+                    tag += '<center><textarea name="message_approval" rows="5" maxlength="255" required>Por medio del presente, se autoriza la estiba de la "COMAT/RUSH" solicitada. La estiba deberá hacerse conforme al LIR para que estén pendientes de su recepción. Si hubiera alguna duda, favor de contactar a CCV de inmediato</textarea></center>';
                     tag += '<br>';
                     tag += '<table class="table">';
                     tag += '<thead>';
@@ -291,6 +291,26 @@
 
                     $("#bUpd").html("");
                     $("#form1").append(tag);
+            }
+
+            function form2() {
+                let tag = '<div class="mx-auto w-75 card">';
+                tag += '<center><textarea name="message_approval" rows="5" maxlength="255" required>Por medio del presente, se autoriza la estiba de la "CARGA" solicitada. La estiba deberá hacerse conforme al LIR para que estén pendientes de su recepción. Si hubiera alguna duda, favor de contactar a CCV de inmediato</textarea></center>';
+                tag += '<br>';
+                tag += '<table class="table">';
+                tag += '<thead>';
+                tag += '<tr>';
+                tag += '<td></td>';
+                tag += '<td><center><button type="submit" class="btn btn-primary" onclick="approve()"> Aprobar </button></center></td>';
+                tag += '<td><center><button type="submit" class="btn btn-danger" onclick="reject()"> Rechazar </button></center></td>';
+                tag += '<td></td>';
+                tag += '</tr>';
+                tag += '</thead>';
+                tag += '</table>';
+                tag += '</div>';
+
+                $("#bUpd").html("");
+                $("#form1").append(tag);
             }
         </script>
         
