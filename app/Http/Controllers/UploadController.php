@@ -27,7 +27,7 @@ class UploadController extends Controller
             $dateZulu = date("Y-m-d H:i:s", strtotime('+1 hour'));
             date_default_timezone_set("America/Monterrey");
             $flights= Flights::select('Dep', 'DepZulu', 'OUTZulu', 'Flight', 'PortFrom', 'PortTo', 'Rego')
-                             ->where('SectorDate', '=', date("Y-m-d"))
+                             ->whereBetween('SectorDate', [date("Y-m-d"), date("Y-m-d", strtotime("+1 day"))])
                              ->where('OUTZulu', '>=', $dateZulu )
                              ->OrderBy('Flight')
                              ->get();
