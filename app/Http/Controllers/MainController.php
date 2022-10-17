@@ -31,9 +31,9 @@ class MainController extends Controller
             date_default_timezone_set('UTC');
 
             $uploads = vwUploadsNotification::where('OUTZulu', '>=', date("Y-m-d", strtotime("-1 day")))
-                ->orderBy('accept', 'ASC')
-                ->orderBy('OUTZulu', 'ASC')
-                ->paginate(50);
+                    ->orderBy('accept', 'ASC')
+                    ->orderBy('OUTZulu', 'ASC')
+                    ->paginate(50);
 
             $diff[0] = 'Nada pendiente';
             foreach ($uploads as $key => $upload) {
@@ -53,6 +53,45 @@ class MainController extends Controller
 
         return redirect()->route('home');
 
+    }
+
+    public function searchAction()
+    {
+        if (Auth::user()->rol == 'approval' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
+
+            date_default_timezone_set('UTC');
+
+            if (request()->input('search')){
+                $search = request()->input('search');
+                $uploads = vwUploadsNotification::where('OUTZulu', '>=', date("Y-m-d", strtotime("-1 day")))
+                    ->where(function($query) use ($search) {
+                        $query->where('flight_number', 'LIKE', '%'.$search.'%')
+                            ->orWhere('rego', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orderBy('accept', 'ASC')
+                    ->orderBy('OUTZulu', 'ASC')
+                    ->paginate(50);
+
+                $diff[0] = 'Nada pendiente';
+                foreach ($uploads as $key => $upload) {
+                    $OUTZulu = Carbon::parse($upload->OUTZulu);
+                    $date = Carbon::now()->setTimezone('UTC');
+                    $diff[$key]  = $date->diffInMinutes($OUTZulu);
+                    $diff2[$key] = $date->diffForHumans($OUTZulu);
+                    if(strpos($diff2[$key], 'after') !== false)
+                        $diff[$key] = 'Despegó';
+                }
+
+                return view('main.search')
+                    ->with('title', 'Sistema de Carga-Comat')
+                    ->with(compact('diff'))
+                    ->with(compact('uploads'));
+            }
+
+            return redirect()->route('main.index');
+        }
+
+        return redirect()->route('home');
     }
 
     public function formAction(Upload $row)

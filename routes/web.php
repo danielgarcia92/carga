@@ -21,6 +21,8 @@ Route::get('/aerocharter/success', 'AerocharterController@successAction')
 
 Route::get('/main', 'MainController@indexAction')
     ->name('main.index');
+Route::post('/main/search', 'MainController@searchAction')
+    ->name('main.search');
 Route::get('/main/notification', 'MainController@notificationAction')
     ->name('main.notification');
 Route::post('/main/{row}', 'MainController@formAction')
