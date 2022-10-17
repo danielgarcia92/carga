@@ -58,24 +58,31 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">@sortablelink('id', 'Folio')</th>
-                    <th scope="col">@sortablelink('std', 'Fecha de vuelo (UTC)')</th>
+                    <th scope="col">Folio</th>
+                    <th scope="col">Fecha de vuelo (UTC)</th>
                     <th scope="col">Enviado (UTC)</th>
-                    <th scope="col">@sortablelink('flight_number', 'Vuelo')</th>
-                    <th scope="col">@sortablelink('from', 'Salida')</th>
-                    <th scope="col">@sortablelink('to', 'Llegada')</th>
-                    <th scope="col">@sortablelink('rego', 'Matrícula')</th>
+                    <th scope="col">Vuelo</th>
+                    <th scope="col">Salida</th>
+                    <th scope="col">Llegada</th>
+                    <th scope="col">Matrícula</th>
                     <th scope="col">Origen</th>
-                    <th scope="col">@sortablelink('accept', 'Estatus')</th>
+                    <th scope="col">Estatus</th>
+                    <th scope="col">Min</th>
                     <th scope="col">Detalles</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach($uploads as $upload)
-                <tr>
+            @foreach($uploads as $key => $upload)
+                @if($diff[$key] === 'Despegó' && $upload->accept === null )
+                    <tr class="table-danger">
+                @elseif($diff[$key] <= 45 && $upload->accept === null )
+                    <tr class="bg-warning">
+                @else
+                    <tr>
+                        @endif
                     @if($upload->flight_type != 'NACIONAL')
                         <th bgcolor="#9acd32">{{ $upload->id }}</th>
-                        <td bgcolor="#9acd32">{{ $upload->std_zulu }}</td>
+                        <td bgcolor="#9acd32">{{ $upload->OUTZulu }}</td>
                         <td bgcolor="#9acd32">{{ $upload->created_at }}</td>
                         <td bgcolor="#9acd32">{{ $upload->flight_number }}</td>
                         <td bgcolor="#9acd32">{{ $upload->from }}</td>
@@ -89,6 +96,7 @@
                         @else
                             <td bgcolor="#9acd32"><i class="far fa-times-circle" style="color:#cb3234;"></i></td>
                         @endif
+                        <td bgcolor="#9acd32">{{ $diff[$key] }}</td>
                         <form method="POST" action="{{ url("main/{$upload->id}") }}" novalidate>
                             {{ csrf_field() }}
                             <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>
@@ -96,7 +104,7 @@
                         </form>
                     @else
                         <th>{{ $upload->id }}</th>
-                        <td>{{ $upload->std_zulu }}</td>
+                        <td>{{ $upload->OUTZulu }}</td>
                         <td>{{ $upload->created_at }}</td>
                         <td>{{ $upload->flight_number }}</td>
                         <td>{{ $upload->from }}</td>
@@ -110,6 +118,7 @@
                         @else
                             <td><i class="far fa-times-circle" style="color:#cb3234;"></i></td>
                         @endif
+                        <td>{{ $diff[$key] }}</td>
                         <form method="POST" action="{{ url("main/{$upload->id}") }}" novalidate>
                             {{ csrf_field() }}
                             <input type="hidden" id="id" name="id" value="{{ $upload->id }}"/>

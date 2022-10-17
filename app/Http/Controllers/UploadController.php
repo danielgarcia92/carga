@@ -24,13 +24,16 @@ class UploadController extends Controller
     {
         if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
 
-            $dateZulu = date("Y-m-d H:i:s", strtotime('+1 hour'));
+            $dateZuluIni = date("Y-m-d H:i:s", strtotime('+1 hour'));
+            $dateZuluFin = date("Y-m-d H:i:s", strtotime('+8 hour'));
+
             date_default_timezone_set("America/Monterrey");
             $flights= Flights::select('Dep', 'DepZulu', 'OUTZulu', 'Flight', 'PortFrom', 'PortTo', 'Rego')
-                             ->whereBetween('SectorDate', [date("Y-m-d"), date("Y-m-d", strtotime("+1 day"))])
-                             ->where('OUTZulu', '>=', $dateZulu )
-                             ->OrderBy('Flight')
-                             ->get();
+                            ->whereBetween('SectorDate', [date("Y-m-d"), date("Y-m-d", strtotime("+1 day"))])
+                            ->where('OUTZulu', '>=', $dateZuluIni )
+                            ->where('OUTZulu', '<=', $dateZuluFin )
+                            ->OrderBy('Flight')
+                            ->get();
 
             return view('uploads.index')
                 ->with('title', 'Formulario de solicitud')

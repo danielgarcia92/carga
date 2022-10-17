@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Emails;
 use App\Upload;
+use Carbon\Carbon;
 use App\UploadDetails;
 use App\Mail\ApprovedViva;
 use App\Mail\RejectedViva;
+use App\vwUploadsNotification;
 use App\Mail\ApprovedAerocharter;
 use App\Mail\RejectedAerocharter;
-use App\vwUploadsNotification;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -28,12 +28,26 @@ class MainController extends Controller
     {
         if (Auth::user()->rol == 'approval' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
 
-            $uploads = Upload::sortable(['id' => 'desc'])
-                ->where('std_zulu', '<>', NULL)
+            date_default_timezone_set('UTC');
+
+            $uploads = vwUploadsNotification::where('OUTZulu', '>=', date("Y-m-d", strtotime("-1 day")))
+                ->orderBy('accept', 'ASC')
+                ->orderBy('OUTZulu', 'ASC')
                 ->paginate(50);
+
+            $diff[0] = 'Nada pendiente';
+            foreach ($uploads as $key => $upload) {
+                $OUTZulu = Carbon::parse($upload->OUTZulu);
+                $date = Carbon::now()->setTimezone('UTC');
+                $diff[$key]  = $date->diffInMinutes($OUTZulu);
+                $diff2[$key] = $date->diffForHumans($OUTZulu);
+                if(strpos($diff2[$key], 'after') !== false)
+                    $diff[$key] = 'Despegó';
+            }
 
             return view('main.index')
                 ->with('title', 'Sistema de Carga-Comat')
+                ->with(compact('diff'))
                 ->with(compact('uploads'));
         }
 
