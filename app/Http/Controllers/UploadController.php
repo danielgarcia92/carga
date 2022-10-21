@@ -25,7 +25,7 @@ class UploadController extends Controller
         if (Auth::user()->rol == 'viva' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
 
             $dateZuluIni = date("Y-m-d H:i:s", strtotime('+1 hour'));
-            $dateZuluFin = date("Y-m-d H:i:s", strtotime('+8 hour'));
+            $dateZuluFin = date("Y-m-d H:i:s", strtotime('+6 hour'));
 
             date_default_timezone_set("America/Monterrey");
             $flights= Flights::select('Dep', 'DepZulu', 'OUTZulu', 'Flight', 'PortFrom', 'PortTo', 'Rego')

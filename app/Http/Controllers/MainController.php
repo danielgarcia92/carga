@@ -63,7 +63,7 @@ class MainController extends Controller
 
             if (request()->input('search')){
                 $search = request()->input('search');
-                $uploads = vwUploadsNotification::where('OUTZulu', '>=', date("Y-m-d", strtotime("-1 day")))
+                $uploads = vwUploadsNotification::where('OUTZulu', '>=', date("Y-m-d"))
                     ->where(function($query) use ($search) {
                         $query->where('flight_number', 'LIKE', '%'.$search.'%')
                             ->orWhere('rego', 'LIKE', '%'.$search.'%');
