@@ -32,6 +32,7 @@ class MainController extends Controller
 
             $uploads = vwUploadsNotification::where('OUTZulu', '>=', date("Y-m-d", strtotime("-1 day")))
                     ->orderBy('accept', 'ASC')
+                    ->orderBy('flight_type', 'ASC')
                     ->orderBy('OUTZulu', 'ASC')
                     ->paginate(50);
 
