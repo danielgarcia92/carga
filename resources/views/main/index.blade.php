@@ -88,7 +88,7 @@
                     <th scope="col">Matrícula</th>
                     <th scope="col">Origen</th>
                     <th scope="col">Estatus</th>
-                    <th scope="col">Min</th>
+                    <th scope="col">Tiempo Faltante</th>
                     <th scope="col">Detalles</th>
                 </tr>
             </thead>

@@ -21,6 +21,12 @@ Route::get('/aerocharter/success', 'AerocharterController@successAction')
 
 Route::get('/main', 'MainController@indexAction')
     ->name('main.index');
+Route::get('/main/pending', 'MainController@indexAction')
+    ->name('main.index');
+Route::get('/main/approved', 'MainController@approvedAction')
+    ->name('main.approved');
+Route::get('/main/rejected', 'MainController@rejectedAction')
+    ->name('main.rejected');
 Route::post('/main/search', 'MainController@searchAction')
     ->name('main.search');
 Route::get('/main/notification', 'MainController@notificationAction')

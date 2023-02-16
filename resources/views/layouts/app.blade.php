@@ -182,10 +182,20 @@
 
                                             @if( Auth::user()->rol == 'approval')
                                                 <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
-                                                    <a class="menu-link" href="{{ url('/main') }}">
-                                                        <span class="menu-text">{{ 'Aprobar' }}</span>
+                                                    <a class="menu-link" href="{{ url('/main/pending') }}">
+                                                        <span class="menu-text">{{ 'Pendientes' }}</span>
                                                     </a>
                                                 </li>
+                                                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
+                                                        <a class="menu-link" href="{{ url('/main/approved') }}">
+                                                            <span class="menu-text">{{ 'Aprobadas' }}</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
+                                                        <a class="menu-link" href="{{ url('/main/rejected') }}">
+                                                            <span class="menu-text">{{ 'Rechazadas' }}</span>
+                                                        </a>
+                                                    </li>
                                                 <li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="hover" aria-haspopup="true">
                                                     <a class="menu-link" href="{{ url('/main/notification') }}">
                                                         <span class="menu-text">{{ 'Notificaciones' }}</span>

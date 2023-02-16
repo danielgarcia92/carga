@@ -31,10 +31,79 @@ class MainController extends Controller
             date_default_timezone_set('UTC');
 
             $uploads = vwUploadsNotification::where('OUTZulu', '>=', date("Y-m-d", strtotime("-1 day")))
+                    ->where('accept', '=', NULL)
                     ->orderBy('accept', 'ASC')
                     ->orderBy('flight_type', 'ASC')
                     ->orderBy('OUTZulu', 'ASC')
                     ->paginate(50);
+
+            $diff[0] = 'Nada pendiente';
+            foreach ($uploads as $key => $upload) {
+                $OUTZulu = Carbon::parse($upload->OUTZulu);
+                $date = Carbon::now()->setTimezone('UTC');
+                $diff[$key]  = $date->diffInMinutes($OUTZulu);
+                $diff2[$key] = $date->diffForHumans($OUTZulu);
+                if(strpos($diff2[$key], 'after') !== false)
+                    $diff[$key] = 'Despegó';
+            }
+
+            return view('main.index')
+                ->with('title', 'Sistema de Carga-Comat')
+                ->with(compact('diff'))
+                ->with(compact('uploads'));
+        }
+
+        return redirect()->route('home');
+
+    }
+
+    /** @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse */
+    public function approvedAction()
+    {
+        if (Auth::user()->rol == 'approval' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
+
+            date_default_timezone_set('UTC');
+
+            $uploads = vwUploadsNotification::where('OUTZulu', '>=', date("Y-m-d", strtotime("-1 day")))
+                ->where('accept', '=', 1)
+                ->orderBy('accept', 'ASC')
+                ->orderBy('flight_type', 'ASC')
+                ->orderBy('OUTZulu', 'DESC')
+                ->paginate(50);
+
+            $diff[0] = 'Nada pendiente';
+            foreach ($uploads as $key => $upload) {
+                $OUTZulu = Carbon::parse($upload->OUTZulu);
+                $date = Carbon::now()->setTimezone('UTC');
+                $diff[$key]  = $date->diffInMinutes($OUTZulu);
+                $diff2[$key] = $date->diffForHumans($OUTZulu);
+                if(strpos($diff2[$key], 'after') !== false)
+                    $diff[$key] = 'Despegó';
+            }
+
+            return view('main.index')
+                ->with('title', 'Sistema de Carga-Comat')
+                ->with(compact('diff'))
+                ->with(compact('uploads'));
+        }
+
+        return redirect()->route('home');
+
+    }
+
+    /** @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse */
+    public function rejectedAction()
+    {
+        if (Auth::user()->rol == 'approval' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
+
+            date_default_timezone_set('UTC');
+
+            $uploads = vwUploadsNotification::where('OUTZulu', '>=', date("Y-m-d", strtotime("-1 day")))
+                ->where('accept', '=', 0)
+                ->orderBy('accept', 'ASC')
+                ->orderBy('flight_type', 'ASC')
+                ->orderBy('OUTZulu', 'DESC')
+                ->paginate(50);
 
             $diff[0] = 'Nada pendiente';
             foreach ($uploads as $key => $upload) {
