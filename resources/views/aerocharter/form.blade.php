@@ -28,8 +28,9 @@
                 </div>
                 <div class="form-group">
                     <label for="std">* Fecha de vuelo (Hora Zulu)</label>
-                    <input type="hidden" id="std" name="std" value="{{ $data[0]->OUT }}" required/>
-                    <input type="text" class="form-control" id="stdZulu" name="stdZulu" value="{{ $data[0]->OUTZulu }}" required/>
+                    <input type="hidden" id="Std"     name="Std"     value="{{ $data[0]->STD }}" required/>
+                    <input type="hidden" id="StdZulu" name="StdZulu" value="{{ $data[0]->STDZulu }}" required/>
+                    <input type="text" class="form-control" id="OutZulu" name="OutZulu" value="{{ $data[0]->OUTZulu }}" required/>
                 </div>
                 <div class="form-group">
                     <label for="from">* Aeropuerto de salida</label>

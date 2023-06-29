@@ -114,8 +114,8 @@ class AerocharterController extends Controller
                 $req['to_id'] = 0;
 
             $data = Upload::updateOrCreate([
-                'std'           => $request->input('std'),
-                'std_zulu'      => $request->input('stdZulu'),
+                'std'           => $request->input('Std'),
+                'std_zulu'      => $request->input('StdZulu'),
                 'from_id'       => $req['from_id'],
                 'from'          => strtoupper($request->input('from')),
                 'to_id'         => $req['to_id'],
