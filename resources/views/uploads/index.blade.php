@@ -41,7 +41,7 @@
                         <select class="form-control" onchange="populate()" id="flight_number" name="flight_number" required>
                             <option value=""></option>
                             @foreach($flights as $flight)
-                                <option Dep="{{ $flight->Dep }}" OUTZulu="{{ $flight->OUTZulu }}" PortFrom="{{ $flight->PortFrom }}" PortTo="{{ $flight->PortTo }}" Rego="{{ $flight->Rego }}" value="{{ $flight->Flight }}"> VB{{ $flight->Flight }}</option>
+                                <option Dep="{{ $flight->Dep }}" OUTZulu="{{ $flight->DepZulu }}" PortFrom="{{ $flight->PortFrom }}" PortTo="{{ $flight->PortTo }}" Rego="{{ $flight->Rego }}" value="{{ $flight->Flight }}"> VB{{ $flight->Flight }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <label>* Fecha de Vuelo (UTC):</label>
+                    <label>* STD (UTC):</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">

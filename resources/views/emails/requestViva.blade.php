@@ -9,7 +9,7 @@
         <p>Los datos enviados son los siguientes: </p>
         <p><strong># Folio: </strong>{{ $data['id'] }}</p>
         <p><strong>Número de Vuelo: </strong>{{ $data['flight_number'] }}</p>
-        <p><strong>Fecha de vuelo (UTC): </strong>{{ $data['std_zulu'] }}</p>
+        <p><strong>STD (UTC): </strong>{{ $data['std_zulu'] }}</p>
         <p><strong>Ruta: </strong>{{ $data['from'] }} - {{ $data['to'] }}</p>
         <p><strong>Piezas totales: </strong>{{ $data['pieces'] }}</p>
         <p><strong>Peso Total: </strong>{{ round($data['weight'], 2) }}</p>
