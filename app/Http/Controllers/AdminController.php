@@ -26,7 +26,7 @@ class AdminController extends Controller
     {
         if (Auth::user()->rol == 'admin') {
 
-            $users = User::orderBy('id', 'ASC')->get();
+            $users = User::where('active', 1)->orderBy('id', 'ASC')->get();
 
             return view('admin.users')
                 ->with('title', 'Actualización de Usuarios')
