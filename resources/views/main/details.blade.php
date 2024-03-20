@@ -151,7 +151,11 @@
 
                         <div id="bUpd">
                             <center>
-                                <button type="submit" class="btn btn-secondary" onclick="form2()"> Actualizar estatus </button>
+                                <center>
+                                <button type="submit" class="btn btn-primary" onclick="aprobarCarga()"> Aprobar </button>
+                                
+                                <button type="submit" class="btn btn-danger" onclick="rechazar()"> Rechazar </button>
+                            </center>
                             </center>
                         </div>
 
@@ -160,7 +164,9 @@
                     @if($row->origins_id == 1)
                         <div id="bUpd">
                             <center>
-                                <button type="submit" class="btn btn-secondary" onclick="form1()"> Actualizar estatus </button>
+                                <button type="submit" class="btn btn-primary" onclick="aprobarComat()"> Aprobar </button>
+                                
+                                <button type="submit" class="btn btn-danger" onclick="rechazar()"> Rechazar </button>
                             </center>
                         </div>
                     @endif
@@ -173,7 +179,7 @@
                             <input type="hidden" name="id" value="{{ $row->id }}"/>
                             <input type="hidden" id="accept" name="accept"/>
                             <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
-                            <div id="form1"></div>
+                            <div class="form-select" id="form1"></div>
                         </form>
                     @endif
                     <br>

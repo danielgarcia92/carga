@@ -283,7 +283,7 @@
                 document.getElementById('stdZulu').value  = $('#flight_number').find("option:selected").attr("OUTZulu");
             }
 
-            function form1() {
+            function aprobarComat() {
                 let tag = '<div class="mx-auto w-75 card">';
                     tag += '<center><textarea name="message_approval" rows="5" maxlength="255" required>Por medio del presente, se autoriza la estiba de la "COMAT/RUSH" solicitada. La estiba deberá hacerse conforme al LIR para que estén pendientes de su recepción. Si hubiera alguna duda, favor de contactar a CCV de inmediato</textarea></center>';
                     tag += '<br>';
@@ -291,8 +291,7 @@
                     tag += '<thead>';
                     tag += '<tr>';
                     tag += '<td></td>';
-                    tag += '<td><center><button type="submit" class="btn btn-primary" onclick="approve()"> Aprobar </button></center></td>';
-                    tag += '<td><center><button type="submit" class="btn btn-danger" onclick="reject()"> Rechazar </button></center></td>';
+                    tag += '<td><center><button type="submit" class="btn btn-success" onclick="approve()"> Enviar Aprobación </button></center></td>';
                     tag += '<td></td>';
                     tag += '</tr>';
                     tag += '</thead>';
@@ -303,7 +302,7 @@
                     $("#form1").append(tag);
             }
 
-            function form2() {
+            function aprobarCarga() {
                 let tag = '<div class="mx-auto w-75 card">';
                 tag += '<center><textarea name="message_approval" rows="5" maxlength="255" required>Por medio del presente, se autoriza la estiba de la "CARGA" solicitada. La estiba deberá hacerse conforme al LIR para que estén pendientes de su recepción. Si hubiera alguna duda, favor de contactar a CCV de inmediato</textarea></center>';
                 tag += '<br>';
@@ -312,7 +311,6 @@
                 tag += '<tr>';
                 tag += '<td></td>';
                 tag += '<td><center><button type="submit" class="btn btn-primary" onclick="approve()"> Aprobar </button></center></td>';
-                tag += '<td><center><button type="submit" class="btn btn-danger" onclick="reject()"> Rechazar </button></center></td>';
                 tag += '<td></td>';
                 tag += '</tr>';
                 tag += '</thead>';
@@ -321,6 +319,42 @@
 
                 $("#bUpd").html("");
                 $("#form1").append(tag);
+            }
+
+            function rechazar() {
+                let tag = '<div class="mx-auto w-75 card">';
+                    tag += '<center>';
+                    tag += '<label for="message_approval">Escoger una opción: </label></br>';
+                    tag += '<select class="form-select" name="message_approval" id="message_approval" required>';
+                    tag += '<option value=""></option>';
+                    tag += '<option value="Limitación por MLW">Limitación por MLW</option>';
+                    tag += '<option value="Limitación por MTOW">Limitación por MTOW</option>';
+                    tag += '<option value="Limitación por MZF">Limitación por MZF</option>';
+                    tag += '<option value="Limitación por performance TOW">Limitación por performance TOW</option>';
+                    tag += '<option value="Limitación por performance LW">Limitación por performance LW</option>';
+                    tag += '<option value="Envío de solicitud fuera de tiempo">Envío de solicitud fuera de tiempo</option>';
+                    tag += '<option value="Tipo de carga no aceptada">Tipo de carga no aceptada</option>';
+                    tag += '<option value="Falta descripción de carga">Falta descripción de carga</option>';
+                    tag += '<option value="Datos no coinciden con manifiesto">Datos no coinciden con manifiesto</option>';
+                    tag += '<option value="Rechazo a solicitud de ACM">Rechazo a solicitud de ACM</option>';
+                    tag += '<option value="Solicitud duplicada">Solicitud duplicada</option>';
+                    tag += '<option value="Volúmen fuera de límites">Volúmen fuera de límites</option>';
+                    tag += '</select>';
+                    tag += '</center>';
+                    tag += '<br>';
+                    tag += '<table class="table">';
+                    tag += '<thead>';
+                    tag += '<tr>';
+                    tag += '<td></td>';
+                    tag += '<td><center><button type="submit" class="btn btn-success" onclick="reject()"> Enviar Rechazo </button></center></td>';
+                    tag += '<td></td>';
+                    tag += '</tr>';
+                    tag += '</thead>';
+                    tag += '</table>';
+                    tag += '</div>';
+
+                    $("#bUpd").html("");
+                    $("#form1").append(tag);
             }
         </script>
         
