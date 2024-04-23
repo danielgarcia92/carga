@@ -240,7 +240,11 @@ class AerocharterController extends Controller
     public function detailsAction(Upload $row)
     {
         if (Auth::user()->rol == 'aerocharter' || Auth::user()->rol == 'test' || Auth::user()->rol == 'admin') {
-            $details = UploadDetails::where('uploads_id', '=', $row->id)->get();
+            $details = UploadDetails::where('uploads_id', '=', $row->id)
+                                    ->where(function($query) {
+                                            $query->where('accept', '=', 1)
+                                            ->orWhere('accept', '=', NULL);
+                                    })->get();
 
             return view('aerocharter.details')
                 ->with('title', 'Detalles de la carga en vuelo - ')

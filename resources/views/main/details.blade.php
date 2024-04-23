@@ -115,52 +115,6 @@
                         </table>
                     </div>
 
-                    @if($row->origins_id == 2)
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Número de guía </th>
-                                            <th>Piezas</th>
-                                            <th>Peso</th>
-                                            <th>Volumen</th>
-                                            <th>Parcial</th>
-                                            <th>Densidad</th>
-                                            <th>Tipo de carga</th>
-                                            <th>Ruta</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($details as $d)
-                                            <tr>
-                                                <td><input type="text" name="guideNumber[]" class="form-control" value="{{ $d->guide_number }}" readonly></td>
-                                                <td><input type="text" name="pieces[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
-                                                <td><input type="text" name="weight[]" class="form-control" value="{{ round($d->weight, 2) }}" readonly></td>
-                                                <td><input type="text" name="volume[]" class="form-control" value="{{ round($d->volume, 2) }}" readonly></td>
-                                                <td><input type="text" name="partial[]" class="form-control" value="{{ round($d->partial, 2) }}" readonly></td>
-                                                <td><input type="text" name="density[]" class="form-control" value="{{ round($d->density, 3) }}" readonly></td>
-                                                <td><input type="text" name="natureGoods[]" class="form-control" value="{{ $d->nature_goods }}" readonly></td>
-                                                <td><input type="text" name="routeItem[]" class="form-control" value="{{ $d->route_item }}" readonly></td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="bUpd">
-                            <center>
-                                <center>
-                                <button type="submit" class="btn btn-primary" onclick="aprobarCarga()"> Aprobar </button>
-                                
-                                <button type="submit" class="btn btn-danger" onclick="rechazar()"> Rechazar </button>
-                            </center>
-                            </center>
-                        </div>
-
-                    @endif
-
                     @if($row->origins_id == 1)
                         <div id="bUpd">
                             <center>
@@ -169,19 +123,79 @@
                                 <button type="submit" class="btn btn-danger" onclick="rechazar()"> Rechazar </button>
                             </center>
                         </div>
+                        @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
+                            <form method="POST" onSubmit="if(!confirm('¿Realmente desea enviar la actualización?')){return false;}" action="{{ url("main/details/{$row->id}") }}" validate>
+                                {{ csrf_field() }}
+                                {{ method_field('PUT') }}
+
+                                <input type="hidden" id="accept" name="accept"/>
+                                <input type="hidden" name="id" value="{{ $row->id }}"/>
+                                <input type="hidden" id="origin" name="origin" value="VIV"/>
+                                <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
+                                <div class="form-select" id="form1"></div>
+                            </form>
+                        @endif
                     @endif
 
-                    @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
+                    @if($row->origins_id == 2)
                         <form method="POST" onSubmit="if(!confirm('¿Realmente desea enviar la actualización?')){return false;}" action="{{ url("main/details/{$row->id}") }}" validate>
                             {{ csrf_field() }}
                             {{ method_field('PUT') }}
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th><label class="selAllOpt" for="chkbxAll"><input onchange="selectAllChboxes()" type="checkbox" id="chkbxAll" name="chkbxAll" /></label></th>
+                                                <th>Número de guía </th>
+                                                <th>Piezas</th>
+                                                <th>Peso</th>
+                                                <th>Volumen</th>
+                                                <th>Parcial</th>
+                                                <th>Densidad</th>
+                                                <th>Tipo de carga</th>
+                                                <th>Ruta</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($details as $d)
+                                                <tr>
+                                                    <td><label for="chkbxAll"><input class="select-option" onchange="removeRequired()" type="checkbox" id="chkbx[]" name="chkbx[]" value="{{ $d->guide_number }}" required />  </label></td>
+                                                    <td><input type="text" name="guideNumber[]" class="form-control" value="{{ $d->guide_number }}" readonly></td>
+                                                    <td><input type="text" name="pieces[]" class="form-control" value="{{ $d->pieces }}" readonly></td>
+                                                    <td><input type="text" name="weight[]" class="form-control" value="{{ round($d->weight, 2) }}" readonly></td>
+                                                    <td><input type="text" name="volume[]" class="form-control" value="{{ round($d->volume, 2) }}" readonly></td>
+                                                    <td><input type="text" name="partial[]" class="form-control" value="{{ round($d->partial, 2) }}" readonly></td>
+                                                    <td><input type="text" name="density[]" class="form-control" value="{{ round($d->density, 3) }}" readonly></td>
+                                                    <td><input type="text" name="natureGoods[]" class="form-control" value="{{ $d->nature_goods }}" readonly></td>
+                                                    <td><input type="text" name="routeItem[]" class="form-control" value="{{ $d->route_item }}" readonly></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-                            <input type="hidden" name="id" value="{{ $row->id }}"/>
-                            <input type="hidden" id="accept" name="accept"/>
-                            <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
-                            <div class="form-select" id="form1"></div>
+                            @if ( Auth::user()->rol == 'approval' || Auth::user()->rol == 'admin')
+                                <div id="bUpd">
+                                    <center>
+                                        <center>
+                                        <button type="submit" class="btn btn-primary" onclick="aprobarCarga()"> Aprobar </button>
+                                        
+                                        <button type="submit" class="btn btn-danger" onclick="rechazar()"> Rechazar </button>
+                                    </center>
+                                    </center>
+                                </div>
+                                <input type="hidden" id="accept" name="accept"/>
+                                <input type="hidden" name="id" value="{{ $row->id }}"/>
+                                <input type="hidden" id="origin" name="origin" value="ACM"/>
+                                <input type="hidden" name="approved_by" value="{{Auth::user()->getAuthIdentifier()}}"/>
+                                <div class="form-select" id="form1"></div>
+                            @endif
                         </form>
+
                     @endif
+
                     <br>
                     <br>
                 </div>
@@ -194,4 +208,22 @@
             width:100%;
         }
     </style>
+    <script type="text/javascript">
+        const chkbxAll = document.querySelector("#chkbxAll");
+        const chkbxOptions = document.querySelectorAll(".select-option");
+
+        function selectAllChboxes() {
+            const isChecked = chkbxAll.checked;
+            for (let i = 0; i < chkbxOptions.length; i++) {
+                chkbxOptions[i].checked = isChecked;
+            }
+        }
+
+        function removeRequired() {
+            for (let i = 0; i < chkbxOptions.length; i++) {
+                chkbxOptions[i].removeAttribute("required");
+            }
+        }
+
+    </script>
 @endsection

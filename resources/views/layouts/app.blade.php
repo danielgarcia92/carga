@@ -273,6 +273,11 @@
 
             function reject() {
                 document.getElementById('accept').value = "0";
+                
+                const chkbxOptions = document.querySelectorAll(".select-option");
+                for (let i = 0; i < chkbxOptions.length; i++) {
+                    chkbxOptions[i].removeAttribute("required");
+                }
             }
 
             function populate() {

@@ -192,10 +192,33 @@ class MainController extends Controller
 
             $row->update($data);
 
+            if ($_REQUEST['origin'] == "ACM") {
+                $pieces = 0; $weight = 0; $volume = 0;
+
+                UploadDetails::where('uploads_id', '=', $row->id)->update(['accept' => 0]);
+
+                if ($row->accept == 1) {
+                    for ($x=0; $x < count($_REQUEST['chkbx']); $x++) {
+                    
+                        $items  = UploadDetails::where('guide_number', '=', $_REQUEST['chkbx'][$x])->update(['accept' => 1]);
+
+                        for ($y=0; $y < count($_REQUEST['guideNumber']); $y++) {
+                            if ($_REQUEST['guideNumber'][$y] == $_REQUEST['chkbx'][$x]) {
+                                $pieces += $_REQUEST['pieces'][$y];
+                                $weight += $_REQUEST['weight'][$y];
+                                $volume += $_REQUEST['volume'][$y];
+                            }
+                        }
+                    }
+                }
+
+                Upload::where('id', '=', $row->id)->update(['pieces' => $pieces, 'weight' => $weight, 'volume' => $volume]);
+            }
+
             $areas_id    = User::where('id', $row->created_by)->get('areas_id');
             $created_by  = User::where('id', $row->created_by)->get('email');
             $approved_name = User::where('id', $row->approved_by)->get('name');
-            $items  = UploadDetails::where('uploads_id', '=', $row->id)->get();
+            $items  = UploadDetails::where('uploads_id', '=', $row->id)->where(['accept' => 1])->get();
 
             $to = ['ccv@vivaaerobus.com', $created_by[0]->email];
 
